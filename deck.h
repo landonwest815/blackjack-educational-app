@@ -10,6 +10,7 @@ class Deck
 {
 private:
     int size;
+    vector<string> suits;
     vector<Card> cards;
 
 public:
