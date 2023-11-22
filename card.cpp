@@ -39,3 +39,10 @@ void Card::setValue(int newValue) {
         value = 2;
     }
 }
+
+bool Card::operator==(const Card &c) {
+    if (suit == c.suit && value == c.value && face == c.face) {
+        return true;
+    }
+    return false;
+}

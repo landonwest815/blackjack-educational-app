@@ -40,6 +40,9 @@ public:
     ///@brief Setter for the value
     ///@param newValue - The card's new value
     void setValue(int newValue);
+
+    ///@brief Overloaded equals operator. Checks if suit, value, and face are the same
+    bool operator== (const Card &c);
 };
 
 #endif // CARD_H

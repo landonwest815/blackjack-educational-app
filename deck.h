@@ -9,7 +9,6 @@ using std::vector;
 class Deck
 {
 private:
-    int size;
     vector<string> suits;
     vector<Card> cards;
 
@@ -32,8 +31,14 @@ public:
     ///@param value - the value to be added
     void addCard(string suit, int value);
 
-    ///@brief Reset the deck to it's original state
-    void resetDeck();
+    ///@brief Add a card of the specified suit and face
+    ///@param suit - The suit to be added
+    ///@param face - the face to be added
+    void addCard(string suit, string face);
+
+    ///@brief Getter for deck size
+    ///@return The size of the deck
+    int getSize();
 };
 
 #endif // DECK_H
