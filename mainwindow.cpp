@@ -6,20 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    QImage image(":/cards/5H.png");
-    QPixmap pix;
-    pix.convertFromImage(image);
-
-    ui->dealerCards->setPixmap(pix);
-
-
-    QImage image2(":/cards/QS.png");
-    QPixmap pix2;
-    pix2.convertFromImage(image2);
-
-    ui->playerCards->setPixmap(pix2);
-
+    ui->widget->show();
 }
 
 MainWindow::~MainWindow()

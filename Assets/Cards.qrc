@@ -53,5 +53,6 @@
         <file>QD.png</file>
         <file>QH.png</file>
         <file>QS.png</file>
+        <file>table.png</file>
     </qresource>
 </RCC>
