@@ -34,7 +34,7 @@ SceneWidget::SceneWidget(QWidget *parent) : QWidget(parent),
 void SceneWidget::paintEvent(QPaintEvent *) {
     QPainter painter(this);
 
-    backgroundImage = backgroundImage.scaled(900, 900, Qt::KeepAspectRatio);
+    backgroundImage = backgroundImage.scaled(800, 800, Qt::KeepAspectRatio);
     painter.drawImage(0, 0, backgroundImage);
 
     b2Vec2 position = body->GetPosition();
