@@ -39,6 +39,10 @@ public:
     ///@brief Getter for deck size
     ///@return The size of the deck
     int getSize();
+
+    ///@brief shuffles deck
+    ///@return new reshuffle deck
+    void reshuffle();
 };
 
 #endif // DECK_H

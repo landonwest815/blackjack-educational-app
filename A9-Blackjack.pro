@@ -59,7 +59,8 @@ SOURCES += \
     card.cpp \
     deck.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    model.cpp
 
 HEADERS += \
     Box2D/Box2D.h \
@@ -112,7 +113,8 @@ HEADERS += \
     SceneWidget.h \
     card.h \
     deck.h \
-    mainwindow.h
+    mainwindow.h \
+    model.h
 
 FORMS += \
     mainwindow.ui

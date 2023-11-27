@@ -81,3 +81,10 @@ void Deck::addCard(string suit, string face) {
 int Deck::getSize() {
     return cards.size();
 }
+
+void Deck::reshuffle () {
+    for(unsigned int i = 0; i < cards.size(); i++) {
+        int randomCard = rand() % (cards.size() - 1);
+        std::swap(cards[i], cards[randomCard]);
+    }
+}
