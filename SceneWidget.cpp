@@ -101,13 +101,8 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     int left = (this->width() - rectWidth) / 2;
     int top = (this->height() - rectHeight) / 2;
 
-    // Set up a gradient that mimics the button style
-    QLinearGradient gradient(left, top, left, top + rectHeight);
-    gradient.setColorAt(0, QColor::fromRgb(0, 148, 0)); // Darker shade at the top
-    gradient.setColorAt(1, QColor::fromRgb(0, 86, 0)); // Lighter shade at the bottom
-
     // Use the gradient as the brush
-    painter.setBrush(QBrush(gradient));
+    painter.setBrush(QBrush(QColor::fromRgb(62, 62, 66)));
 
     // Set the pen to NoPen to avoid drawing the widget's border
     painter.setPen(Qt::NoPen);
