@@ -43,7 +43,7 @@ SceneWidget::SceneWidget(QWidget *parent)
 void SceneWidget::addDealerCard(const QString& imagePath) {
     // Creates body of dealer card and adds to the associated vector
     b2Body* dealerBody = nullptr;
-    dealerBody = createCardBody(0.0, this->height() / 30.0); // Initial position of dealer body
+    dealerBody = createCardBody(12.0, this->height() / 18.5); // Initial position of dealer body
     dealerBodies.push_back(dealerBody);
 
     // Creates image of dealer card and adds to the associated vector
