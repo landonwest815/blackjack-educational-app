@@ -17,5 +17,16 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+
+    // Probably will remove, serves as demo functions
+    void addDealer();
+    void addPlayer();
+    void clearAll();
+
+
+
+
+
 };
 #endif // MAINWINDOW_H
