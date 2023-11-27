@@ -15,8 +15,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_swapButtons_clicked();
+    void add50();
+    void add100();
+    void add250();
+    void add500();
+
 private:
     Ui::MainWindow *ui;
+    bool buttonState;
+    int betTotal;
+    int bankTotal;
 
 
     // Probably will remove, serves as demo functions
