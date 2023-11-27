@@ -3,7 +3,9 @@
 Model::Model() :
     bankTotal(1500),
     dealerTotal(0),
-    userTotal(0) { }
+    userTotal(0),
+    bet(100),
+    win(true){ }
 
 int Model::hit(int userTotal) {
     Deck deck;
@@ -27,6 +29,7 @@ int Model::stand(Card first, Card second) {
 
 int Model::doubleDown(int userTotal) {
     return Model::hit(userTotal);
+    bankTotal -= this->bet;
 }
 
 bool Model::insurance(Card faceDown) {
@@ -44,4 +47,26 @@ int Model::getUserTotal(Card first, Card second) {
 
 int Model::getDealerTotal(Card faceDown, Card faceUp) {
     return faceDown.getValue() + faceUp.getValue();
+}
+
+int Model::getbankTotal() {
+    return bankTotal;
+}
+
+int Model::updateBankTotal(int bet) {
+    if(win) {
+        bankTotal += bet;
+    } else {
+        bankTotal -= bet;
+    }
+    return bankTotal;
+}
+void Model::userBlackJack(Card first, Card second) {
+    if(first.getValue() + second.getValue() == 21)
+        this->bankTotal += (this->bet * 1.5);
+}
+
+void Model::dealerBlackJack(Card faceDown, Card faceUp) {
+    if(faceDown.getValue() + faceUp.getValue() == 21)
+        this->bankTotal -= this->bet;
 }

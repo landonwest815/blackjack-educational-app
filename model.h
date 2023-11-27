@@ -8,6 +8,8 @@ private:
     int bankTotal;
     int dealerTotal;
     int userTotal;
+    int bet;
+    bool win;
 
 public:
     Model();
@@ -23,6 +25,14 @@ public:
     int getUserTotal(Card first, Card second);
 
     int getDealerTotal(Card faceup, Card faceDown);
+
+    int getbankTotal();
+
+    int updateBankTotal(int bet);
+
+    void dealerBlackJack(Card facedown, Card faceUp);
+
+    void userBlackJack(Card first, Card second);
 
 };
 
