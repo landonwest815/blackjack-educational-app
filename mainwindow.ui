@@ -13,7 +13,13 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: #007700</string>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
      <widget class="SceneWidget" name="dealerHand" native="true">
@@ -26,7 +32,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="5,0,2">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="10,0,4">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
@@ -54,14 +60,26 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>20</height>
+          <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>20</height>
+          <height>30</height>
          </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+    color: gold; /* A gold color can give it a more luxurious feel */
+    text-shadow: 2px 2px 4px black;
+    /* Padding around the text */
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 22px; /* Larger font size for emphasis */
+    font-family: &quot;Arial&quot;, sans-serif; /* Choose a font that is available on your system or embedded */
+}</string>
         </property>
         <property name="text">
          <string>DEALER SCORE: 0</string>
@@ -100,6 +118,40 @@
       </item>
       <item>
        <widget class="QPushButton" name="addPlayerButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    /* Gradient background from a darker green at the top to a lighter green at the bottom */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 #005500, stop:1 #009900);
+    /* Rounded corners */
+    border-radius: 10px;
+    /* Text color and shadow for a glowing effect */
+    color: gold; /* Luxurious gold color text */
+    text-shadow: 2px 2px 4px black;
+    /* Padding inside the button */
+    padding: 5px;
+    /* Border style */
+    border: 2px solid #003300;
+    /* Font styling for a bold and italic look, giving a casino sign vibe */
+    font-weight: bold;
+    font-style: italic;
+    font-size: 16px; /* Adjust as needed */
+    font-family: &quot;Arial&quot;, sans-serif; /* You can choose another font that is available */
+}
+
+QPushButton:hover {
+    /* Slightly different gradient for a hover effect */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 #006600, stop:1 #00cc00);
+}
+
+QPushButton:pressed {
+    /* &quot;Pressed&quot; effect with inset shadow */
+    border-style: inset;
+    background-color: #005500;
+}
+</string>
+        </property>
         <property name="text">
          <string>Add Player</string>
         </property>
@@ -107,6 +159,40 @@
       </item>
       <item>
        <widget class="QPushButton" name="clearAllButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    /* Gradient background from a darker green at the top to a lighter green at the bottom */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 #005500, stop:1 #009900);
+    /* Rounded corners */
+    border-radius: 10px;
+    /* Text color and shadow for a glowing effect */
+    color: gold; /* Luxurious gold color text */
+    text-shadow: 2px 2px 4px black;
+    /* Padding inside the button */
+    padding: 5px;
+    /* Border style */
+    border: 2px solid #003300;
+    /* Font styling for a bold and italic look, giving a casino sign vibe */
+    font-weight: bold;
+    font-style: italic;
+    font-size: 16px; /* Adjust as needed */
+    font-family: &quot;Arial&quot;, sans-serif; /* You can choose another font that is available */
+}
+
+QPushButton:hover {
+    /* Slightly different gradient for a hover effect */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 #006600, stop:1 #00cc00);
+}
+
+QPushButton:pressed {
+    /* &quot;Pressed&quot; effect with inset shadow */
+    border-style: inset;
+    background-color: #005500;
+}
+</string>
+        </property>
         <property name="text">
          <string>Clear Cards</string>
         </property>
@@ -114,6 +200,40 @@
       </item>
       <item>
        <widget class="QPushButton" name="addDealerButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    /* Gradient background from a darker green at the top to a lighter green at the bottom */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 #005500, stop:1 #009900);
+    /* Rounded corners */
+    border-radius: 10px;
+    /* Text color and shadow for a glowing effect */
+    color: gold; /* Luxurious gold color text */
+    text-shadow: 2px 2px 4px black;
+    /* Padding inside the button */
+    padding: 5px;
+    /* Border style */
+    border: 2px solid #003300;
+    /* Font styling for a bold and italic look, giving a casino sign vibe */
+    font-weight: bold;
+    font-style: italic;
+    font-size: 16px; /* Adjust as needed */
+    font-family: &quot;Arial&quot;, sans-serif; /* You can choose another font that is available */
+}
+
+QPushButton:hover {
+    /* Slightly different gradient for a hover effect */
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 #006600, stop:1 #00cc00);
+}
+
+QPushButton:pressed {
+    /* &quot;Pressed&quot; effect with inset shadow */
+    border-style: inset;
+    background-color: #005500;
+}
+</string>
+        </property>
         <property name="text">
          <string>Add Dealer</string>
         </property>
@@ -135,7 +255,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,0,5">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,0,10">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
@@ -163,14 +283,26 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>20</height>
+          <height>30</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>20</height>
+          <height>30</height>
          </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+    color: gold; /* A gold color can give it a more luxurious feel */
+    text-shadow: 2px 2px 4px black;
+    /* Padding around the text */
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 22px; /* Larger font size for emphasis */
+    font-family: &quot;Arial&quot;, sans-serif; /* Choose a font that is available on your system or embedded */
+}</string>
         </property>
         <property name="text">
          <string>PLAYER SCORE: 0</string>

@@ -95,33 +95,39 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     //backgroundImage = backgroundImage.scaled(800, 800, Qt::KeepAspectRatio);
     //painter.drawImage(0, 0, backgroundImage);
 
-    // Set the brush to a solid gray color
-    painter.setBrush(QBrush(QColor::fromRgb(64, 64, 64)));
-
-    // Set the pen to NoPen to avoid drawing widget's border
-    painter.setPen(Qt::NoPen);
-
     // Get positions
     int rectWidth = this->width() / 2;
     int rectHeight = this->height();
     int left = (this->width() - rectWidth) / 2;
     int top = (this->height() - rectHeight) / 2;
 
+    // Set up a gradient that mimics the button style
+    QLinearGradient gradient(left, top, left, top + rectHeight);
+    gradient.setColorAt(0, QColor::fromRgb(0, 148, 0)); // Darker shade at the top
+    gradient.setColorAt(1, QColor::fromRgb(0, 86, 0)); // Lighter shade at the bottom
+
+    // Use the gradient as the brush
+    painter.setBrush(QBrush(gradient));
+
+    // Set the pen to NoPen to avoid drawing the widget's border
+    painter.setPen(Qt::NoPen);
+
     // You can adjust the corner radius by changing the '10'
     painter.drawRoundedRect(left, top, rectWidth, rectHeight, 10, 10);
+
 
     // Draws the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
         b2Vec2 position = dealerBodies[i]->GetPosition();
         // Sets the position where each dealer card body added will fall
-        painter.drawImage((position.x * 70 - (i * 40)), (position.y) * 4.5, dealerImages[i]);
+        painter.drawImage((position.x * 70 - (i * 75)), (position.y) * 4.5, dealerImages[i]);
     }
 
     // Draws the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
         b2Vec2 position = playerBodies[i]->GetPosition();
         // Sets the position where each player card body added will fall and will change is split is true
-        painter.drawImage((position.x * 100 + (i * 40) + 230), (position.y * 40.5), playerImages[i]);
+        painter.drawImage((position.x * 100 + (i * 75) + 230), (position.y * 40.5), playerImages[i]);
     }
 
     painter.end();
