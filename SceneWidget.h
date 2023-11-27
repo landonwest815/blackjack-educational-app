@@ -61,6 +61,8 @@ protected:
     /// @brief Overrides the paintEvent function to customize the rendering.
     void paintEvent(QPaintEvent *) override;
 
+    void resizeEvent(QResizeEvent *event) override;
+
 public slots:
     /// @brief Draws a new dealer card with given image.
     /// @param imagePath String path of image for dealer card to display.

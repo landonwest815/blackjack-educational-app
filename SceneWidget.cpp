@@ -14,10 +14,10 @@
 
 SceneWidget::SceneWidget(QWidget *parent)
     : QWidget(parent),
-    world(b2Vec2(0.0f, 10.0f)),
+    world(b2Vec2(0.0f, 0.0f)),
     timer(this) {
 
-    backgroundImage.load(":/cards/table.png"); // Sets image of a blackjack table
+    //backgroundImage.load(":/cards/table.png"); // Sets image of a blackjack table
 
     // Defines the low ground body and its various settings
     b2BodyDef lowGroundDef;
@@ -43,24 +43,24 @@ SceneWidget::SceneWidget(QWidget *parent)
 void SceneWidget::addDealerCard(const QString& imagePath) {
     // Creates body of dealer card and adds to the associated vector
     b2Body* dealerBody = nullptr;
-    dealerBody = createCardBody(0.0f, 10.0f); // Initial position of dealer body
+    dealerBody = createCardBody(0.0, this->height() / 30.0); // Initial position of dealer body
     dealerBodies.push_back(dealerBody);
 
     // Creates image of dealer card and adds to the associated vector
     QImage dealerImage(imagePath);
-    dealerImage = dealerImage.scaled(95, 95, Qt::KeepAspectRatio);
+    dealerImage = dealerImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
     dealerImages.push_back(dealerImage);
 }
 
 void SceneWidget::addPlayerCard(const QString& imagePath) {
     // Creates body of player card and adds to the associated vector
     b2Body* playerBody = nullptr;
-    playerBody = createCardBody(5.0f, 10.0f); // Initial position of player body
+    playerBody = createCardBody(10.0, this->height() / 200.0); // Initial position of player body
     playerBodies.push_back(playerBody);
 
     // Creates image of player card and adds to the associated vector
     QImage playerImage(imagePath);
-    playerImage = playerImage.scaled(95, 95, Qt::KeepAspectRatio);
+    playerImage = playerImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
     playerImages.push_back(playerImage);
 }
 
@@ -92,21 +92,37 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     QPainter painter(this);
 
     // Sets the background image size and draws the image
-    backgroundImage = backgroundImage.scaled(800, 800, Qt::KeepAspectRatio);
-    painter.drawImage(0, 0, backgroundImage);
+    //backgroundImage = backgroundImage.scaled(800, 800, Qt::KeepAspectRatio);
+    //painter.drawImage(0, 0, backgroundImage);
+
+    // Get positions
+    int rectWidth = this->width() / 2;
+    int rectHeight = this->height();
+    int left = (this->width() - rectWidth) / 2;
+    int top = (this->height() - rectHeight) / 2;
+
+    // Use the gradient as the brush
+    painter.setBrush(QBrush(QColor::fromRgb(62, 62, 66)));
+
+    // Set the pen to NoPen to avoid drawing the widget's border
+    painter.setPen(Qt::NoPen);
+
+    // You can adjust the corner radius by changing the '10'
+    painter.drawRoundedRect(left, top, rectWidth, rectHeight, 10, 10);
+
 
     // Draws the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
         b2Vec2 position = dealerBodies[i]->GetPosition();
         // Sets the position where each dealer card body added will fall
-        painter.drawImage((position.x * 70 - (i * 40)), (position.y) * 4.5, dealerImages[i]);
+        painter.drawImage((position.x * 70 - (i * 75)), (position.y) * 4.5, dealerImages[i]);
     }
 
     // Draws the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
         b2Vec2 position = playerBodies[i]->GetPosition();
         // Sets the position where each player card body added will fall and will change is split is true
-        painter.drawImage((position.x * 100 + (i * 40) + 230), (position.y * 40.5), playerImages[i]);
+        painter.drawImage((position.x * 100 + (i * 75) + 230), (position.y * 40.5), playerImages[i]);
     }
 
     painter.end();
@@ -116,7 +132,7 @@ void SceneWidget::updateWorld() {
     // Updates all the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
         dealerBodies[i]->SetLinearVelocity(b2Vec2(6.0f, 0.0f)); // Velocity direction right
-        if (dealerBodies[i]->GetPosition().x * 50 >= 360) {
+        if (dealerBodies[i]->GetPosition().x * 50 >= this->width() / 2.4) {
             dealerBodies[i]->SetLinearVelocity(b2Vec2_zero);
         }
     }
@@ -124,7 +140,7 @@ void SceneWidget::updateWorld() {
     // Updates all the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
         playerBodies[i]->SetLinearVelocity(b2Vec2(-6.0f, 0.0f)); // Velocity direction left
-        if (playerBodies[i]->GetPosition().x * 50 <= 0) {
+        if (playerBodies[i]->GetPosition().x * 50 <= this->width() / 12.0) {
             playerBodies[i]->SetLinearVelocity(b2Vec2_zero);
         }
     }
@@ -147,4 +163,21 @@ void SceneWidget::clearAllCards() {
     playerBodies.clear();
     dealerImages.clear();
     playerImages.clear();
+}
+
+void SceneWidget::resizeEvent(QResizeEvent *event) {
+    // Call the base class implementation
+    QWidget::resizeEvent(event);
+
+    // Update the scale of the card images
+    for (QImage &image : dealerImages) {
+        image = image.scaled(this->width() / 2, this->height() / 2, Qt::KeepAspectRatio);
+    }
+
+    for (QImage &image : playerImages) {
+        image = image.scaled(this->width() / 2, this->height() / 2, Qt::KeepAspectRatio);
+    }
+
+    // Repaint the widget with the new sizes
+    update();
 }
