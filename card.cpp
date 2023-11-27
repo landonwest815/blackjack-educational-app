@@ -1,3 +1,15 @@
+/**
+ * Author(s):     Team Six of Hearts:
+ *                Ryan Nguyen (Taizuki), John Nguyen (johnguyn),
+ *           	  Christian Hartman (Is-This-One-Avaiable), Caleb Funk (Funkyc02),
+ *                Landon West (landonwest815), and Pablo Arancibia-Bazan (Pablo23117)
+ * Course:        CS 3505, University of Utah, School of Computing
+ * Assignment:    A9 - Educational App
+ * File Contents:
+ * Class that has attributes of a traditional playing card in a game of Blackjack.
+ * If the value is 10, then the card can have a face of Jack, Queen, or King.
+ * If the value is not 10, then the card does not have a face.
+ */
 #include "card.h"
 
 Card::Card(string suit, int value)

@@ -1,3 +1,17 @@
+/**
+ * Author(s):     Team Six of Hearts:
+ *                Ryan Nguyen (Taizuki), John Nguyen (johnguyn),
+ *           	  Christian Hartman (Is-This-One-Avaiable), Caleb Funk (Funkyc02),
+ *                Landon West (landonwest815), and Pablo Arancibia-Bazan (Pablo23117)
+ * Course:        CS 3505, University of Utah, School of Computing
+ * Assignment:    A9 - Educational App
+ * File Contents:
+ * Utilizes the Card class, to simulate a deck of 52 cards.
+ * There are four suits: club, spade, diamond, and heart.
+ * For each suit, there are cards with values from 1-9, then
+ * there are three 10 cards with jack, queen, and king faces.
+ * There are methods for drawing & adding cards to the deck.
+ */
 #include "deck.h"
 #include <algorithm>
 #include <random>
