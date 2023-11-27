@@ -48,19 +48,19 @@ void SceneWidget::addDealerCard(const QString& imagePath) {
 
     // Creates image of dealer card and adds to the associated vector
     QImage dealerImage(imagePath);
-    dealerImage = dealerImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
+    dealerImage = dealerImage.scaled(this->width() / 2, this->height() / 2, Qt::KeepAspectRatio);
     dealerImages.push_back(dealerImage);
 }
 
 void SceneWidget::addPlayerCard(const QString& imagePath) {
     // Creates body of player card and adds to the associated vector
     b2Body* playerBody = nullptr;
-    playerBody = createCardBody(10, this->height() / 200.0); // Initial position of player body
+    playerBody = createCardBody(10, this->height() / 165.0); // Initial position of player body
     playerBodies.push_back(playerBody);
 
     // Creates image of player card and adds to the associated vector
     QImage playerImage(imagePath);
-    playerImage = playerImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
+    playerImage = playerImage.scaled(this->width() / 2, this->height() / 2, Qt::KeepAspectRatio);
     playerImages.push_back(playerImage);
 }
 
@@ -114,14 +114,14 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     for (int i = 0; i < dealerBodies.size(); ++i) {
         b2Vec2 position = dealerBodies[i]->GetPosition();
         // Sets the position where each dealer card body added will fall
-        painter.drawImage((position.x * 70 - (i * 40)), (position.y) * 4.5, dealerImages[i]);
+        painter.drawImage((position.x * 70 - (i * 40) - 180), (position.y) * 4.5, dealerImages[i]);
     }
 
     // Draws the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
         b2Vec2 position = playerBodies[i]->GetPosition();
         // Sets the position where each player card body added will fall and will change is split is true
-        painter.drawImage((position.x * 100 + (i * 40) + 230), (position.y * 40.5), playerImages[i]);
+        painter.drawImage((position.x * 100 + (i * 40) + 600), (position.y * 41), playerImages[i]);
     }
 
     painter.end();
@@ -131,7 +131,7 @@ void SceneWidget::updateWorld() {
     // Updates all the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
         dealerBodies[i]->SetLinearVelocity(b2Vec2(6.0f, 0.0f)); // Velocity direction right
-        if (dealerBodies[i]->GetPosition().x * 50 >= this->width() / 2.4) {
+        if (dealerBodies[i]->GetPosition().x * 50 >= this->width() / 2.5) {
             dealerBodies[i]->SetLinearVelocity(b2Vec2_zero);
         }
     }
@@ -139,7 +139,7 @@ void SceneWidget::updateWorld() {
     // Updates all the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
         playerBodies[i]->SetLinearVelocity(b2Vec2(-6.0f, 0.0f)); // Velocity direction left
-        if (playerBodies[i]->GetPosition().x * 50 <= this->width() / 12.0) {
+        if (playerBodies[i]->GetPosition().x * 50 <= this->width() / 10.0) {
             playerBodies[i]->SetLinearVelocity(b2Vec2_zero);
         }
     }
