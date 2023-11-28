@@ -2,10 +2,14 @@
 #define MODEL_H
 
 #include "card.h"
+#include "deck.h"
+#include <QString>
 
 class Model{
 private:
+    Deck deck;
     int bankTotal;
+    int startingCash;
     int dealerTotal;
     int userTotal;
     int bet;
@@ -14,11 +18,11 @@ private:
 public:
     Model();
 
-    int hit(int userTotal);
+    QString hit();
 
     int stand(Card first, Card second);
 
-    int doubleDown(int userTotal);
+    QString doubleDown();
 
     bool insurance(Card faceDown);
 
@@ -27,6 +31,12 @@ public:
     int getDealerTotal(Card faceup, Card faceDown);
 
     int getbankTotal();
+
+    int getBet();
+
+    void setBet(int);
+
+    void resetBet();
 
     int updateBankTotal(int bet);
 

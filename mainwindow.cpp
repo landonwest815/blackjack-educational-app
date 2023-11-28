@@ -5,33 +5,12 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , betTotal(0)
-    , bankTotal(1500)
 {
     ui->setupUi(this);
-
-    connect(ui->addDealerButton, &QPushButton::clicked, this, &MainWindow::addDealer);
-    connect(ui->addPlayerButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
-    connect(ui->clearAllButton, &QPushButton::clicked, this, &MainWindow::clearAll);
-    connect(ui->add50, &QPushButton::clicked, this, &MainWindow::add50);
-    connect(ui->add100, &QPushButton::clicked, this, &MainWindow::add100);
-    connect(ui->add250, &QPushButton::clicked, this, &MainWindow::add250);
-    connect(ui->add500, &QPushButton::clicked, this, &MainWindow::add500);
-
-    ui->add50->setVisible(false);
-    ui->add100->setVisible(false);
-    ui->add250->setVisible(false);
-    ui->add500->setVisible(false);
-    ui->dealButton->setVisible(false);
-    buttonState = true;
-
-    ui->bank->setText("BANK: $" + QString::number(bankTotal));
-
-    // EXAMPLE OF A HINT BOX
-    helpwidget = new HelpWidget(this);
-    helpwidget->setText("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. "
-                        "Is this a sentence? Filler words. Filler words. More filler words.");
-    helpwidget->show();
+    setupConnections();
+    initializeUI();
+    createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. "
+                  "Is this a sentence? Filler words. Filler words. More filler words.");
 }
 
 MainWindow::~MainWindow()
@@ -39,21 +18,74 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setupConnections() {
+
+    // Card buttons
+    connect(ui->addDealerButton, &QPushButton::clicked, this, &MainWindow::addDealer);
+    connect(ui->addPlayerButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
+    connect(ui->clearAllButton, &QPushButton::clicked, this, &MainWindow::clearAll);
+
+    // Bet buttons
+    connect(ui->add50, &QPushButton::clicked, this, [this](){ addToBet(50); });
+    connect(ui->add100, &QPushButton::clicked, this, [this](){ addToBet(100); });
+    connect(ui->add250, &QPushButton::clicked, this, [this](){ addToBet(250); });
+    connect(ui->add500, &QPushButton::clicked, this, [this](){ addToBet(500); });
+
+    // Reset Bet buttons
+    connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::resetBet);
+
+    // Swap button
+    connect(ui->swapButtons, &QPushButton::clicked, this, &MainWindow::swapButtons);
+}
+
+void MainWindow::initializeUI() {
+
+    toggleBetButtons(false);
+    ui->dealButton->setVisible(false);
+    ui->resetButton->setVisible(false);
+    buttonState = true;
+
+    updateBankDisplay();
+}
+
+void MainWindow::toggleBetButtons(bool visible) {
+    QList<QPushButton*> buttons = {ui->add50, ui->add100, ui->add250, ui->add500};
+    for (QPushButton *button : buttons) {
+        button->setVisible(visible);
+    }
+}
+
+void MainWindow::updateBankDisplay() {
+    ui->bank->setText("BANK: $" + QString::number(model.getbankTotal()));
+    ui->currentBet->setText("CURRENT BET: $" + QString::number(model.getBet()));
+}
+
 void MainWindow::resizeEvent(QResizeEvent *event) {
     QMainWindow::resizeEvent(event);
+    if (helpwidget) helpwidget->setSize();
+}
 
-    if (helpwidget) {
-        helpwidget->setSize();
-    }
+void MainWindow::createHelpWidget(QString text) {
+    helpwidget = new HelpWidget(this);
+    helpwidget->setText(text);
+    helpwidget->show();
 }
 
 // Just example code for how you would call to add a card or clear them from the Box2D scene
 void MainWindow::addDealer() {
-    ui->dealerHand->addDealerCard(":/cards/10H.png");
+    QString fileName = ":/cards/";
+            fileName += model.hit();
+            fileName += ".png";
+
+    ui->dealerHand->addDealerCard(fileName);
 }
 
 void MainWindow::addPlayer() {
-    ui->playerHand->addPlayerCard(":/cards/10C.png");
+    QString fileName = ":/cards/";
+            fileName += model.hit();
+            fileName += ".png";
+
+    ui->playerHand->addPlayerCard(fileName);
 }
 
 void MainWindow::clearAll() {
@@ -61,67 +93,36 @@ void MainWindow::clearAll() {
     ui->dealerHand->clearAllCards();
 }
 
-void MainWindow::on_swapButtons_clicked()
+void MainWindow::swapButtons()
 {
-    if (buttonState) {
-        ui->add50->setVisible(true);
-        ui->add100->setVisible(true);
-        ui->add250->setVisible(true);
-        ui->add500->setVisible(true);
-        ui->dealButton->setVisible(true);
+    // Bet Buttons
+    QPushButton* betButtons[6] = {
+        ui->add50, ui->add100, ui->add250, ui->add500,
+        ui->dealButton, ui->resetButton,
+    };
 
-        ui->addPlayerButton->setVisible(false);
-        ui->addDealerButton->setVisible(false);
-        ui->clearAllButton->setVisible(false);
+    for (QPushButton* button : betButtons) {
+        button->setVisible(buttonState);
     }
-    else {
-        ui->add50->setVisible(false);
-        ui->add100->setVisible(false);
-        ui->add250->setVisible(false);
-        ui->add500->setVisible(false);
-        ui->dealButton->setVisible(false);
 
-        ui->addPlayerButton->setVisible(true);
-        ui->addDealerButton->setVisible(true);
-        ui->clearAllButton->setVisible(true);
+    // Card Buttons
+    QPushButton* cardButtons[3] = {
+        ui->addPlayerButton, ui->addDealerButton, ui->clearAllButton
+    };
+
+    for (QPushButton* button : cardButtons) {
+        button->setVisible(!buttonState);
     }
 
     buttonState = !buttonState;
 }
 
-void MainWindow::add50() {
-    if ((bankTotal - 50) > -1) {
-        betTotal += 50;
-        ui->currentBet->setText("CURRENT BET: $" + QString::number(betTotal));
-        bankTotal -= 50;
-        ui->bank->setText("BANK: $" + QString::number(bankTotal));
-    }
+void MainWindow::addToBet(int increment) {
+    model.setBet(increment);
+    updateBankDisplay();
 }
 
-void MainWindow::add100() {
-    if ((bankTotal - 100) > -1) {
-        betTotal += 100;
-        ui->currentBet->setText("CURRENT BET: $" + QString::number(betTotal));
-        bankTotal -= 100;
-        ui->bank->setText("BANK: $" + QString::number(bankTotal));
-    }
+void MainWindow::resetBet() {
+    model.resetBet();
+    updateBankDisplay();
 }
-
-void MainWindow::add250() {
-    if ((bankTotal - 250) > -1) {
-        betTotal += 250;
-        ui->currentBet->setText("CURRENT BET: $" + QString::number(betTotal));
-        bankTotal -= 250;
-        ui->bank->setText("BANK: $" + QString::number(bankTotal));
-    }
-}
-
-void MainWindow::add500() {
-    if ((bankTotal - 500) > -1) {
-        betTotal += 500;
-        ui->currentBet->setText("CURRENT BET: $" + QString::number(betTotal));
-        bankTotal -= 500;
-        ui->bank->setText("BANK: $" + QString::number(bankTotal));
-    }
-}
-

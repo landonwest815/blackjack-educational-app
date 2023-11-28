@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "helpwidget.h"
+#include "model.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,28 +19,26 @@ public:
     void resizeEvent(QResizeEvent *event) override;
 
 private slots:
-    void on_swapButtons_clicked();
-    void add50();
-    void add100();
-    void add250();
-    void add500();
+    void swapButtons();
+    void addToBet(int increment);
+    void resetBet();
+    void addDealer();
+    void addPlayer();
+    void clearAll();
 
 private:
     Ui::MainWindow *ui;
+    Model model;
     bool buttonState;
     int betTotal;
     int bankTotal;
     HelpWidget *helpwidget;
 
-
     // Probably will remove, serves as demo functions
-    void addDealer();
-    void addPlayer();
-    void clearAll();
-
-
-
-
-
+    void setupConnections();
+    void initializeUI();
+    void createHelpWidget(QString);
+    void toggleBetButtons(bool);
+    void updateBankDisplay();
 };
 #endif // MAINWINDOW_H

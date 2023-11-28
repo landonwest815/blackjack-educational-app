@@ -41,7 +41,7 @@ void HelpWidget::setSize() {
         QFontMetrics metrics(font());
         int wrapWidth = mainWindow->width() / 4.0 - 30.0;
         QRect textRect = metrics.boundingRect(0, 0, wrapWidth, INT_MAX, Qt::TextWordWrap | Qt::AlignLeft, adviceText);
-        setFixedSize(textRect.width() + 2 * 10, textRect.height() + 2 * 10);
+        setFixedSize(textRect.width() + 2 * 10, textRect.height() + 2 * 17.5);
     }
     update();
     reposition();
