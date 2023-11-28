@@ -152,17 +152,14 @@ void MainWindow::resetBet() {
     model.resetBet();
     updateBankDisplay();
 }
-// <<<<<<< Model
-// =======
 
-// void MainWindow::onQuitGameClicked()
-// {
-//     qDebug() << "clicked on quit game";
-//     this->close();
-// }
+ void MainWindow::onQuitGameClicked()
+ {
+     qDebug() << "clicked on quit game";
+     this->close();
+ }
 
-// void MainWindow::updateScores() {
-//     model.getDealerTotal();
-//     model.getUserTotal();
-// }
-// >>>>>>> main
+ void MainWindow::updateScores() {
+     model.getDealerTotal();
+     model.getUserTotal();
+ }

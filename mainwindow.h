@@ -26,11 +26,8 @@ private slots:
     void addDealer();
     void addPlayer();
     void clearAll();
-// <<<<<<< Animation
-//     void splitHand();
-// =======
-//     void onQuitGameClicked();
-// >>>>>>> main
+    void splitHand();
+    void onQuitGameClicked();
 
 private:
     Ui::MainWindow *ui;
