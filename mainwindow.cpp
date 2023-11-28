@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "helpwidget.h"
-
+#include "QDebug"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -36,6 +36,9 @@ void MainWindow::setupConnections() {
 
     // Swap button
     connect(ui->swapButtons, &QPushButton::clicked, this, &MainWindow::swapButtons);
+
+    // Quit Game buttong
+    connect(ui->quitGame , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
 }
 
 void MainWindow::initializeUI() {
@@ -92,8 +95,9 @@ string MainWindow::convertCardToPath(Card card) {
     string face = card.getFace();
 
     string path = "";
-
-    if (face == "") {
+    if (card.getFaceDown()) {
+        path = ":/cards/facedown.png";
+    } else if (face == "") {
         path = ":/cards/" + std::to_string(value) + suit + ".png";
     } else {
         path = ":/cards/" + face + suit + ".png";
@@ -143,3 +147,17 @@ void MainWindow::resetBet() {
     model.resetBet();
     updateBankDisplay();
 }
+// <<<<<<< Model
+// =======
+
+// void MainWindow::onQuitGameClicked()
+// {
+//     qDebug() << "clicked on quit game";
+//     this->close();
+// }
+
+// void MainWindow::updateScores() {
+//     model.getDealerTotal();
+//     model.getUserTotal();
+// }
+// >>>>>>> main

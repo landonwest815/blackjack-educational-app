@@ -16,6 +16,7 @@ Card::Card(string suit, int value)
 {
     this->suit = suit;
     this->face = "";
+    this->facedown = false;
 
     //If the value equals 1 or 11, set the face to "A" to represent Ace. Otherwise, if it's between 2 and 9, set the value to the regular value. Otherwise, simply set the value to 2
     if (value == 1 || value == 11) {
@@ -32,6 +33,7 @@ Card::Card(string suit, string face) {
     this->suit = suit;
     this->value = 10;
     this->face = face;
+    this->facedown = false;
 }
 
 string Card::getSuit() {
@@ -48,6 +50,14 @@ void Card::setFace(string newFace) {
 
 int Card::getValue() {
     return value;
+}
+
+bool Card::getFaceDown() {
+    return facedown;
+}
+
+void Card::setFaceDown(bool facedown) {
+    this->facedown = facedown;
 }
 
 void Card::setValue(int newValue) {

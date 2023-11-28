@@ -26,6 +26,7 @@ private slots:
     void addDealer();
     void addPlayer();
     void clearAll();
+    void onQuitGameClicked();
 
 private:
     Ui::MainWindow *ui;
