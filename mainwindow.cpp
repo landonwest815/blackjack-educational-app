@@ -73,15 +73,17 @@ void MainWindow::createHelpWidget(QString text) {
 
 // Just example code for how you would call to add a card or clear them from the Box2D scene
 void MainWindow::addDealer() {
-    QString fileName = QString::fromStdString(convertCardToPath(model.hit()));
+    QString fileName = QString::fromStdString(convertCardToPath(model.dealerHit()));
 
     ui->dealerHand->addDealerCard(fileName);
+    ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
 }
 
 void MainWindow::addPlayer() {
-    QString fileName = QString::fromStdString(convertCardToPath(model.hit()));
+    QString fileName = QString::fromStdString(convertCardToPath(model.userHit()));
 
     ui->playerHand->addPlayerCard(fileName);
+    ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
 }
 
 string MainWindow::convertCardToPath(Card card) {
@@ -137,4 +139,9 @@ void MainWindow::addToBet(int increment) {
 void MainWindow::resetBet() {
     model.resetBet();
     updateBankDisplay();
+}
+
+void MainWindow::updateScores() {
+    model.getDealerTotal();
+    model.getUserTotal();
 }

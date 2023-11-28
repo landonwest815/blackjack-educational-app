@@ -41,5 +41,6 @@ private:
     void createHelpWidget(QString);
     void toggleBetButtons(bool);
     void updateBankDisplay();
+    void updateScores();
 };
 #endif // MAINWINDOW_H

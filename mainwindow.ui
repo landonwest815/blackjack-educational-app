@@ -50,7 +50,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="dealerScore">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -677,7 +677,7 @@ QPushButton:pressed {
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="playerScore">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -751,7 +751,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1406</width>
-     <height>37</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

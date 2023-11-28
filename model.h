@@ -18,17 +18,19 @@ private:
 public:
     Model();
 
-    Card hit();
+    Card userHit();
 
-    int stand(Card first, Card second);
+    Card dealerHit();
+
+    int stand();
 
     Card doubleDown();
 
     bool insurance(Card faceDown);
 
-    int getUserTotal(Card first, Card second);
+    int getUserTotal();
 
-    int getDealerTotal(Card faceup, Card faceDown);
+    int getDealerTotal();
 
     int getbankTotal();
 
