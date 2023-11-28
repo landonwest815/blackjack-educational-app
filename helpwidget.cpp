@@ -15,9 +15,7 @@ HelpWidget::HelpWidget(QWidget *parent)
 
 void HelpWidget::setText(const QString &text) {
     adviceText = text;
-
     setSize();
-
     update();
 }
 
@@ -28,14 +26,12 @@ void HelpWidget::paintEvent(QPaintEvent *) {
     painter.setPen(pen);
     painter.setBrush(Qt::white);
 
-    // Draw the rounded rectangle
     QRect bubbleRect = rect();
-    int radius = 10; // Adjust the radius for rounder corners
+    int radius = 10;
     painter.drawRoundedRect(bubbleRect, radius, radius);
 
     QString displayText = QString("ℹ️ %1").arg(adviceText);
 
-    // Draw the text inside the bubble
     painter.drawText(bubbleRect.adjusted(10, 10, -10, -10), Qt::AlignCenter | Qt::TextWordWrap, displayText);
 }
 
@@ -53,12 +49,10 @@ void HelpWidget::setSize() {
 
 void HelpWidget::reposition() {
     if (QMainWindow *mainWindow = qobject_cast<QMainWindow*>(parent())) {
-        int marginRight = mainWindow->width() / 4.25; // Margin from the right edge of the parent
-        int verticalCenter = (mainWindow->height() - height()) / 1.66; // Calculate vertical center
-
+        int marginRight = mainWindow->width() / 4.25;
+        int verticalCenter = (mainWindow->height() - height()) / 1.66;
         int newX = mainWindow->width() - width() - marginRight;
         int newY = verticalCenter;
-
-        move(newX, newY); // Reposition the widget
+        move(newX, newY);
     }
 }

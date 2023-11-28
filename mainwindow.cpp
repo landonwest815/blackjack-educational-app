@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->add250, &QPushButton::clicked, this, &MainWindow::add250);
     connect(ui->add500, &QPushButton::clicked, this, &MainWindow::add500);
 
-
     ui->add50->setVisible(false);
     ui->add100->setVisible(false);
     ui->add250->setVisible(false);
@@ -27,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->bank->setText("BANK: $" + QString::number(bankTotal));
 
+    // EXAMPLE OF A HINT BOX
     helpwidget = new HelpWidget(this);
     helpwidget->setText("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. "
                         "Is this a sentence? Filler words. Filler words. More filler words.");
@@ -39,20 +39,10 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
-    QMainWindow::resizeEvent(event); // Call the base class method
+    QMainWindow::resizeEvent(event);
 
-    int marginRight = 20; // Space from the right edge
-    int marginTop = 20; // Space from the top edge
-
-    // Calculate the new x position
-    int x = this->width() - helpwidget->width() - marginRight;
-    int y = marginTop;
-
-    // Move the dialog cloud to the new position
-    helpwidget->move(x, y);
-
-    if (helpwidget) { // Assuming helpWidget is a member of MainWindow
-        helpwidget->setSize(); // Call a method to resize HelpWidget
+    if (helpwidget) {
+        helpwidget->setSize();
     }
 }
 
