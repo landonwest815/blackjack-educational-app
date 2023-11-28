@@ -1,26 +1,35 @@
 #include "model.h"
 #include "deck.h"
 
+#include <iostream>
+
 Model::Model() :
     bankTotal(1500),
     dealerTotal(0),
     userTotal(0),
     bet(0),
-    win(true){ }
+    win(true),
+    splitTotal(0),
+    userAceCounter(0),
+    dealerAceCounter(0){ }
 
 Card Model::userHit() {
     Card nextCard = deck.drawCard();
 
     if(nextCard.getFace() == "A") {
         if(userTotal + nextCard.getValue() > 21) {
-            userTotal = userTotal + 1;
+            userTotal += 1;
         } else {
-            userTotal = userTotal + 11;
+            userTotal += 11;
+            userAceCounter++;
         }
     } else {
         userTotal = userTotal + nextCard.getValue();
+        if(userAceCounter > 0 && userTotal > 21) {
+            userTotal -= 10;
+            userAceCounter--;
+        }
     }
-
     return nextCard;
 }
 
@@ -29,14 +38,18 @@ Card Model::dealerHit() {
 
     if(nextCard.getFace() == "A") {
         if(dealerTotal + nextCard.getValue() > 21) {
-            dealerTotal = dealerTotal + 1;
+            dealerTotal += 1;
         } else {
-            dealerTotal = dealerTotal + 11;
+            dealerTotal += 11;
+            dealerAceCounter++;
         }
     } else {
         dealerTotal = dealerTotal + nextCard.getValue();
+        if(dealerAceCounter > 0 && dealerTotal > 21) {
+            dealerTotal -= 10;
+            dealerAceCounter--;
+        }
     }
-
     return nextCard;
 }
 int Model::stand() {
@@ -104,6 +117,17 @@ void Model::dealerBlackJack(Card faceDown, Card faceUp) {
         this->bankTotal -= this->bet;
 }
 
-void Model::split() {
+int Model::split() {
+    userTotal = userTotal / 2;
+    splitTotal = userTotal;
+    return splitTotal;
+}
 
+int Model::getSplitTotal() {
+    return splitTotal;
+}
+
+void Model::clearTotal() {
+    userTotal = 0;
+    dealerTotal = 0;
 }
