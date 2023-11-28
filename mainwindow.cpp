@@ -90,8 +90,9 @@ string MainWindow::convertCardToPath(Card card) {
     string face = card.getFace();
 
     string path = "";
-
-    if (face == "") {
+    if (card.getFaceDown()) {
+        path = ":/cards/facedown.png";
+    } else if (face == "") {
         path = ":/cards/" + std::to_string(value) + suit + ".png";
     } else {
         path = ":/cards/" + face + suit + ".png";
