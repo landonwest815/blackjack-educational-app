@@ -17,8 +17,11 @@ Card::Card(string suit, int value)
     this->suit = suit;
     this->face = "";
 
-    //The value must be between 1 and 11. If it is not, the value will automatically be set to two.
-    if (value >= 1 && value <= 11 && value != 10) {
+    //If the value equals 1 or 11, set the face to "A" to represent Ace. Otherwise, if it's between 2 and 9, set the value to the regular value. Otherwise, simply set the value to 2
+    if (value == 1 || value == 11) {
+        this->value = value;
+        this->face = "A";
+    } else if (value >= 2 && value <= 9) {
         this->value = value;
     } else {
         this->value = 2;
