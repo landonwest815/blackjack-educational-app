@@ -105,6 +105,9 @@ string MainWindow::convertCardToPath(Card card) {
 void MainWindow::clearAll() {
     ui->playerHand->clearAllCards();
     ui->dealerHand->clearAllCards();
+    ui->playerScore->setText("PLAYER SCORE: " + QString::number(0));
+    ui->dealerScore->setText("DEALER SCORE: " + QString::number(0));
+    model.clearTotal();
 }
 
 void MainWindow::swapButtons()
@@ -139,9 +142,4 @@ void MainWindow::addToBet(int increment) {
 void MainWindow::resetBet() {
     model.resetBet();
     updateBankDisplay();
-}
-
-void MainWindow::updateScores() {
-    model.getDealerTotal();
-    model.getUserTotal();
 }

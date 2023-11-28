@@ -42,6 +42,10 @@ string Card::getFace() {
     return face;
 }
 
+void Card::setFace(string newFace) {
+    face = newFace;
+}
+
 int Card::getValue() {
     return value;
 }

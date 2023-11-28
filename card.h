@@ -33,6 +33,8 @@ public:
     ///@return the card's face
     string getFace();
 
+    void setFace(string newFace);
+
     ///@brief Getter for the value
     ///@return the card's value
     int getValue();

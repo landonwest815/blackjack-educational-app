@@ -14,6 +14,9 @@ private:
     int userTotal;
     int bet;
     bool win;
+    int splitTotal;
+    int userAceCounter;
+    int dealerAceCounter;
 
 public:
     Model();
@@ -45,6 +48,12 @@ public:
     void dealerBlackJack(Card facedown, Card faceUp);
 
     void userBlackJack(Card first, Card second);
+
+    int split ();
+
+    int getSplitTotal();
+
+    void clearTotal();
 
 };
 
