@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->add100->setVisible(false);
     ui->add250->setVisible(false);
     ui->add500->setVisible(false);
+    ui->dealButton->setVisible(false);
     buttonState = true;
 
     ui->bank->setText("BANK: $" + QString::number(bankTotal));
@@ -67,6 +68,7 @@ void MainWindow::on_swapButtons_clicked()
         ui->add100->setVisible(true);
         ui->add250->setVisible(true);
         ui->add500->setVisible(true);
+        ui->dealButton->setVisible(true);
 
         ui->addPlayerButton->setVisible(false);
         ui->addDealerButton->setVisible(false);
@@ -77,6 +79,7 @@ void MainWindow::on_swapButtons_clicked()
         ui->add100->setVisible(false);
         ui->add250->setVisible(false);
         ui->add500->setVisible(false);
+        ui->dealButton->setVisible(false);
 
         ui->addPlayerButton->setVisible(true);
         ui->addDealerButton->setVisible(true);
