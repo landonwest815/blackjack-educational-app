@@ -8,7 +8,7 @@ Model::Model() :
     bet(0),
     win(true){ }
 
-Card Model::hit() {
+Card Model::userHit() {
     Card nextCard = deck.drawCard();
 
     if(nextCard.getFace() == "A") {
@@ -24,12 +24,27 @@ Card Model::hit() {
     return nextCard;
 }
 
-int Model::stand(Card first, Card second) {
-    return Model::getUserTotal(first, second);
+Card Model::dealerHit() {
+    Card nextCard = deck.drawCard();
+
+    if(nextCard.getFace() == "A") {
+        if(dealerTotal + nextCard.getValue() > 21) {
+            dealerTotal = dealerTotal + 1;
+        } else {
+            dealerTotal = dealerTotal + 11;
+        }
+    } else {
+        dealerTotal = dealerTotal + nextCard.getValue();
+    }
+
+    return nextCard;
+}
+int Model::stand() {
+    return Model::getUserTotal();
 }
 
 Card Model::doubleDown() {
-    return Model::hit();
+    return Model::userHit();
     bankTotal -= this->bet;
 }
 
@@ -42,12 +57,12 @@ bool Model::insurance(Card faceDown) {
     }
 }
 
-int Model::getUserTotal(Card first, Card second) {
-    return first.getValue() + second.getValue();
+int Model::getUserTotal() {
+    return userTotal;
 }
 
-int Model::getDealerTotal(Card faceDown, Card faceUp) {
-    return faceDown.getValue() + faceUp.getValue();
+int Model::getDealerTotal() {
+    return dealerTotal;
 }
 
 int Model::getbankTotal() {
@@ -87,4 +102,8 @@ void Model::userBlackJack(Card first, Card second) {
 void Model::dealerBlackJack(Card faceDown, Card faceUp) {
     if(faceDown.getValue() + faceUp.getValue() == 21)
         this->bankTotal -= this->bet;
+}
+
+void Model::split() {
+
 }
