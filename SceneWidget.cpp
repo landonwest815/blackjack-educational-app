@@ -15,7 +15,8 @@
 SceneWidget::SceneWidget(QWidget *parent)
     : QWidget(parent),
     world(b2Vec2(0.0f, 0.0f)),
-    timer(this) {
+    timer(this),
+    split(false) {
 
     //backgroundImage.load(":/cards/table.png"); // Sets image of a blackjack table
 
@@ -43,7 +44,7 @@ SceneWidget::SceneWidget(QWidget *parent)
 void SceneWidget::addDealerCard(const QString& imagePath) {
     // Creates body of dealer card and adds to the associated vector
     b2Body* dealerBody = nullptr;
-    dealerBody = createCardBody(0.0, this->height() / 30.0); // Initial position of dealer body
+    dealerBody = createCardBody(3.0, this->height() / 30.0); // Initial position of dealer body
     dealerBodies.push_back(dealerBody);
 
     // Creates image of dealer card and adds to the associated vector
@@ -55,7 +56,7 @@ void SceneWidget::addDealerCard(const QString& imagePath) {
 void SceneWidget::addPlayerCard(const QString& imagePath) {
     // Creates body of player card and adds to the associated vector
     b2Body* playerBody = nullptr;
-    playerBody = createCardBody(10.0, this->height() / 200.0); // Initial position of player body
+    playerBody = createCardBody(6.0, this->height() / 200.0); // Initial position of player body
     playerBodies.push_back(playerBody);
 
     // Creates image of player card and adds to the associated vector
@@ -122,7 +123,15 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     for (int i = 0; i < playerBodies.size(); ++i) {
         b2Vec2 position = playerBodies[i]->GetPosition();
         // Sets the position where each player card body added will fall and will change is split is true
-        painter.drawImage((position.x * 100 + (i * 75) + 230), (position.y * 40.5), playerImages[i]);
+        if (split) {
+            if (i % 2 == 0) {
+                painter.drawImage((position.x * 100 + (i * 20) + 125), (position.y * 40.5), playerImages[i]);
+            } else {
+                painter.drawImage((position.x * 100 + (i * 20) + 450), (position.y * 40.5), playerImages[i]);
+            }
+        } else {
+            painter.drawImage((position.x * 100 + (i * 75) + 230), (position.y * 40.5), playerImages[i]);
+        }
     }
 
     painter.end();
@@ -131,7 +140,7 @@ void SceneWidget::paintEvent(QPaintEvent *) {
 void SceneWidget::updateWorld() {
     // Updates all the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
-        dealerBodies[i]->SetLinearVelocity(b2Vec2(6.0f, 0.0f)); // Velocity direction right
+        dealerBodies[i]->SetLinearVelocity(b2Vec2(7.0f, 0.0f)); // Velocity direction right
         if (dealerBodies[i]->GetPosition().x * 50 >= this->width() / 2.4) {
             dealerBodies[i]->SetLinearVelocity(b2Vec2_zero);
         }
@@ -163,6 +172,18 @@ void SceneWidget::clearAllCards() {
     playerBodies.clear();
     dealerImages.clear();
     playerImages.clear();
+    split = false;
+}
+
+void SceneWidget::splitPlayerCards() {
+    // Allows the player card bodies to be split when only two exist
+    if (playerBodies.size() == 2) {
+        b2Vec2 newPositionZero(2.5, this->height() / 200.0);
+        b2Vec2 newPositionOne(3.0, this->height() / 200.0);
+        playerBodies[0]->SetTransform(newPositionZero, 0.0f);
+        playerBodies[1]->SetTransform(newPositionOne, 0.0f);
+        split = true;
+    }
 }
 
 void SceneWidget::resizeEvent(QResizeEvent *event) {

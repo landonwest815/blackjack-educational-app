@@ -37,6 +37,9 @@ private:
     /// @brief Handles periodically updating the world.
     QTimer timer;
 
+    /// @brief Whether the player body cards are split.
+    bool split;
+
     /// @brief Stores blackground image of a blackjack table.
     QImage backgroundImage;
 
@@ -74,6 +77,9 @@ public slots:
 
     /// @brief Clears all the player and dealer cards.
     void clearAllCards();
+
+    /// @brief Redraws player cards to now be split when two cards are present.
+    void splitPlayerCards();
 
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.

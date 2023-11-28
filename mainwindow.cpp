@@ -24,6 +24,7 @@ void MainWindow::setupConnections() {
     connect(ui->addDealerButton, &QPushButton::clicked, this, &MainWindow::addDealer);
     connect(ui->addPlayerButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
     connect(ui->clearAllButton, &QPushButton::clicked, this, &MainWindow::clearAll);
+    connect(ui->splitButton, &QPushButton::clicked, this, &MainWindow::splitHand);
 
     // Bet buttons
     connect(ui->add50, &QPushButton::clicked, this, [this](){ addToBet(50); });
@@ -87,6 +88,10 @@ void MainWindow::addPlayer() {
 
     ui->playerHand->addPlayerCard(fileName);
     ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
+}
+
+void MainWindow::splitHand() {
+    ui->playerHand->splitPlayerCards();
 }
 
 string MainWindow::convertCardToPath(Card card) {
