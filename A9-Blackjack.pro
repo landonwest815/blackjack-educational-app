@@ -58,6 +58,7 @@ SOURCES += \
     SceneWidget.cpp \
     card.cpp \
     deck.cpp \
+    helpwidget.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp
@@ -113,6 +114,7 @@ HEADERS += \
     SceneWidget.h \
     card.h \
     deck.h \
+    helpwidget.h \
     mainwindow.h \
     model.h
 

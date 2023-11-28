@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "helpwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,9 +15,21 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void resizeEvent(QResizeEvent *event) override;
+
+private slots:
+    void on_swapButtons_clicked();
+    void add50();
+    void add100();
+    void add250();
+    void add500();
 
 private:
     Ui::MainWindow *ui;
+    bool buttonState;
+    int betTotal;
+    int bankTotal;
+    HelpWidget *helpwidget;
 
 
     // Probably will remove, serves as demo functions
