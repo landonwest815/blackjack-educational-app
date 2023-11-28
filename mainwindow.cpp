@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "helpwidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,13 +26,34 @@ MainWindow::MainWindow(QWidget *parent)
     buttonState = true;
 
     ui->bank->setText("BANK: $" + QString::number(bankTotal));
+
+    helpwidget = new HelpWidget(this);
+    helpwidget->setText("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. "
+                        "Is this a sentence? Filler words. Filler words. More filler words.");
+    helpwidget->show();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
 
+void MainWindow::resizeEvent(QResizeEvent *event) {
+    QMainWindow::resizeEvent(event); // Call the base class method
 
+    int marginRight = 20; // Space from the right edge
+    int marginTop = 20; // Space from the top edge
+
+    // Calculate the new x position
+    int x = this->width() - helpwidget->width() - marginRight;
+    int y = marginTop;
+
+    // Move the dialog cloud to the new position
+    helpwidget->move(x, y);
+
+    if (helpwidget) { // Assuming helpWidget is a member of MainWindow
+        helpwidget->setSize(); // Call a method to resize HelpWidget
+    }
 }
 
 // Just example code for how you would call to add a card or clear them from the Box2D scene
