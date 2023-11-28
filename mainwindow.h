@@ -26,6 +26,7 @@ private slots:
     void addDealer();
     void addPlayer();
     void clearAll();
+    void splitHand();
 
 private:
     Ui::MainWindow *ui;
