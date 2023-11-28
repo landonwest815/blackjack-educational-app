@@ -18,24 +18,27 @@
 
 Deck::Deck()
 {
-    suits.push_back("club");
-    suits.push_back("spade");
-    suits.push_back("diamond");
-    suits.push_back("heart");
+    suits.push_back("C");
+    suits.push_back("S");
+    suits.push_back("D");
+    suits.push_back("H");
 
     //Iterate through suits
     for (int i = 0; i < 4; i++) {
 
-        //Iterate through values (where 1 = Ace)
-        for (int j = 0; j < 9; j++) {
-            Card* addCard = new Card(suits[i],j+1);
+        Card* ace = new Card(suits[i], "A");
+        cards.push_back(*ace);
+
+        //Iterate through values
+        for (int j = 2; j < 10; j++) {
+            Card* addCard = new Card(suits[i],j);
             cards.push_back(*addCard);
         }
 
         //Create face cards
-        Card* jack = new Card(suits[i],"jack");
-        Card* queen = new Card(suits[i],"queen");
-        Card* king = new Card(suits[i],"king");
+        Card* jack = new Card(suits[i],"J");
+        Card* queen = new Card(suits[i],"Q");
+        Card* king = new Card(suits[i],"K");
 
         //Add face cards
         cards.push_back(*jack);

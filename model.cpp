@@ -4,12 +4,23 @@ Model::Model() :
     bankTotal(1500),
     dealerTotal(0),
     userTotal(0),
-    bet(100),
+    bet(0),
     win(true){ }
 
-int Model::hit(int userTotal) {
-    Deck deck;
+QString Model::hit() {
     Card nextCard = deck.drawCard();
+
+    QString fileName = "";
+
+    if (nextCard.getFace().length() != 0) {
+        fileName += nextCard.getFace();
+    }
+    else {
+        fileName += QString::number(nextCard.getValue());
+    }
+
+    fileName += nextCard.getSuit();
+
     if(nextCard.getFace() == "A") {
         if(userTotal + nextCard.getValue() > 21) {
             userTotal = userTotal + 1;
@@ -20,15 +31,15 @@ int Model::hit(int userTotal) {
         userTotal = userTotal + nextCard.getValue();
     }
 
-    return userTotal;
+    return fileName;
 }
 
 int Model::stand(Card first, Card second) {
     return Model::getUserTotal(first, second);
 }
 
-int Model::doubleDown(int userTotal) {
-    return Model::hit(userTotal);
+QString Model::doubleDown() {
+    return Model::hit();
     bankTotal -= this->bet;
 }
 
@@ -53,6 +64,22 @@ int Model::getbankTotal() {
     return bankTotal;
 }
 
+int Model::getBet() {
+    return bet;
+}
+
+void Model::setBet(int increment) {
+    if ((bankTotal - increment) >= 0) {
+        bet += increment;
+        bankTotal -= increment;
+    }
+}
+
+void Model::resetBet() {
+    bankTotal += bet;
+    bet = 0;
+}
+
 int Model::updateBankTotal(int bet) {
     if(win) {
         bankTotal += bet;
@@ -61,6 +88,7 @@ int Model::updateBankTotal(int bet) {
     }
     return bankTotal;
 }
+
 void Model::userBlackJack(Card first, Card second) {
     if(first.getValue() + second.getValue() == 21)
         this->bankTotal += (this->bet * 1.5);
