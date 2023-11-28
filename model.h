@@ -18,11 +18,11 @@ private:
 public:
     Model();
 
-    QString hit();
+    Card hit();
 
     int stand(Card first, Card second);
 
-    QString doubleDown();
+    Card doubleDown();
 
     bool insurance(Card faceDown);
 

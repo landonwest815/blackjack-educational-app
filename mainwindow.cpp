@@ -73,19 +73,31 @@ void MainWindow::createHelpWidget(QString text) {
 
 // Just example code for how you would call to add a card or clear them from the Box2D scene
 void MainWindow::addDealer() {
-    QString fileName = ":/cards/";
-            fileName += model.hit();
-            fileName += ".png";
+    QString fileName = QString::fromStdString(convertCardToPath(model.hit()));
 
     ui->dealerHand->addDealerCard(fileName);
 }
 
 void MainWindow::addPlayer() {
-    QString fileName = ":/cards/";
-            fileName += model.hit();
-            fileName += ".png";
+    QString fileName = QString::fromStdString(convertCardToPath(model.hit()));
 
     ui->playerHand->addPlayerCard(fileName);
+}
+
+string MainWindow::convertCardToPath(Card card) {
+    string suit = card.getSuit();
+    int value = card.getValue();
+    string face = card.getFace();
+
+    string path = "";
+
+    if (face == "") {
+        path = ":/cards/" + std::to_string(value) + suit + ".png";
+    } else {
+        path = ":/cards/" + face + suit + ".png";
+    }
+
+    return path;
 }
 
 void MainWindow::clearAll() {

@@ -8,19 +8,8 @@ Model::Model() :
     bet(0),
     win(true){ }
 
-QString Model::hit() {
+Card Model::hit() {
     Card nextCard = deck.drawCard();
-
-    QString fileName = "";
-
-    if (nextCard.getFace().length() != 0) {
-        fileName += nextCard.getFace();
-    }
-    else {
-        fileName += QString::number(nextCard.getValue());
-    }
-
-    fileName += nextCard.getSuit();
 
     if(nextCard.getFace() == "A") {
         if(userTotal + nextCard.getValue() > 21) {
@@ -32,14 +21,14 @@ QString Model::hit() {
         userTotal = userTotal + nextCard.getValue();
     }
 
-    return fileName;
+    return nextCard;
 }
 
 int Model::stand(Card first, Card second) {
     return Model::getUserTotal(first, second);
 }
 
-QString Model::doubleDown() {
+Card Model::doubleDown() {
     return Model::hit();
     bankTotal -= this->bet;
 }

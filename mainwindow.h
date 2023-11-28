@@ -17,6 +17,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void resizeEvent(QResizeEvent *event) override;
+    string convertCardToPath(Card card);
 
 private slots:
     void swapButtons();
