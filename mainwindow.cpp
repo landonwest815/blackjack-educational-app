@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "helpwidget.h"
-
+#include "QDebug"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -37,6 +37,9 @@ void MainWindow::setupConnections() {
 
     // Swap button
     connect(ui->swapButtons, &QPushButton::clicked, this, &MainWindow::swapButtons);
+
+    // Quit Game buttong
+    connect(ui->quitGame , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
 }
 
 void MainWindow::initializeUI() {
@@ -74,15 +77,17 @@ void MainWindow::createHelpWidget(QString text) {
 
 // Just example code for how you would call to add a card or clear them from the Box2D scene
 void MainWindow::addDealer() {
-    QString fileName = QString::fromStdString(convertCardToPath(model.hit()));
+    QString fileName = QString::fromStdString(convertCardToPath(model.dealerHit()));
 
     ui->dealerHand->addDealerCard(fileName);
+    ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
 }
 
 void MainWindow::addPlayer() {
-    QString fileName = QString::fromStdString(convertCardToPath(model.hit()));
+    QString fileName = QString::fromStdString(convertCardToPath(model.userHit()));
 
     ui->playerHand->addPlayerCard(fileName);
+    ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
 }
 
 void MainWindow::splitHand() {
@@ -95,8 +100,9 @@ string MainWindow::convertCardToPath(Card card) {
     string face = card.getFace();
 
     string path = "";
-
-    if (face == "") {
+    if (card.getFaceDown()) {
+        path = ":/cards/facedown.png";
+    } else if (face == "") {
         path = ":/cards/" + std::to_string(value) + suit + ".png";
     } else {
         path = ":/cards/" + face + suit + ".png";
@@ -108,6 +114,9 @@ string MainWindow::convertCardToPath(Card card) {
 void MainWindow::clearAll() {
     ui->playerHand->clearAllCards();
     ui->dealerHand->clearAllCards();
+    ui->playerScore->setText("PLAYER SCORE: " + QString::number(0));
+    ui->dealerScore->setText("DEALER SCORE: " + QString::number(0));
+    model.clearTotal();
 }
 
 void MainWindow::swapButtons()
@@ -143,3 +152,17 @@ void MainWindow::resetBet() {
     model.resetBet();
     updateBankDisplay();
 }
+// <<<<<<< Model
+// =======
+
+// void MainWindow::onQuitGameClicked()
+// {
+//     qDebug() << "clicked on quit game";
+//     this->close();
+// }
+
+// void MainWindow::updateScores() {
+//     model.getDealerTotal();
+//     model.getUserTotal();
+// }
+// >>>>>>> main

@@ -14,6 +14,8 @@ private:
     int value;
     ///@brief If the value is 10, the card can have a face attribute
     string face;
+    ///@brief True if the card will be displayed as facedown
+    bool facedown;
 public:
     ///@brief Constructor for the Card class, initializes a new Card with a suit and value
     ///@param suit - The suit of the card
@@ -33,6 +35,8 @@ public:
     ///@return the card's face
     string getFace();
 
+    void setFace(string newFace);
+
     ///@brief Getter for the value
     ///@return the card's value
     int getValue();
@@ -40,6 +44,14 @@ public:
     ///@brief Setter for the value
     ///@param newValue - The card's new value
     void setValue(int newValue);
+
+    ///@brief Getter for facedown
+    ///@return Whether the card should be facedown or not
+    bool getFaceDown();
+
+    ///@brief Setter for facedown
+    ///@param facedown - Whether the card should be facedown or not
+    void setFaceDown(bool facedown);
 
     ///@brief Overloaded equals operator. Checks if suit, value, and face are the same
     bool operator== (const Card &c);

@@ -14,21 +14,26 @@ private:
     int userTotal;
     int bet;
     bool win;
+    int splitTotal;
+    int userAceCounter;
+    int dealerAceCounter;
 
 public:
     Model();
 
-    Card hit();
+    Card userHit();
 
-    int stand(Card first, Card second);
+    Card dealerHit();
+
+    int stand();
 
     Card doubleDown();
 
     bool insurance(Card faceDown);
 
-    int getUserTotal(Card first, Card second);
+    int getUserTotal();
 
-    int getDealerTotal(Card faceup, Card faceDown);
+    int getDealerTotal();
 
     int getbankTotal();
 
@@ -43,6 +48,12 @@ public:
     void dealerBlackJack(Card facedown, Card faceUp);
 
     void userBlackJack(Card first, Card second);
+
+    int split ();
+
+    int getSplitTotal();
+
+    void clearTotal();
 
 };
 

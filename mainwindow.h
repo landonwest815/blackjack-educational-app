@@ -26,7 +26,11 @@ private slots:
     void addDealer();
     void addPlayer();
     void clearAll();
-    void splitHand();
+// <<<<<<< Animation
+//     void splitHand();
+// =======
+//     void onQuitGameClicked();
+// >>>>>>> main
 
 private:
     Ui::MainWindow *ui;
@@ -42,5 +46,6 @@ private:
     void createHelpWidget(QString);
     void toggleBetButtons(bool);
     void updateBankDisplay();
+    void updateScores();
 };
 #endif // MAINWINDOW_H
