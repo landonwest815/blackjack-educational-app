@@ -423,6 +423,22 @@ QPushButton:pressed {
        </widget>
       </item>
       <item>
+       <spacer name="horizontalSpacer_9">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QPushButton" name="dealButton">
         <property name="minimumSize">
          <size>
@@ -437,31 +453,70 @@ QPushButton:pressed {
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">QPushButton { 
-    background-color: #3a6ea5;
+         <string notr="true">QPushButton {
+    background-color: #333333;
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 2px solid #5a9bd5;
+    border: 1px solid #555555;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
-    box-shadow: 0 0 10px #5a9bd5;
 }
 
 QPushButton:hover {
-    background-color: #559edf;
-    box-shadow: 0 0 15px #5a9bd5;
+    background-color: #444444;
 }
 
 QPushButton:pressed {
-    background-color: #2e5a7a;
-    box-shadow: 0 0 5px #5a9bd5;
-}</string>
+    background-color: #333333;
+}
+</string>
         </property>
         <property name="text">
          <string>Deal</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="resetButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Reset</string>
         </property>
        </widget>
       </item>

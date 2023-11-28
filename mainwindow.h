@@ -19,10 +19,8 @@ public:
 
 private slots:
     void on_swapButtons_clicked();
-    void add50();
-    void add100();
-    void add250();
-    void add500();
+    void addToBet(int increment);
+    void resetBet();
 
 private:
     Ui::MainWindow *ui;
