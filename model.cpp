@@ -1,4 +1,5 @@
 #include "model.h"
+#include "deck.h"
 
 Model::Model() :
     bankTotal(1500),

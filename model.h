@@ -1,7 +1,7 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "deck.h"
+#include "card.h"
 
 class Model{
 private:
