@@ -41,6 +41,8 @@ void MainWindow::setupConnections() {
 
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
 
+    connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::beginGame);
+
     connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
 
 }
@@ -162,6 +164,14 @@ void MainWindow::addToBet(int increment) {
 void MainWindow::resetBet() {
     model.resetBet();
     updateBankDisplay();
+}
+
+void MainWindow::beginGame() {
+    addDealer();
+    addDealer();
+
+    addPlayer();
+    addPlayer();
 }
 
  void MainWindow::onQuitGameClicked()
