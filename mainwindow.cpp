@@ -22,6 +22,8 @@ void MainWindow::setupConnections() {
     connect(ui->splitButton, &QPushButton::clicked, this, &MainWindow::splitHand);
     connect(ui->standButton, &QPushButton::clicked, this, &MainWindow::stand);
 
+    connect(ui->nextSplitButton, &QPushButton::clicked, this, &MainWindow::nextSplit);
+
     // Bet buttons
     connect(ui->add50, &QPushButton::clicked, this, [this](){ addToBet(50); });
     connect(ui->add100, &QPushButton::clicked, this, [this](){ addToBet(100); });
@@ -105,6 +107,10 @@ void MainWindow::splitHand() {
     ui->splitScore->setVisible(true);
     ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.split()));
     ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getSplitTotal()));
+}
+
+void MainWindow::nextSplit() {
+    ui->playerHand->nextSplitHand();
 }
 
 string MainWindow::convertCardToPath(Card card) {

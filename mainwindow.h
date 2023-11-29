@@ -33,6 +33,8 @@ private slots:
     void stand();
     void splitAdd();
 
+    void nextSplit(); // just for demonstration REMOVE WHEN NEEDED
+
 private:
     Ui::MainWindow *ui;
     Model model;
