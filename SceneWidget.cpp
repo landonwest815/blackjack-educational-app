@@ -116,7 +116,7 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     for (int i = 0; i < dealerBodies.size(); ++i) {
         b2Vec2 position = dealerBodies[i]->GetPosition();
         // Sets the position where each dealer card body added will fall
-        painter.drawImage((position.x * (this->width() / 32) - (i * 75)), (position.y * (this->height() / 72)), dealerImages[i]);
+        painter.drawImage((position.x * (this->width() / 25.5) - (i * 75)), (position.y * (this->height() / 72)), dealerImages[i]);
     }
 
     // Draws the card bodies of the player
@@ -125,12 +125,12 @@ void SceneWidget::paintEvent(QPaintEvent *) {
         // Sets the position where each player card body added will fall and will change is split is true
         if (split) {
             if (i % 2 == 0) {
-                painter.drawImage((position.x * (this->width() / 14) + (i * 20)), (position.y * (this->height() / 12)), playerImages[i]);
+                painter.drawImage((position.x * (this->width() / 18) + (i * 20)), (position.y * (this->height() / 12)), playerImages[i]);
             } else {
-                painter.drawImage((position.x * (this->width() / 14) + (i * 20) + 600), (position.y * (this->height() / 12)), playerImages[i]);
+                painter.drawImage((position.x * (this->width() / 18) + (i * 20) + 600), (position.y * (this->height() / 12)), playerImages[i]);
             }
         } else {
-            painter.drawImage((position.x * (this->width() / 16) + (i * 75)), (position.y * (this->height() / 12)), playerImages[i]);
+            painter.drawImage((position.x * (this->width() / 11.5) + (i * 75)), (position.y * (this->height() / 12)), playerImages[i]);
         }
     }
 
