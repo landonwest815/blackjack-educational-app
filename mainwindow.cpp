@@ -9,8 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setupConnections();
     initializeUI();
-    createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. "
-                  "Is this a sentence? Filler words. Filler words. More filler words.");
+    createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. Is this a sentence?");
 }
 
 MainWindow::~MainWindow()
