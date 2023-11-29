@@ -40,11 +40,12 @@ private:
     /// @brief Whether the player body cards are split.
     bool split;
 
-    /// @brief Assists in holding a center X coordinate of the world.
-    float centerX;
+    /// @brief Whether to add player body cards to the other split hand.
+    bool nextSplit;
 
-    /// @brief Assists in holding a center Y coordinate of the world.
-    float centerY;
+    bool splitCountBool;
+
+    int splitCount;
 
     /// @brief Stores blackground image of a blackjack table.
     QImage backgroundImage;
@@ -86,6 +87,9 @@ public slots:
 
     /// @brief Redraws player cards to now be split when two cards are present.
     void splitPlayerCards();
+
+    /// @brief Allows split to be set when needed.
+    void nextSplitHand();
 
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.

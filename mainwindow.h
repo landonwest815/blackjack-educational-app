@@ -27,6 +27,7 @@ private slots:
     void addPlayer();
     void clearAll();
     void splitHand();
+    void nextSplit();
     void onQuitGameClicked();
 
 private:
