@@ -212,11 +212,10 @@ void MainWindow::beginGame() {
      model.getUserTotal();
  }
 
-<<<<<<< Updated upstream
  void MainWindow::switchToGameWindow() {
      ui->stackedWidget->setCurrentWidget(ui->game);
-=======
-<<<<<<< HEAD
+ }
+
  void MainWindow::stand() {
      model.getUserTotal();
      model.setSplitCheck(true);
@@ -227,9 +226,4 @@ void MainWindow::beginGame() {
 
      ui->playerHand->addPlayerCard(fileName);
      ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.getSplitTotal()));
-=======
- void MainWindow::switchToGameWindow() {
-     ui->stackedWidget->setCurrentWidget(ui->game);
->>>>>>> c737d40568ebffd234884ef6fcf31361a1fc259c
->>>>>>> Stashed changes
  }
