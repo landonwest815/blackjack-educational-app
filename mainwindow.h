@@ -22,7 +22,7 @@ public:
 private slots:
     void addToBet(int increment);
     void resetBet();
-    void addDealer();
+    void addDealer(bool facedown);
     void addPlayer();
     void clearAll();
     void splitHand();
@@ -30,8 +30,10 @@ private slots:
     void switchToGameWindow();
     void switchToMainMenu();
     void beginGame();
-    void stand();
     void splitAdd();
+    void deal();
+    void hit();
+    void stand();
 
 private:
     Ui::MainWindow *ui;
@@ -41,6 +43,7 @@ private:
     int bankTotal;
     HelpWidget *helpwidget;
 
+    void determineWinner();
     // Probably will remove, serves as demo functions
     void setupConnections();
     void initializeUI();

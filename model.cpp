@@ -35,7 +35,7 @@ Card Model::userHit() {
     return nextCard;
 }
 
-Card Model::dealerHit() {
+Card Model::dealerHit(bool facedown) {
     Card nextCard = deck.drawCard();
 
     if(nextCard.getFace() == "A") {
@@ -52,6 +52,11 @@ Card Model::dealerHit() {
             dealerAceCounter--;
         }
     }
+
+    if (facedown) {
+        dealerTotal -= nextCard.getValue();
+    }
+
     return nextCard;
 }
 
@@ -161,6 +166,66 @@ bool Model::getSplitCheck() {
     return splitCheck;
 }
 
-bool Model::setSplitCheck(bool split ) {
+void Model::setSplitCheck(bool split ) {
     splitCheck = split;
+}
+
+Card Model::getUserCard(int index) {
+    return userHand[index];
+}
+
+Card Model::getDealerCard(int index) {
+    return dealerHand[index];
+}
+
+void Model::addUserCard(Card newCard) {
+    userHand.push_back(newCard);
+}
+
+void Model::addDealerCard(Card newCard) {
+    dealerHand.push_back(newCard);
+}
+
+void Model::revealDealer() {
+    dealerTotal += dealerHand[0].getValue();
+}
+
+int Model::getDealerAces() {
+    return dealerAceCounter;
+}
+
+void Model::playerBust() {
+    win = false;
+
+    dealerWins();
+}
+
+void Model::dealerBust() {
+    win = true;
+
+    playerWins();
+}
+
+void Model::playerWins() {
+    win = true;
+    updateBankTotal(getBet());
+
+    // Determine whether it's a blackjack win or a standard win
+    if (getUserTotal() == 21 && userHand.size() == 2) {
+        // Blackjack win
+        userBlackJack(userHand[0], userHand[1]);
+    } else {
+        // Standard win
+        updateBankTotal(getBet());
+    }
+}
+
+void Model::dealerWins() {
+    win = false;
+
+    bet = 0;
+}
+
+void Model::handlePush() {
+    resetBet();
 }
