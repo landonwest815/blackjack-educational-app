@@ -133,12 +133,12 @@ void SceneWidget::paintEvent(QPaintEvent *) {
         // Sets the position where each player card body added will fall and will change is split is true
         if (split) {
             if (i % 2 == 0) {
-                painter.drawImage((position.x * centerX * 325) + (i * 50), (position.y * centerY * 70), playerImages[i]);
+                painter.drawImage((position.x * centerX * 325) + (i * 40), (position.y * centerY * 70), playerImages[i]);
             } else {
-                painter.drawImage((position.x * centerX * 325) + (i * 50) + (centerX * 2), (position.y * centerY * 70), playerImages[i]);
+                painter.drawImage((position.x * centerX * 325) + (i * 40) + (centerX * 1200), (position.y * centerY * 70), playerImages[i]);
             }
         } else {
-            painter.drawImage((position.x * centerX * 325) + (i * 50), (position.y * centerY * 70), playerImages[i]);
+            painter.drawImage((position.x * centerX * 325) + (i * 40), (position.y * centerY * 70), playerImages[i]);
         }
     }
 
