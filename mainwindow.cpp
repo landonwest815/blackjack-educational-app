@@ -48,6 +48,8 @@ void MainWindow::initializeUI() {
     ui->resetButton->setVisible(false);
     buttonState = true;
 
+    ui->splitScore->setVisible(false);
+
     updateBankDisplay();
 }
 
@@ -91,6 +93,7 @@ void MainWindow::addPlayer() {
 
 void MainWindow::splitHand() {
     ui->playerHand->splitPlayerCards();
+    ui->splitScore->setVisible(true);
     ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.getSplitTotal()));
 }
 
