@@ -112,7 +112,7 @@ void SceneWidget::paintEvent(QPaintEvent *) {
         b2Vec2 position = dealerBodies[i]->GetPosition();
 
         // Sets the position where each dealer card body added will fall
-        painter.drawImage((position.x * centerX * 155) - (i * 40), (position.y * centerY * 10), dealerImages[i]);
+        painter.drawImage((position.x * centerX * 145) - (i * 40), (position.y * centerY * 10), dealerImages[i]);
     }
 
     // Draws the card bodies of the player
