@@ -28,9 +28,19 @@ private slots:
     void clearAll();
     void splitHand();
     void onQuitGameClicked();
+<<<<<<< Updated upstream
     void switchToGameWindow();
     void switchToMainMenu();
     void beginGame();
+=======
+<<<<<<< HEAD
+    void stand();
+=======
+    void switchToGameWindow();
+    void switchToMainMenu();
+    void beginGame();
+>>>>>>> c737d40568ebffd234884ef6fcf31361a1fc259c
+>>>>>>> Stashed changes
 
 private:
     Ui::MainWindow *ui;
@@ -47,5 +57,6 @@ private:
     void toggleBetButtons(bool);
     void updateBankDisplay();
     void updateScores();
+    void splitAdd();
 };
 #endif // MAINWINDOW_H
