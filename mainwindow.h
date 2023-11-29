@@ -20,7 +20,6 @@ public:
     string convertCardToPath(Card card);
 
 private slots:
-    void swapButtons();
     void addToBet(int increment);
     void resetBet();
     void addDealer();
@@ -29,6 +28,11 @@ private slots:
     void splitHand();
     void nextSplit();
     void onQuitGameClicked();
+    void switchToGameWindow();
+    void switchToMainMenu();
+    void beginGame();
+    void stand();
+    void splitAdd();
 
 private:
     Ui::MainWindow *ui;

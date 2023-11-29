@@ -9,8 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setupConnections();
     initializeUI();
-    createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. "
-                  "Is this a sentence? Filler words. Filler words. More filler words.");
+    //createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. Is this a sentence?");
 }
 
 MainWindow::~MainWindow()
@@ -20,11 +19,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupConnections() {
 
-    // Card buttons
-    connect(ui->addDealerButton, &QPushButton::clicked, this, &MainWindow::addDealer);
-    connect(ui->addPlayerButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
-    connect(ui->clearAllButton, &QPushButton::clicked, this, &MainWindow::clearAll);
     connect(ui->splitButton, &QPushButton::clicked, this, &MainWindow::splitHand);
+    connect(ui->standButton, &QPushButton::clicked, this, &MainWindow::stand);
 
     // Bet buttons
     connect(ui->add50, &QPushButton::clicked, this, [this](){ addToBet(50); });
@@ -35,19 +31,28 @@ void MainWindow::setupConnections() {
     // Reset Bet buttons
     connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::resetBet);
 
-    // Swap button
-    connect(ui->swapButtons, &QPushButton::clicked, this, &MainWindow::swapButtons);
+    connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
 
-    // Quit Game buttong
-    connect(ui->quitGame , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+    connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
+
+    connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::beginGame);
+
+    connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+
+    connect(ui->hitButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
+
 }
 
 void MainWindow::initializeUI() {
+
+    ui->stackedWidget->setCurrentWidget(ui->startMenu);
 
     toggleBetButtons(false);
     ui->dealButton->setVisible(false);
     ui->resetButton->setVisible(false);
     buttonState = true;
+
+    ui->splitScore->setVisible(false);
 
     updateBankDisplay();
 }
@@ -66,7 +71,7 @@ void MainWindow::updateBankDisplay() {
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
     QMainWindow::resizeEvent(event);
-    if (helpwidget) helpwidget->setSize();
+    //if (helpwidget) helpwidget->setSize();
 }
 
 void MainWindow::createHelpWidget(QString text) {
@@ -86,12 +91,20 @@ void MainWindow::addDealer() {
 void MainWindow::addPlayer() {
     QString fileName = QString::fromStdString(convertCardToPath(model.userHit()));
 
-    ui->playerHand->addPlayerCard(fileName);
-    ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
+    if(model.getSplitCheck()) {
+        MainWindow::splitAdd();
+    }
+    else {
+        ui->playerHand->addPlayerCard(fileName);
+        ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
+    }
 }
 
 void MainWindow::splitHand() {
     ui->playerHand->splitPlayerCards();
+    ui->splitScore->setVisible(true);
+    ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.split()));
+    ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getSplitTotal()));
 }
 
 string MainWindow::convertCardToPath(Card card) {
@@ -116,31 +129,9 @@ void MainWindow::clearAll() {
     ui->dealerHand->clearAllCards();
     ui->playerScore->setText("PLAYER SCORE: " + QString::number(0));
     ui->dealerScore->setText("DEALER SCORE: " + QString::number(0));
+    ui->splitScore->setText("SPLIT SCORE: " + QString::number(0));
     model.clearTotal();
-}
-
-void MainWindow::swapButtons()
-{
-    // Bet Buttons
-    QPushButton* betButtons[6] = {
-        ui->add50, ui->add100, ui->add250, ui->add500,
-        ui->dealButton, ui->resetButton,
-    };
-
-    for (QPushButton* button : betButtons) {
-        button->setVisible(buttonState);
-    }
-
-    // Card Buttons
-    QPushButton* cardButtons[3] = {
-        ui->addPlayerButton, ui->addDealerButton, ui->clearAllButton
-    };
-
-    for (QPushButton* button : cardButtons) {
-        button->setVisible(!buttonState);
-    }
-
-    buttonState = !buttonState;
+    model.setSplitCheck(false);
 }
 
 void MainWindow::addToBet(int increment) {
@@ -153,13 +144,56 @@ void MainWindow::resetBet() {
     updateBankDisplay();
 }
 
+void MainWindow::beginGame() {
+    //Reset scores
+    model.clearTotal();
+    //Clear current cards
+    ui->dealerHand->clearAllCards();
+    ui->playerHand->clearAllCards();
+
+    //Add dealer faceup card
+    addDealer();
+
+    //Add dealer facedown card
+    Card dealerFaceDown = model.dealerHit();
+    dealerFaceDown.setFaceDown(true);
+    QString fileName = QString::fromStdString(convertCardToPath(dealerFaceDown));
+
+    ui->dealerHand->addDealerCard(fileName);
+    ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
+
+    //Add player cards
+    addPlayer();
+    addPlayer();
+}
+
  void MainWindow::onQuitGameClicked()
  {
      qDebug() << "clicked on quit game";
      this->close();
  }
 
+ void MainWindow::switchToMainMenu() {
+     ui->stackedWidget->setCurrentWidget(ui->startMenu);
+ }
+
  void MainWindow::updateScores() {
      model.getDealerTotal();
      model.getUserTotal();
+ }
+
+ void MainWindow::switchToGameWindow() {
+     ui->stackedWidget->setCurrentWidget(ui->game);
+ }
+
+ void MainWindow::stand() {
+     model.getUserTotal();
+     model.setSplitCheck(true);
+ }
+
+ void MainWindow::splitAdd() {
+     QString fileName = QString::fromStdString(convertCardToPath(model.splitHit()));
+
+     ui->playerHand->addPlayerCard(fileName);
+     ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.getSplitTotal()));
  }

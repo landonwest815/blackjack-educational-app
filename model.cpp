@@ -11,7 +11,9 @@ Model::Model() :
     win(true),
     splitTotal(0),
     userAceCounter(0),
-    dealerAceCounter(0){ }
+    dealerAceCounter(0),
+    splitAceCounter(0),
+    splitCheck(false){ }
 
 Card Model::userHit() {
     Card nextCard = deck.drawCard();
@@ -52,6 +54,7 @@ Card Model::dealerHit() {
     }
     return nextCard;
 }
+
 int Model::stand() {
     return Model::getUserTotal();
 }
@@ -61,8 +64,9 @@ Card Model::doubleDown() {
     bankTotal -= this->bet;
 }
 
-bool Model::insurance(Card faceDown) {
-    if(faceDown.getValue() == 10)
+bool Model::insurance() {
+    Card nextCard = deck.drawCard();
+    if(nextCard.getFace() == "A")
     {
         return true;
     } else {
@@ -130,4 +134,33 @@ int Model::getSplitTotal() {
 void Model::clearTotal() {
     userTotal = 0;
     dealerTotal = 0;
+    splitTotal = 0;
+}
+
+Card Model::splitHit() {
+    Card nextCard = deck.drawCard();
+
+    if(nextCard.getFace() == "A") {
+        if(splitTotal + nextCard.getValue() > 21) {
+            splitTotal += 1;
+        } else {
+            splitTotal += 11;
+            splitAceCounter++;
+        }
+    } else {
+        splitTotal = splitTotal + nextCard.getValue();
+        if(splitAceCounter > 0 && splitTotal > 21) {
+            splitTotal -= 10;
+            splitAceCounter--;
+        }
+    }
+    return nextCard;
+}
+
+bool Model::getSplitCheck() {
+    return splitCheck;
+}
+
+bool Model::setSplitCheck(bool split ) {
+    splitCheck = split;
 }

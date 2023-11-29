@@ -17,6 +17,8 @@ private:
     int splitTotal;
     int userAceCounter;
     int dealerAceCounter;
+    int splitAceCounter;
+    bool splitCheck;
 
 public:
     Model();
@@ -25,11 +27,13 @@ public:
 
     Card dealerHit();
 
+    Card splitHit();
+
     int stand();
 
     Card doubleDown();
 
-    bool insurance(Card faceDown);
+    bool insurance();
 
     int getUserTotal();
 
@@ -55,6 +59,9 @@ public:
 
     void clearTotal();
 
+    bool getSplitCheck();
+
+    bool setSplitCheck(bool split);
 };
 
 #endif // MODEL_H
