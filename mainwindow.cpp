@@ -187,7 +187,7 @@ void MainWindow::hit() {
     addPlayer();
 
     if (model.getUserTotal() > 21) {
-        // handle bust condition
+        model.dealerWins();
     } else if (model.getUserTotal() == 21) {
         stand();
     }
