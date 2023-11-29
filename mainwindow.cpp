@@ -167,9 +167,18 @@ void MainWindow::resetBet() {
 }
 
 void MainWindow::beginGame() {
-    addDealer();
+    //Add dealer faceup card
     addDealer();
 
+    //Add dealer facedown card
+    Card dealerFaceDown = model.dealerHit();
+    dealerFaceDown.setFaceDown(true);
+    QString fileName = QString::fromStdString(convertCardToPath(dealerFaceDown));
+
+    ui->dealerHand->addDealerCard(fileName);
+    ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
+
+    //Add player cards
     addPlayer();
     addPlayer();
 }
