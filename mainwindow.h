@@ -26,13 +26,14 @@ private slots:
     void addPlayer();
     void clearAll();
     void splitHand();
-    void nextSplit();
     void onQuitGameClicked();
     void switchToGameWindow();
     void switchToMainMenu();
     void beginGame();
     void stand();
     void splitAdd();
+
+    void nextSplit(); // just for demonstration REMOVE WHEN NEEDED
 
 private:
     Ui::MainWindow *ui;

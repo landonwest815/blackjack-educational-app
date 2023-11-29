@@ -40,11 +40,13 @@ private:
     /// @brief Whether the player body cards are split.
     bool split;
 
-    /// @brief Whether to add player body cards to the other split hand.
+    /// @brief Whether to add player body cards to the second split hand.
     bool nextSplit;
 
+    /// @brief Whether or not to stop the split count.
     bool splitCountBool;
 
+    /// @brief Count of the cards in the first split hand.
     int splitCount;
 
     /// @brief Stores blackground image of a blackjack table.
@@ -88,7 +90,7 @@ public slots:
     /// @brief Redraws player cards to now be split when two cards are present.
     void splitPlayerCards();
 
-    /// @brief Allows split to be set when needed.
+    /// @brief Enables drawing the second split player hand.
     void nextSplitHand();
 
 private slots:
