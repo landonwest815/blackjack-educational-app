@@ -44,11 +44,7 @@ SceneWidget::SceneWidget(QWidget *parent)
 void SceneWidget::addDealerCard(const QString& imagePath) {
     // Creates body of dealer card and adds to the associated vector
     b2Body* dealerBody = nullptr;
-
-    float centerX = this->width() / 2.0 / 60;
-    float centerY = this->height() / 2.0 / 60;
-
-    dealerBody = createCardBody(-centerX, -centerY); // Initial position of dealer body
+    dealerBody = createCardBody(-6.0, this->height() / 30.0); // Initial position of dealer body
     dealerBodies.push_back(dealerBody);
 
     // Creates image of dealer card and adds to the associated vector
@@ -60,11 +56,7 @@ void SceneWidget::addDealerCard(const QString& imagePath) {
 void SceneWidget::addPlayerCard(const QString& imagePath) {
     // Creates body of player card and adds to the associated vector
     b2Body* playerBody = nullptr;
-
-    float centerX = this->width() / 2.0 / 60;
-    float centerY = this->height() / 2.0 / 60;
-
-    playerBody = createCardBody(centerX, centerY); // Initial position of player body
+    playerBody = createCardBody(12.0, this->height() / 200.0); // Initial position of player body
     playerBodies.push_back(playerBody);
 
     // Creates image of player card and adds to the associated vector
@@ -134,17 +126,19 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     // Draws the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
         b2Vec2 position = playerBodies[i]->GetPosition();
+
+        float centerX = (this->maximumWidth() / 2.0) / this->maximumWidth();
+        float centerY = (this->maximumHeight() / 2.0) / this->maximumHeight();
+
         // Sets the position where each player card body added will fall and will change is split is true
         if (split) {
             if (i % 2 == 0) {
-                painter.drawImage((position.x * (this->width() / 8) + (i * 20)), (position.y * (this->height() / 8)), playerImages[i]);
+                painter.drawImage((position.x * centerX * 325) + (i * 50), (position.y * centerY * 70), playerImages[i]);
             } else {
-                painter.drawImage((position.x * (this->width() / 8) + (i * 20) + 300), (position.y * (this->height() / 8)), playerImages[i]);
+                painter.drawImage((position.x * centerX * 325) + (i * 50) + (centerX * 2), (position.y * centerY * 70), playerImages[i]);
             }
         } else {
-            float centerX = this->maximumWidth() / 2.0 / this->maximumWidth() * 500;
-            float centerY = this->height() / 2.0 / 60;
-            painter.drawImage((position.x * centerX)+ (i * 20), (position.y * (this->height() / 8)), playerImages[i]);
+            painter.drawImage((position.x * centerX * 325) + (i * 50), (position.y * centerY * 70), playerImages[i]);
         }
     }
 
