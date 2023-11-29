@@ -91,7 +91,8 @@ void MainWindow::addPlayer() {
 
 void MainWindow::splitHand() {
     ui->playerHand->splitPlayerCards();
-    ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.getSplitTotal()));
+    ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.split()));
+    ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getSplitTotal()));
 }
 
 string MainWindow::convertCardToPath(Card card) {
@@ -116,6 +117,7 @@ void MainWindow::clearAll() {
     ui->dealerHand->clearAllCards();
     ui->playerScore->setText("PLAYER SCORE: " + QString::number(0));
     ui->dealerScore->setText("DEALER SCORE: " + QString::number(0));
+    ui->splitScore->setText("SPLIT SCORE: " + QString::number(0));
     model.clearTotal();
 }
 

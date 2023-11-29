@@ -130,4 +130,5 @@ int Model::getSplitTotal() {
 void Model::clearTotal() {
     userTotal = 0;
     dealerTotal = 0;
+    splitTotal = 0;
 }
