@@ -91,6 +91,7 @@ void MainWindow::addPlayer() {
 
 void MainWindow::splitHand() {
     ui->playerHand->splitPlayerCards();
+    ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.getSplitTotal()));
 }
 
 string MainWindow::convertCardToPath(Card card) {
