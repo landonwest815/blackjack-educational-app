@@ -24,6 +24,7 @@ void MainWindow::setupConnections() {
     connect(ui->addPlayerButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
     connect(ui->clearAllButton, &QPushButton::clicked, this, &MainWindow::clearAll);
     connect(ui->splitButton, &QPushButton::clicked, this, &MainWindow::splitHand);
+    connect(ui->standButton, &QPushButton::clicked, this, &MainWindow::stand);
 
     // Bet buttons
     connect(ui->add50, &QPushButton::clicked, this, [this](){ addToBet(50); });
@@ -95,8 +96,13 @@ void MainWindow::addDealer() {
 void MainWindow::addPlayer() {
     QString fileName = QString::fromStdString(convertCardToPath(model.userHit()));
 
-    ui->playerHand->addPlayerCard(fileName);
-    ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
+    if(model.getSplitCheck()) {
+        MainWindow::splitAdd();
+    }
+    else {
+        ui->playerHand->addPlayerCard(fileName);
+        ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
+    }
 }
 
 void MainWindow::splitHand() {
@@ -130,6 +136,8 @@ void MainWindow::clearAll() {
     ui->dealerScore->setText("DEALER SCORE: " + QString::number(0));
     ui->splitScore->setText("SPLIT SCORE: " + QString::number(0));
     model.clearTotal();
+    ui->addPlayerButton->setVisible(true);
+    model.setSplitCheck(false);
 }
 
 void MainWindow::swapButtons()
@@ -204,6 +212,24 @@ void MainWindow::beginGame() {
      model.getUserTotal();
  }
 
+<<<<<<< Updated upstream
  void MainWindow::switchToGameWindow() {
      ui->stackedWidget->setCurrentWidget(ui->game);
+=======
+<<<<<<< HEAD
+ void MainWindow::stand() {
+     model.getUserTotal();
+     model.setSplitCheck(true);
+ }
+
+ void MainWindow::splitAdd() {
+     QString fileName = QString::fromStdString(convertCardToPath(model.splitHit()));
+
+     ui->playerHand->addPlayerCard(fileName);
+     ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.getSplitTotal()));
+=======
+ void MainWindow::switchToGameWindow() {
+     ui->stackedWidget->setCurrentWidget(ui->game);
+>>>>>>> c737d40568ebffd234884ef6fcf31361a1fc259c
+>>>>>>> Stashed changes
  }
