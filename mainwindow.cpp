@@ -167,6 +167,12 @@ void MainWindow::resetBet() {
 }
 
 void MainWindow::beginGame() {
+    //Reset scores
+    model.clearTotal();
+    //Clear current cards
+    ui->dealerHand->clearAllCards();
+    ui->playerHand->clearAllCards();
+
     //Add dealer faceup card
     addDealer();
 
