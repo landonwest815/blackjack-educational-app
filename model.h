@@ -87,6 +87,8 @@ public:
     void dealerWins();
 
     void handlePush();
+
+    void endRound();
 };
 
 #endif // MODEL_H

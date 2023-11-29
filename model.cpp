@@ -195,20 +195,16 @@ int Model::getDealerAces() {
 }
 
 void Model::playerBust() {
-    win = false;
-
     dealerWins();
 }
 
 void Model::dealerBust() {
-    win = true;
-
     playerWins();
 }
 
 void Model::playerWins() {
     win = true;
-    updateBankTotal(getBet());
+    resetBet();
 
     // Determine whether it's a blackjack win or a standard win
     if (getUserTotal() == 21 && userHand.size() == 2) {
@@ -218,14 +214,22 @@ void Model::playerWins() {
         // Standard win
         updateBankTotal(getBet());
     }
+
+    endRound();
 }
 
 void Model::dealerWins() {
     win = false;
-
     bet = 0;
+    endRound();
 }
 
 void Model::handlePush() {
     resetBet();
+    endRound();
+}
+
+void Model::endRound() {
+    userHand.clear();
+    dealerHand.clear();
 }
