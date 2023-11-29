@@ -30,6 +30,7 @@ private slots:
     void onQuitGameClicked();
     void switchToGameWindow();
     void switchToMainMenu();
+    void beginGame();
 
 private:
     Ui::MainWindow *ui;

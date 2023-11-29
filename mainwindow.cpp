@@ -41,6 +41,8 @@ void MainWindow::setupConnections() {
 
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
 
+    connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::beginGame);
+
     connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
 
 }
@@ -162,6 +164,29 @@ void MainWindow::addToBet(int increment) {
 void MainWindow::resetBet() {
     model.resetBet();
     updateBankDisplay();
+}
+
+void MainWindow::beginGame() {
+    //Reset scores
+    model.clearTotal();
+    //Clear current cards
+    ui->dealerHand->clearAllCards();
+    ui->playerHand->clearAllCards();
+
+    //Add dealer faceup card
+    addDealer();
+
+    //Add dealer facedown card
+    Card dealerFaceDown = model.dealerHit();
+    dealerFaceDown.setFaceDown(true);
+    QString fileName = QString::fromStdString(convertCardToPath(dealerFaceDown));
+
+    ui->dealerHand->addDealerCard(fileName);
+    ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
+
+    //Add player cards
+    addPlayer();
+    addPlayer();
 }
 
  void MainWindow::onQuitGameClicked()
