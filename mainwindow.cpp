@@ -19,10 +19,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupConnections() {
 
-    // Card buttons
-    connect(ui->addDealerButton, &QPushButton::clicked, this, &MainWindow::addDealer);
-    connect(ui->addPlayerButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
-    connect(ui->clearAllButton, &QPushButton::clicked, this, &MainWindow::clearAll);
     connect(ui->splitButton, &QPushButton::clicked, this, &MainWindow::splitHand);
     connect(ui->standButton, &QPushButton::clicked, this, &MainWindow::stand);
 
@@ -35,9 +31,6 @@ void MainWindow::setupConnections() {
     // Reset Bet buttons
     connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::resetBet);
 
-    // Swap button
-    connect(ui->swapButtons, &QPushButton::clicked, this, &MainWindow::swapButtons);
-
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
 
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
@@ -45,6 +38,8 @@ void MainWindow::setupConnections() {
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::beginGame);
 
     connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+
+    connect(ui->hitButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
 
 }
 
@@ -136,32 +131,7 @@ void MainWindow::clearAll() {
     ui->dealerScore->setText("DEALER SCORE: " + QString::number(0));
     ui->splitScore->setText("SPLIT SCORE: " + QString::number(0));
     model.clearTotal();
-    ui->addPlayerButton->setVisible(true);
     model.setSplitCheck(false);
-}
-
-void MainWindow::swapButtons()
-{
-    // Bet Buttons
-    QPushButton* betButtons[6] = {
-        ui->add50, ui->add100, ui->add250, ui->add500,
-        ui->dealButton, ui->resetButton,
-    };
-
-    for (QPushButton* button : betButtons) {
-        button->setVisible(buttonState);
-    }
-
-    // Card Buttons
-    QPushButton* cardButtons[3] = {
-        ui->addPlayerButton, ui->addDealerButton, ui->clearAllButton
-    };
-
-    for (QPushButton* button : cardButtons) {
-        button->setVisible(!buttonState);
-    }
-
-    buttonState = !buttonState;
 }
 
 void MainWindow::addToBet(int increment) {

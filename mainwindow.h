@@ -20,7 +20,6 @@ public:
     string convertCardToPath(Card card);
 
 private slots:
-    void swapButtons();
     void addToBet(int increment);
     void resetBet();
     void addDealer();

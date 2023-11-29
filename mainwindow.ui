@@ -448,47 +448,6 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="swapButtons">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    background-color: #333333;
-    color: white;
-    border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
-    padding: 5px;
-    border: 1px solid #555555;
-    font-weight: bold;
-    font-size: 16px;
-    font-family: &quot;Arial&quot;, sans-serif;
-}
-
-QPushButton:hover {
-    background-color: #444444;
-}
-
-QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
-              </property>
-              <property name="text">
-               <string>Swap Buttons</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <spacer name="horizontalSpacer_8">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -989,129 +948,6 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="addPlayerButton">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    background-color: #333333;
-    color: white;
-    border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
-    padding: 5px;
-    border: 1px solid #555555;
-    font-weight: bold;
-    font-size: 16px;
-    font-family: &quot;Arial&quot;, sans-serif;
-}
-
-QPushButton:hover {
-    background-color: #444444;
-}
-
-QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
-              </property>
-              <property name="text">
-               <string>Add Player</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="clearAllButton">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    background-color: #333333;
-    color: white;
-    border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
-    padding: 5px;
-    border: 1px solid #555555;
-    font-weight: bold;
-    font-size: 16px;
-    font-family: &quot;Arial&quot;, sans-serif;
-}
-
-QPushButton:hover {
-    background-color: #444444;
-}
-
-QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
-              </property>
-              <property name="text">
-               <string>Clear Cards</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="addDealerButton">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    background-color: #333333;
-    color: white;
-    border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
-    padding: 5px;
-    border: 1px solid #555555;
-    font-weight: bold;
-    font-size: 16px;
-    font-family: &quot;Arial&quot;, sans-serif;
-}
-
-QPushButton:hover {
-    background-color: #444444;
-}
-
-QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
-              </property>
-              <property name="text">
-               <string>Add Dealer</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <spacer name="horizontalSpacer_2">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -1339,7 +1175,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1406</width>
-     <height>24</height>
+     <height>37</height>
     </rect>
    </property>
   </widget>
