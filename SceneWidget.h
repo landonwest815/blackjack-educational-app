@@ -40,6 +40,12 @@ private:
     /// @brief Whether the player body cards are split.
     bool split;
 
+    /// @brief Assists in holding a center X coordinate of the world.
+    float centerX;
+
+    /// @brief Assists in holding a center Y coordinate of the world.
+    float centerY;
+
     /// @brief Stores blackground image of a blackjack table.
     QImage backgroundImage;
 

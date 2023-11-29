@@ -16,9 +16,9 @@ SceneWidget::SceneWidget(QWidget *parent)
     : QWidget(parent),
     world(b2Vec2(0.0f, 0.0f)),
     timer(this),
-    split(false) {
-
-    //backgroundImage.load(":/cards/table.png"); // Sets image of a blackjack table
+    split(false),
+    centerX((this->maximumWidth() / 2.0) / this->maximumWidth()),
+    centerY((this->maximumHeight() / 2.0) / this->maximumHeight()) {
 
     // Defines the low ground body and its various settings
     b2BodyDef lowGroundDef;
@@ -92,10 +92,6 @@ b2Body* SceneWidget::createCardBody(float x, float y) {
 void SceneWidget::paintEvent(QPaintEvent *) {
     QPainter painter(this);
 
-    // Sets the background image size and draws the image
-    //backgroundImage = backgroundImage.scaled(800, 800, Qt::KeepAspectRatio);
-    //painter.drawImage(0, 0, backgroundImage);
-
     // Get positions
     int rectWidth = this->width() / 2;
     int rectHeight = this->height();
@@ -111,31 +107,24 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     // You can adjust the corner radius by changing the '10'
     painter.drawRoundedRect(left, top, rectWidth, rectHeight, 10, 10);
 
-
     // Draws the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
         b2Vec2 position = dealerBodies[i]->GetPosition();
+
         // Sets the position where each dealer card body added will fall
-
-        float centerX = this->width() / 2.0 / 60;
-        float centerY = this->height() / 2.0 / 60;
-
-        painter.drawImage((position.x * (this->width() / 16.25) - (i * 75)), (position.y * (this->height() / 72)), dealerImages[i]);
+        painter.drawImage((position.x * centerX * 155) - (i * 40), (position.y * centerY * 10), dealerImages[i]);
     }
 
     // Draws the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
         b2Vec2 position = playerBodies[i]->GetPosition();
 
-        float centerX = (this->maximumWidth() / 2.0) / this->maximumWidth();
-        float centerY = (this->maximumHeight() / 2.0) / this->maximumHeight();
-
         // Sets the position where each player card body added will fall and will change is split is true
         if (split) {
             if (i % 2 == 0) {
-                painter.drawImage((position.x * centerX * 325) + (i * 40), (position.y * centerY * 70), playerImages[i]);
+                painter.drawImage((position.x * centerX * 325) + (i * 20), (position.y * centerY * 70), playerImages[i]);
             } else {
-                painter.drawImage((position.x * centerX * 325) + (i * 40) + (centerX * 1200), (position.y * centerY * 70), playerImages[i]);
+                painter.drawImage((position.x * centerX * 600) + (i * 20), (position.y * centerY * 70), playerImages[i]);
             }
         } else {
             painter.drawImage((position.x * centerX * 325) + (i * 40), (position.y * centerY * 70), playerImages[i]);
