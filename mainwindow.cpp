@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setupConnections();
     initializeUI();
-    createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. Is this a sentence?");
+    //createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. Is this a sentence?");
 }
 
 MainWindow::~MainWindow()
@@ -37,11 +37,17 @@ void MainWindow::setupConnections() {
     // Swap button
     connect(ui->swapButtons, &QPushButton::clicked, this, &MainWindow::swapButtons);
 
-    // Quit Game buttong
-    connect(ui->quitGame , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+    connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
+
+    connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
+
+    connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+
 }
 
 void MainWindow::initializeUI() {
+
+    ui->stackedWidget->setCurrentWidget(ui->startMenu);
 
     toggleBetButtons(false);
     ui->dealButton->setVisible(false);
@@ -67,7 +73,7 @@ void MainWindow::updateBankDisplay() {
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
     QMainWindow::resizeEvent(event);
-    if (helpwidget) helpwidget->setSize();
+    //if (helpwidget) helpwidget->setSize();
 }
 
 void MainWindow::createHelpWidget(QString text) {
@@ -164,7 +170,15 @@ void MainWindow::resetBet() {
      this->close();
  }
 
+ void MainWindow::switchToMainMenu() {
+     ui->stackedWidget->setCurrentWidget(ui->startMenu);
+ }
+
  void MainWindow::updateScores() {
      model.getDealerTotal();
      model.getUserTotal();
+ }
+
+ void MainWindow::switchToGameWindow() {
+     ui->stackedWidget->setCurrentWidget(ui->game);
  }

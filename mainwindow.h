@@ -28,6 +28,8 @@ private slots:
     void clearAll();
     void splitHand();
     void onQuitGameClicked();
+    void switchToGameWindow();
+    void switchToMainMenu();
 
 private:
     Ui::MainWindow *ui;
