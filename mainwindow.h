@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "helpwidget.h"
 #include "model.h"
+#include <QPushButton>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,17 +24,23 @@ public:
 private slots:
     void addToBet(int increment);
     void resetBet();
-    void addDealer();
+    void addDealer(bool facedown);
     void addPlayer();
     void clearAll();
     void splitHand();
     void onQuitGameClicked();
     void switchToGameWindow();
     void switchToMainMenu();
-    void beginGame();
-    void stand();
     void splitAdd();
     void nextSplit(); // just for demonstration REMOVE WHEN NEEDED
+    void deal();
+    void stand();
+
+    // just for demonstration REMOVE when needed
+    void nextSplit();
+    void dealerFlip(QString fileName);
+    void doubleDownHand();
+
 
 private:
     Ui::MainWindow *ui;
@@ -41,16 +49,21 @@ private:
     int betTotal;
     int bankTotal;
     HelpWidget *helpwidget;
+    QList<QPushButton*> buttons;
+    QList<QLabel*> labels;
 
+    void determineWinner();
     // Probably will remove, serves as demo functions
     void setupConnections();
     void initializeUI();
     void createHelpWidget(QString);
-    void toggleBetButtons(bool);
     void updateBankDisplay();
     void updateScores();
     void showATip();
     int dealerFaceUpValue;
     string dealerFaceUpSuit;
+    void hideAllUI();
+    void setupDeal();
+    void showOutcome(QString outcome);
 };
 #endif // MAINWINDOW_H

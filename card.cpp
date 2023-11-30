@@ -22,7 +22,7 @@ Card::Card(string suit, int value)
     if (value == 1 || value == 11) {
         this->value = value;
         this->face = "A";
-    } else if (value >= 2 && value <= 9) {
+    } else if (value >= 2 && value <= 10) {
         this->value = value;
     } else {
         this->value = 2;

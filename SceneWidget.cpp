@@ -19,7 +19,8 @@ SceneWidget::SceneWidget(QWidget *parent)
     split(false),
     nextSplit(false),
     splitCountBool(true),
-    splitCount(0) {
+    splitCount(0),
+    doubleDown(false) {
 
     // Defines the low ground body and its various settings
     b2BodyDef lowGroundDef;
@@ -67,6 +68,9 @@ void SceneWidget::addPlayerCard(const QString& imagePath) {
     // Creates image of player card and adds to the associated vector
     QImage playerImage(imagePath);
     playerImage = playerImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
+    if (doubleDown) {
+        playerImage = playerImage.transformed(QTransform().rotate(-90));
+    }
     playerImages.push_back(playerImage);
 }
 
@@ -207,6 +211,22 @@ void SceneWidget::splitPlayerCards() {
 void SceneWidget::nextSplitHand() {
     nextSplit = true;
     splitCountBool = false;
+}
+
+void SceneWidget::flipDealerCard(const QString& imagePath) {
+    // Update the image of dealer hidden card
+    if (!dealerBodies.empty()) {
+        QImage dealerImage(imagePath);
+        dealerImage = dealerImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
+        dealerImages[0] = dealerImage;
+    }
+}
+
+void SceneWidget::doubleDownPlayerCard(const QString& imagePath) {
+    // Inserts a single sideways card to represent double down
+    doubleDown = true;
+    addPlayerCard(imagePath);
+    doubleDown = false;
 }
 
 void SceneWidget::resizeEvent(QResizeEvent *event) {

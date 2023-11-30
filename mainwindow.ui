@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1406</width>
+    <width>1696</width>
     <height>700</height>
    </rect>
   </property>
@@ -30,12 +30,12 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,1,1">
           <item>
            <spacer name="horizontalSpacer_14">
             <property name="orientation">
@@ -292,9 +292,15 @@ QPushButton:pressed {
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="10,0,4">
+           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,0,1">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>10</number>
             </property>
             <item>
              <spacer name="horizontalSpacer_5">
@@ -443,7 +449,7 @@ QPushButton:pressed {
 }</string>
               </property>
               <property name="text">
-               <string>CURRENT BET: $0</string>
+               <string>BET: $0</string>
               </property>
              </widget>
             </item>
@@ -478,7 +484,43 @@ QPushButton:pressed {
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="doubleDownButton">
+             <widget class="QLabel" name="outcome">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>PLAYER WINS</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="nextHand">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -514,7 +556,7 @@ QPushButton:pressed {
 </string>
               </property>
               <property name="text">
-               <string>Double Down</string>
+               <string>Next Hand</string>
               </property>
              </widget>
             </item>
@@ -560,57 +602,22 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="standButton">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    background-color: #333333;
-    color: white;
-    border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
-    padding: 5px;
-    border: 1px solid #555555;
-    font-weight: bold;
-    font-size: 16px;
-    font-family: &quot;Arial&quot;, sans-serif;
-}
-
-QPushButton:hover {
-    background-color: #444444;
-}
-
-QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
-              </property>
-              <property name="text">
-               <string>Stand</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QPushButton" name="hitButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>60</width>
                 <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
+                <width>60</width>
                 <height>30</height>
                </size>
               </property>
@@ -638,6 +645,53 @@ QPushButton:pressed {
               </property>
               <property name="text">
                <string>Hit</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="standButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>60</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Stand</string>
               </property>
              </widget>
             </item>
@@ -693,7 +747,63 @@ QPushButton:pressed {
 }</string>
               </property>
               <property name="text">
-               <string>Next Split Hand (Temp)</string>
+               <string>Next Split Hand (Demo)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="flipDealerButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}</string>
+              </property>
+              <property name="text">
+               <string>Flip Dealer (Demo)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="doubleDemoButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}</string>
+              </property>
+              <property name="text">
+               <string>Double Down (Demo)</string>
               </property>
              </widget>
             </item>
@@ -878,6 +988,47 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="allIn">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>All In</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_9">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -994,6 +1145,9 @@ QPushButton:pressed {
            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="5,0,10">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
+            </property>
+            <property name="topMargin">
+             <number>10</number>
             </property>
             <item>
              <spacer name="horizontalSpacer_3">
@@ -1202,8 +1356,8 @@ QPushButton:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1406</width>
-     <height>21</height>
+     <width>1696</width>
+     <height>37</height>
     </rect>
    </property>
   </widget>

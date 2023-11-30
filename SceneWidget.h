@@ -49,6 +49,9 @@ private:
     /// @brief Count of the cards in the first split hand.
     int splitCount;
 
+    /// @brief Whether the player body cards are double down.
+    bool doubleDown;
+
     /// @brief Stores blackground image of a blackjack table.
     QImage backgroundImage;
 
@@ -92,6 +95,14 @@ public slots:
 
     /// @brief Enables drawing the second split player hand.
     void nextSplitHand();
+
+    /// @brief Draws a new dealer card with given image replacing the hidden dealer card.
+    /// @param imagePath String path of image for new replacement dealer card to display.
+    void flipDealerCard(const QString& imagePath);
+
+    /// @brief Draws a new player card with given image on its side to represent double down.
+    /// @param imagePath String path of image for player card to display.
+    void doubleDownPlayerCard(const QString& imagePath);
 
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.
