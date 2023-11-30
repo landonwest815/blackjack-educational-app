@@ -34,12 +34,12 @@ private slots:
     void splitAdd();
     void deal();
     void stand();
+    void doubleDownHand();
+    void doubleDown();
 
     // just for demonstration REMOVE when needed
     void nextSplit();
     void dealerFlip(QString fileName);
-    void doubleDownHand();
-
 
 private:
     Ui::MainWindow *ui;
