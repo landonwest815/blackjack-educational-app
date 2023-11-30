@@ -30,6 +30,7 @@ private slots:
     void splitHand();
     void onQuitGameClicked();
     void switchToGameWindow();
+    void switchToLessonsWindow();
     void switchToMainMenu();
     void splitAdd();
     void deal();

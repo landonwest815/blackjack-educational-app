@@ -51,7 +51,9 @@ void MainWindow::setupConnections() {
 
     // Menus
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
+    connect(ui->mainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
+    connect(ui->tutorial, &QPushButton::clicked, this, &MainWindow::switchToLessonsWindow);
     connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
 }
 
@@ -293,6 +295,10 @@ void MainWindow::showOutcome(QString outcome) {
  void MainWindow::switchToGameWindow() {
      ui->stackedWidget->setCurrentWidget(ui->game);
      setupDeal();
+ }
+
+ void MainWindow::switchToLessonsWindow() {
+     ui->stackedWidget->setCurrentWidget(ui->lessons);
  }
 
  void MainWindow::setupDeal() {
