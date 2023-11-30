@@ -19,12 +19,16 @@ Model::Model() :
 Card Model::userHit() {
     Card nextCard = deck.drawCard();
 
-    if(nextCard.getFace() == "A" && userAceCounter == 0) {
+    if(nextCard.getFace() == "A") {
         userTotal += 11;
         userAceCounter++;
+        if(userTotal > 21) {
+            userTotal -= 10;
+            userAceCounter--;
+        }
     } else {
         userTotal = userTotal + nextCard.getValue();
-        if(userAceCounter > 0 && userTotal > 21) {
+        if(userAceCounter != 0 && userTotal > 21) {
             userTotal -= 10;
             userAceCounter--;
         }
@@ -195,8 +199,10 @@ void Model::addDealerCard(Card newCard) {
     dealerHand.push_back(newCard);
 }
 
-void Model::revealDealer() {
+Card Model::revealDealer() {
     dealerTotal += dealerHand[0].getValue();
+    dealerHand[0].setFaceDown(false);
+    return dealerHand[0];
 }
 
 int Model::getDealerAces() {

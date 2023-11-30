@@ -218,7 +218,7 @@ void SceneWidget::flipDealerCard(const QString& imagePath) {
     if (!dealerBodies.empty()) {
         QImage dealerImage(imagePath);
         dealerImage = dealerImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
-        dealerImages[1] = dealerImage;
+        dealerImages[0] = dealerImage;
     }
 }
 

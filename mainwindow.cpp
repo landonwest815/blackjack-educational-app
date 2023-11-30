@@ -28,7 +28,7 @@ void MainWindow::setupConnections() {
     connect(ui->standButton, &QPushButton::clicked, this, &MainWindow::stand);
 
     connect(ui->nextSplitButton, &QPushButton::clicked, this, &MainWindow::nextSplit);
-    connect(ui->flipDealerButton, &QPushButton::clicked, this, &MainWindow::dealerFlip);
+    //connect(ui->flipDealerButton, &QPushButton::clicked, this, &MainWindow::dealerFlip);
     connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
 
     // Bet buttons
@@ -131,8 +131,8 @@ void MainWindow::nextSplit() {
     ui->playerHand->nextSplitHand();
 }
 
-void MainWindow::dealerFlip() {
-    ui->dealerHand->flipDealerCard(":/cards/AC.png");
+void MainWindow::dealerFlip(QString fileName) {
+    ui->dealerHand->flipDealerCard(fileName);
 }
 
 void MainWindow::doubleDownHand() {
@@ -217,7 +217,7 @@ void MainWindow::hit() {
     addPlayer();
 
     if (model.getUserTotal() > 21) {
-        model.dealerWins();
+        stand();
     } else if (model.getUserTotal() == 21) {
         stand();
     }
@@ -225,7 +225,8 @@ void MainWindow::hit() {
 
 void MainWindow::stand() {
     // must flip over facedown card
-    model.revealDealer();
+    dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+    updateBankDisplay();
 
     while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0)) {
         addDealer(false);

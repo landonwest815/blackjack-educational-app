@@ -38,7 +38,7 @@ private slots:
 
     // just for demonstration REMOVE when needed
     void nextSplit();
-    void dealerFlip();
+    void dealerFlip(QString fileName);
     void doubleDownHand();
 
 

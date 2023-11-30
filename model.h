@@ -74,7 +74,7 @@ public:
 
     void addDealerCard(Card newCard);
 
-    void revealDealer();
+    Card revealDealer();
 
     int getDealerAces();
 
