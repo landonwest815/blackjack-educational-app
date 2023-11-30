@@ -39,11 +39,13 @@ void MainWindow::setupConnections() {
 
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
 
-    connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::beginGame);
+//    connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::beginGame);
 
     connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
 
-    connect(ui->hitButton, &QPushButton::clicked, this, &MainWindow::addPlayer);
+    connect(ui->hitButton, &QPushButton::clicked, this, &MainWindow::hit);
+
+    connect(ui->dealButton, &QPushButton::clicked, this, &MainWindow::deal);
 
 }
 
@@ -51,9 +53,9 @@ void MainWindow::initializeUI() {
 
     ui->stackedWidget->setCurrentWidget(ui->startMenu);
 
-    toggleBetButtons(false);
-    ui->dealButton->setVisible(false);
-    ui->resetButton->setVisible(false);
+    toggleBetButtons(true);
+    ui->dealButton->setVisible(true);
+    ui->resetButton->setVisible(true);
     buttonState = true;
 
     ui->splitScore->setVisible(false);
@@ -85,10 +87,15 @@ void MainWindow::createHelpWidget(QString text) {
 }
 
 // Just example code for how you would call to add a card or clear them from the Box2D scene
-void MainWindow::addDealer() {
-    QString fileName = QString::fromStdString(convertCardToPath(model.dealerHit()));
+void MainWindow::addDealer(bool facedown) {
+    Card dealerCard = model.dealerHit(facedown);
 
-    ui->dealerHand->addDealerCard(fileName);
+    if (facedown) {
+        dealerCard.setFaceDown(true);
+    }
+
+    model.addDealerCard(dealerCard);
+    ui->dealerHand->addDealerCard(QString::fromStdString(convertCardToPath(dealerCard)));
     ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
 }
 
@@ -161,26 +168,80 @@ void MainWindow::resetBet() {
 }
 
 void MainWindow::beginGame() {
+
+}
+
+void MainWindow::deal() {
     //Reset scores
     model.clearTotal();
     //Clear current cards
     ui->dealerHand->clearAllCards();
     ui->playerHand->clearAllCards();
 
-    //Add dealer faceup card
-    addDealer();
+    // Deal to player
+    addPlayer();
+    addPlayer();
+    ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
 
-    //Add dealer facedown card
-    Card dealerFaceDown = model.dealerHit();
-    dealerFaceDown.setFaceDown(true);
-    QString fileName = QString::fromStdString(convertCardToPath(dealerFaceDown));
+    // Deal to dealer
+    addDealer(true);
+    addDealer(false);
 
-    ui->dealerHand->addDealerCard(fileName);
+    // Facedown card should not be included in score
     ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
 
-    //Add player cards
+    /* Update UI */
+    // Must make certain buttons and functions unavailable once the game starts and cards are dealt
+
+    // Check for blackjack conditions
+    if (model.getUserTotal() == 21) {
+        stand();
+    }
+}
+
+void MainWindow::hit() {
     addPlayer();
-    addPlayer();
+
+    if (model.getUserTotal() > 21) {
+        model.dealerWins();
+    } else if (model.getUserTotal() == 21) {
+        stand();
+    }
+}
+
+void MainWindow::stand() {
+    // must flip over facedown card
+    model.revealDealer();
+
+    while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0)) {
+        addDealer(false);
+    }
+
+    determineWinner();
+    model.setSplitCheck(true);
+}
+
+void MainWindow::determineWinner() {
+    int userTotal = model.getUserTotal();
+    int dealerTotal = model.getDealerTotal();
+
+    // Check for bust conditions
+    if (userTotal > 21) {
+        model.playerBust();
+    } else if (dealerTotal > 21) {
+        model.dealerBust();
+    } else {
+        // Compare hand values to determine the winner
+        if (userTotal > dealerTotal) {
+            model.playerWins();
+        } else if (userTotal < dealerTotal) {
+            model.dealerWins();
+        } else {
+            model.handlePush(); // when a tie occurs
+        }
+    }
+
+    updateBankDisplay();
 }
 
  void MainWindow::onQuitGameClicked()
@@ -200,11 +261,6 @@ void MainWindow::beginGame() {
 
  void MainWindow::switchToGameWindow() {
      ui->stackedWidget->setCurrentWidget(ui->game);
- }
-
- void MainWindow::stand() {
-     model.getUserTotal();
-     model.setSplitCheck(true);
  }
 
  void MainWindow::splitAdd() {

@@ -4,6 +4,7 @@
 #include "card.h"
 #include "deck.h"
 #include <QString>
+#include <vector>
 
 class Model{
 private:
@@ -19,13 +20,15 @@ private:
     int dealerAceCounter;
     int splitAceCounter;
     bool splitCheck;
+    vector<Card> userHand;
+    vector<Card> dealerHand;
 
 public:
     Model();
 
     Card userHit();
 
-    Card dealerHit();
+    Card dealerHit(bool facedown);
 
     Card splitHit();
 
@@ -61,7 +64,31 @@ public:
 
     bool getSplitCheck();
 
-    bool setSplitCheck(bool split);
+    void setSplitCheck(bool split);
+
+    Card getUserCard(int index);
+
+    Card getDealerCard(int index);
+
+    void addUserCard(Card newCard);
+
+    void addDealerCard(Card newCard);
+
+    void revealDealer();
+
+    int getDealerAces();
+
+    void playerBust();
+
+    void dealerBust();
+
+    void playerWins();
+
+    void dealerWins();
+
+    void handlePush();
+
+    void endRound();
 };
 
 #endif // MODEL_H
