@@ -129,6 +129,7 @@ void MainWindow::splitHand() {
     ui->playerHand->splitPlayerCards();
     ui->splitScore->setVisible(true);
     ui->nextSplitButton->setVisible(true);
+    ui->splitButton->setVisible(false);
     ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.split()));
     ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getSplitTotal()));
 }
