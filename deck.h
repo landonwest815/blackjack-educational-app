@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "card.h"
+#include <random>
 
 using std::vector;
 
@@ -11,6 +12,8 @@ class Deck
 private:
     vector<string> suits;
     vector<Card> cards;
+    static std::random_device rd;
+    static std::mt19937 gen;
 
 public:
     ///@brief Create a deck of 52 cards
@@ -39,10 +42,6 @@ public:
     ///@brief Getter for deck size
     ///@return The size of the deck
     int getSize();
-
-    ///@brief shuffles deck
-    ///@return new reshuffle deck
-    void reshuffle();
 };
 
 #endif // DECK_H

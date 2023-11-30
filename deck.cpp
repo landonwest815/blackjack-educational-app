@@ -13,8 +13,12 @@
  * There are methods for drawing & adding cards to the deck.
  */
 #include "deck.h"
-#include <algorithm>
 #include <random>
+#include <chrono>
+
+// random numbers
+std::random_device Deck::rd;
+std::mt19937 Deck::gen(rd());
 
 Deck::Deck()
 {
@@ -49,9 +53,13 @@ Deck::Deck()
 
 Card Deck::drawCard() {
     //Get random card out of the vector
-    int cardIndex = rand() % (cards.size() - 1);
+    std::uniform_int_distribution<> dis(0, cards.size() - 1);
+
+    // Generate a random index
+    int cardIndex = dis(gen);
     Card drawnCard = cards[cardIndex];
-    //Erase the card from the vector and return that card
+
+    // Erase the card from the vector and return that card
     cards.erase(cards.begin() + cardIndex);
     return drawnCard;
 }
@@ -83,11 +91,4 @@ void Deck::addCard(string suit, string face) {
 
 int Deck::getSize() {
     return cards.size();
-}
-
-void Deck::reshuffle () {
-    for(unsigned int i = 0; i < cards.size(); i++) {
-        int randomCard = rand() % (cards.size() - 1);
-        std::swap(cards[i], cards[randomCard]);
-    }
 }

@@ -19,13 +19,9 @@ Model::Model() :
 Card Model::userHit() {
     Card nextCard = deck.drawCard();
 
-    if(nextCard.getFace() == "A") {
-        if(userTotal + nextCard.getValue() > 21) {
-            userTotal += 1;
-        } else {
-            userTotal += 11;
-            userAceCounter++;
-        }
+    if(nextCard.getFace() == "A" && userAceCounter == 0) {
+        userTotal += 11;
+        userAceCounter++;
     } else {
         userTotal = userTotal + nextCard.getValue();
         if(userAceCounter > 0 && userTotal > 21) {
