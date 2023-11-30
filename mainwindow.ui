@@ -35,7 +35,7 @@
       <widget class="QWidget" name="startMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,1,1">
+         <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0,0">
           <item>
            <spacer name="horizontalSpacer_14">
             <property name="orientation">

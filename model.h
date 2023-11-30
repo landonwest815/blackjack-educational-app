@@ -37,7 +37,7 @@ public:
 
     Card doubleDown();
 
-    bool insurance();
+    bool insuranceAllowed();
 
     int getUserTotal();
 

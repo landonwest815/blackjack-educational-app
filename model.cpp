@@ -88,14 +88,8 @@ Card Model::doubleDown() {
     bankTotal -= this->bet;
 }
 
-bool Model::insurance() {
-    Card nextCard = deck.drawCard();
-    if(nextCard.getFace() == "A")
-    {
-        return true;
-    } else {
-        return false;
-    }
+bool Model::insuranceAllowed() {
+    return (dealerHand[1].getFace() == "A");
 }
 
 int Model::getUserTotal() {
