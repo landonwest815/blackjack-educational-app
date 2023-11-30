@@ -218,9 +218,13 @@ void Model::addDealerCard(Card newCard) {
 }
 
 Card Model::revealDealer() {
-    dealerTotal += dealerHand[0].getValue();
+    dealerTotal += faceDownValue();
     dealerHand[0].setFaceDown(false);
     return dealerHand[0];
+}
+
+int Model::faceDownValue() {
+    return dealerHand[0].getValue();
 }
 
 int Model::getDealerAces() {
