@@ -270,4 +270,6 @@ void Model::endRound() {
     userAceCounter = 0;
     dealerAceCounter = 0;
     splitAceCounter = 0;
+    onSecondHand = false;
+    splitCheck = false;
 }
