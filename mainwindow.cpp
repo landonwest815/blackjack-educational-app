@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Contains all buttons so we can turn all of them off at once
-    buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->flipDealerButton, ui->doubleDemoButton,
+    buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->flipDealerButton, ui->doubleDownButton,
                ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand,
                ui->allIn};
 
@@ -49,6 +49,7 @@ void MainWindow::setupConnections() {
     connect(ui->dealButton, &QPushButton::clicked, this, &MainWindow::deal);
     connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
     connect(ui->insuranceButton, &QPushButton::clicked, this, &MainWindow::insurance);
+    connect(ui->doubleDownButton, &QPushButton::clicked, this, &MainWindow::doubleDown);
 
     // Menus
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
@@ -155,7 +156,15 @@ void MainWindow::dealerFlip(QString fileName) {
 }
 
 void MainWindow::doubleDownHand() {
-    ui->playerHand->doubleDownPlayerCard(":/cards/AC.png");
+    doubleDown();
+}
+
+void MainWindow::doubleDown() {
+    Card doubleDownCard = model.userHit();
+    model.addUserCard(doubleDownCard);
+    ui->playerHand->doubleDownPlayerCard(QString::fromStdString(convertCardToPath(doubleDownCard)));
+    addToBet(2 * model.getBet());
+    stand();
 }
 
 string MainWindow::convertCardToPath(Card card) {
@@ -212,6 +221,7 @@ void MainWindow::deal() {
     hideAllUI();
     ui->hitButton->setVisible(true);
     ui->standButton->setVisible(true);
+    ui->doubleDownButton->setVisible(true);
     if (model.allowedToSplit()) ui->splitButton->setVisible(true);
 
     // Check for blackjack conditions
