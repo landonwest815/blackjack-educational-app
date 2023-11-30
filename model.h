@@ -20,6 +20,7 @@ private:
     int dealerAceCounter;
     int splitAceCounter;
     bool splitCheck;
+    bool onSecondHand;
     vector<Card> userHand;
     vector<Card> dealerHand;
 
@@ -58,7 +59,7 @@ public:
 
     bool allowedToSplit();
 
-    int split ();
+    void split ();
 
     int getSplitTotal();
 
@@ -93,6 +94,10 @@ public:
     void endRound();
 
     void shuffleCheck();
+
+    bool getOnSecondHand();
+
+    void setOnSecondHand(bool);
 
 };
 

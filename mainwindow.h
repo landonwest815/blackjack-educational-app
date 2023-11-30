@@ -5,6 +5,7 @@
 #include "helpwidget.h"
 #include "model.h"
 #include <QPushButton>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,10 +31,8 @@ private slots:
     void onQuitGameClicked();
     void switchToGameWindow();
     void switchToMainMenu();
-    void beginGame();
     void splitAdd();
     void deal();
-    void hit();
     void stand();
 
     // just for demonstration REMOVE when needed
@@ -50,6 +49,7 @@ private:
     int bankTotal;
     HelpWidget *helpwidget;
     QList<QPushButton*> buttons;
+    QList<QLabel*> labels;
 
     void determineWinner();
     // Probably will remove, serves as demo functions
@@ -58,7 +58,8 @@ private:
     void createHelpWidget(QString);
     void updateBankDisplay();
     void updateScores();
-    void hideAllButtons();
+    void hideAllUI();
     void setupDeal();
+    void showOutcome(QString outcome);
 };
 #endif // MAINWINDOW_H

@@ -14,7 +14,8 @@ Model::Model() :
     userAceCounter(0),
     dealerAceCounter(0),
     splitAceCounter(0),
-    splitCheck(false){ }
+    splitCheck(false),
+    onSecondHand(false){ }
 
 Card Model::userHit() {
     Card nextCard = deck.drawCard();
@@ -60,6 +61,7 @@ Card Model::dealerHit(bool facedown) {
 
     if (facedown) {
         dealerTotal -= nextCard.getValue();
+        nextCard.setFaceDown(true);
     }
     shuffleCheck();
     return nextCard;
@@ -147,14 +149,22 @@ bool Model::allowedToSplit() {
     return (userHand[0].getValue() == userHand[1].getValue());
 }
 
-int Model::split() {
+void Model::split() {
     userTotal = userTotal / 2;
     splitTotal = userTotal;
-    return splitTotal;
+    splitCheck = true;
 }
 
 int Model::getSplitTotal() {
     return splitTotal;
+}
+
+void Model::setOnSecondHand(bool secondHand) {
+    onSecondHand = secondHand;
+}
+
+bool Model::getOnSecondHand() {
+    return onSecondHand;
 }
 
 void Model::clearTotal() {
@@ -167,19 +177,21 @@ Card Model::splitHit() {
     Card nextCard = deck.drawCard();
 
     if(nextCard.getFace() == "A") {
-        if(splitTotal + nextCard.getValue() > 21) {
-            splitTotal += 1;
-        } else {
-            splitTotal += 11;
-            splitAceCounter++;
+        splitTotal += 11;
+        splitAceCounter++;
+        if(splitTotal > 21) {
+            splitTotal -= 10;
+            splitAceCounter--;
         }
     } else {
-        splitTotal = splitTotal + nextCard.getValue();
+        splitTotal += nextCard.getValue();
+        //qDebug() << nextCard.getValue();
         if(splitAceCounter > 0 && splitTotal > 21) {
             splitTotal -= 10;
             splitAceCounter--;
         }
     }
+    shuffleCheck();
     return nextCard;
 }
 
@@ -255,4 +267,7 @@ void Model::handlePush() {
 void Model::endRound() {
     userHand.clear();
     dealerHand.clear();
+    userAceCounter = 0;
+    dealerAceCounter = 0;
+    splitAceCounter = 0;
 }
