@@ -33,7 +33,11 @@ private slots:
     void stand();
     void splitAdd();
 
-    void nextSplit(); // just for demonstration REMOVE WHEN NEEDED
+    // just for demonstration REMOVE when needed
+    void nextSplit();
+    void dealerFlip();
+    void doubleDownHand();
+
 
 private:
     Ui::MainWindow *ui;

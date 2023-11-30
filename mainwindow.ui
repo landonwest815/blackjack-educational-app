@@ -673,27 +673,35 @@ QPushButton:pressed {
              <widget class="QPushButton" name="nextSplitButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
     color: white;
-    border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
-    padding: 5px;
-    border: 1px solid #555555;
-    font-weight: bold;
-    font-size: 16px;
-    font-family: &quot;Arial&quot;, sans-serif;
-}
-
-QPushButton:hover {
-    background-color: #444444;
-}
-
-QPushButton:pressed {
-    background-color: #333333;
 }</string>
               </property>
               <property name="text">
-               <string>Next Split Hand (Temp)</string>
+               <string>Next Split Hand (Demo)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="flipDealerButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    color: white;
+}</string>
+              </property>
+              <property name="text">
+               <string>Flip Dealer (Demo)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="doubleDemoButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    color: white;
+}</string>
+              </property>
+              <property name="text">
+               <string>Double Down (Demo)</string>
               </property>
              </widget>
             </item>
