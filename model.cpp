@@ -273,3 +273,16 @@ void Model::endRound() {
     onSecondHand = false;
     splitCheck = false;
 }
+
+int Model::getDealerFaceUpValue(){
+    return dealerHand.at(1).getValue();
+}
+
+bool Model::userHasAceInHand(){
+    for(auto card : userHand){
+        if(card.getFace() == "A"){
+            return true;
+        }
+    }
+    return false;
+}
