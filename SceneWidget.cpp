@@ -123,26 +123,29 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     // Draws the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
         b2Vec2 position = playerBodies[i]->GetPosition();
+        float positionLeftX = position.x * 0.5 * 325;
+        float positionRightX = position.x * 0.5 * 600;
+        float positionY = position.y * 0.5 * 70;
 
         // Sets the position where each player card body added will fall and will change is split is true
         if (split) {
             if (i == 0) {
-                painter.drawImage((position.x * 0.5 * 325), (position.y * 0.5 * 70), playerImages[0]);
+                painter.drawImage(positionLeftX, positionY, playerImages[0]);
             }
             if (i == 1) {
-                painter.drawImage((position.x * 0.5 * 600), (position.y * 0.5 * 70), playerImages[1]);
+                painter.drawImage(positionRightX, positionY, playerImages[1]);
             }
             if (i >= 2 && !nextSplit) {
-                painter.drawImage((position.x * 0.5 * 325) + (i * 30) - 30, (position.y * 0.5 * 70), playerImages[i]);
+                painter.drawImage(positionLeftX + (i * 30) - 30, positionY, playerImages[i]);
             }
             if (i >= 2 && i < splitCount && nextSplit) {
-                painter.drawImage((position.x * 0.5 * 325) + (i * 30) - 30, (position.y * 0.5 * 70), playerImages[i]);
+                painter.drawImage(positionLeftX + (i * 30) - 30, positionY, playerImages[i]);
             }
             if (i >= 2 && i >= splitCount && nextSplit) {
-                painter.drawImage((position.x * 0.5 * 600) + (i * 30) - (splitCount * 30) + 30, (position.y * 0.5 * 70), playerImages[i]);
+                painter.drawImage(positionRightX + (i * 30) - ((splitCount - 1) * 30), positionY, playerImages[i]);
             }
         } else {
-            painter.drawImage((position.x * 0.5 * 325) + (i * 40), (position.y * 0.5 * 70), playerImages[i]);
+            painter.drawImage(positionLeftX + (i * 40), positionY, playerImages[i]);
         }
     }
 
