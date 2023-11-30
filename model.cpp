@@ -103,13 +103,13 @@ void Model::setBet(int increment) {
 }
 
 void Model::resetBet() {
-    bankTotal += bet;
+    bankTotal += 2 * bet;
     bet = 0;
 }
 
 int Model::updateBankTotal(int bet) {
     if(win) {
-        bankTotal += bet;
+        bankTotal += 2 * bet;
     } else {
         bankTotal -= bet;
     }
