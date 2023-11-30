@@ -30,7 +30,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -780,7 +780,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="doubleDemoButton">
+             <widget class="QPushButton" name="doubleDownButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #333333;
@@ -803,7 +803,7 @@ QPushButton:pressed {
 }</string>
               </property>
               <property name="text">
-               <string>Double Down (Demo)</string>
+               <string>Double Down</string>
               </property>
              </widget>
             </item>
@@ -1357,7 +1357,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1696</width>
-     <height>37</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
