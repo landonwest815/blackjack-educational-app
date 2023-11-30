@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->flipDealerButton, ui->doubleDemoButton,
+               ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand};
+
     setupConnections();
     initializeUI();
     //createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. Is this a sentence?");
@@ -46,28 +50,27 @@ void MainWindow::setupConnections() {
     connect(ui->hitButton, &QPushButton::clicked, this, &MainWindow::hit);
 
     connect(ui->dealButton, &QPushButton::clicked, this, &MainWindow::deal);
+    connect(ui->nextHand, &QPushButton::clicked, this, &MainWindow::setupDeal);
+
 
 }
 
 void MainWindow::initializeUI() {
 
     ui->stackedWidget->setCurrentWidget(ui->startMenu);
-
-    toggleBetButtons(true);
-    ui->dealButton->setVisible(true);
-    ui->resetButton->setVisible(true);
-    buttonState = true;
-
     ui->splitScore->setVisible(false);
+    ui->outcome->setVisible(false);
+
+    hideAllButtons();
 
     updateBankDisplay();
 }
 
-void MainWindow::toggleBetButtons(bool visible) {
-    QList<QPushButton*> buttons = {ui->add50, ui->add100, ui->add250, ui->add500};
-    for (QPushButton *button : buttons) {
-        button->setVisible(visible);
+void MainWindow::hideAllButtons() {
+    for (QPushButton* button : buttons) {
+        button->setVisible(false);
     }
+    ui->outcome->setVisible(false);
 }
 
 void MainWindow::updateBankDisplay() {
@@ -193,6 +196,11 @@ void MainWindow::deal() {
     /* Update UI */
     // Must make certain buttons and functions unavailable once the game starts and cards are dealt
 
+    hideAllButtons();
+
+    ui->hitButton->setVisible(true);
+    ui->standButton->setVisible(true);
+
     // Check for blackjack conditions
     if (model.getUserTotal() == 21) {
         stand();
@@ -228,16 +236,37 @@ void MainWindow::determineWinner() {
     // Check for bust conditions
     if (userTotal > 21) {
         model.playerBust();
+        hideAllButtons();
+        ui->outcome->setVisible(true);
+        ui->outcome->setText("PLAYER BUSTS!");
+        ui->nextHand->setVisible(true);
     } else if (dealerTotal > 21) {
         model.dealerBust();
+        hideAllButtons();
+        ui->outcome->setVisible(true);
+        ui->outcome->setText("DEALER BUSTS!");
+        ui->nextHand->setVisible(true);
     } else {
         // Compare hand values to determine the winner
         if (userTotal > dealerTotal) {
             model.playerWins();
+            hideAllButtons();
+            ui->outcome->setVisible(true);
+            ui->outcome->setText("PLAYER WINS!");
+            ui->nextHand->setVisible(true);
         } else if (userTotal < dealerTotal) {
             model.dealerWins();
+            hideAllButtons();
+            ui->outcome->setVisible(true);
+            ui->outcome->setText("DEALER WINS!");
+            ui->nextHand->setVisible(true);
         } else {
             model.handlePush(); // when a tie occurs
+            model.dealerWins();
+            hideAllButtons();
+            ui->outcome->setVisible(true);
+            ui->outcome->setText("PUSH!");
+            ui->nextHand->setVisible(true);
         }
     }
 
@@ -261,6 +290,21 @@ void MainWindow::determineWinner() {
 
  void MainWindow::switchToGameWindow() {
      ui->stackedWidget->setCurrentWidget(ui->game);
+     setupDeal();
+ }
+
+ void MainWindow::setupDeal() {
+     // prompt the bet amounts
+     hideAllButtons();
+     clearAll();
+
+     ui->add50->setVisible(true);
+     ui->add100->setVisible(true);
+     ui->add250->setVisible(true);
+     ui->add500->setVisible(true);
+     ui->resetButton->setVisible(true);
+
+     ui->dealButton->setVisible(true);
  }
 
  void MainWindow::splitAdd() {

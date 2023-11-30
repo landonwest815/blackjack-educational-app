@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1406</width>
+    <width>1433</width>
     <height>700</height>
    </rect>
   </property>
@@ -478,7 +478,43 @@ QPushButton:pressed {
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="doubleDownButton">
+             <widget class="QLabel" name="outcome">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>PLAYER WINS</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="nextHand">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -514,7 +550,7 @@ QPushButton:pressed {
 </string>
               </property>
               <property name="text">
-               <string>Double Down</string>
+               <string>Next Hand</string>
               </property>
              </widget>
             </item>
@@ -673,7 +709,23 @@ QPushButton:pressed {
              <widget class="QPushButton" name="nextSplitButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
+    background-color: #333333;
     color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
 }</string>
               </property>
               <property name="text">
@@ -685,7 +737,23 @@ QPushButton:pressed {
              <widget class="QPushButton" name="flipDealerButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
+    background-color: #333333;
     color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
 }</string>
               </property>
               <property name="text">
@@ -697,7 +765,23 @@ QPushButton:pressed {
              <widget class="QPushButton" name="doubleDemoButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
+    background-color: #333333;
     color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
 }</string>
               </property>
               <property name="text">
@@ -1210,8 +1294,8 @@ QPushButton:pressed {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1406</width>
-     <height>21</height>
+     <width>1433</width>
+     <height>37</height>
     </rect>
    </property>
   </widget>

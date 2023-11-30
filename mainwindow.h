@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "helpwidget.h"
 #include "model.h"
+#include <QPushButton>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -48,14 +49,16 @@ private:
     int betTotal;
     int bankTotal;
     HelpWidget *helpwidget;
+    QList<QPushButton*> buttons;
 
     void determineWinner();
     // Probably will remove, serves as demo functions
     void setupConnections();
     void initializeUI();
     void createHelpWidget(QString);
-    void toggleBetButtons(bool);
     void updateBankDisplay();
     void updateScores();
+    void hideAllButtons();
+    void setupDeal();
 };
 #endif // MAINWINDOW_H
