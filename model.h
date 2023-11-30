@@ -89,6 +89,9 @@ public:
     void handlePush();
 
     void endRound();
+
+    void shuffleCheck();
+
 };
 
 #endif // MODEL_H

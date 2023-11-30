@@ -2,6 +2,7 @@
 #include "deck.h"
 
 #include <iostream>
+#include <QDebug>
 
 Model::Model() :
     bankTotal(1500),
@@ -32,6 +33,7 @@ Card Model::userHit() {
             userAceCounter--;
         }
     }
+    shuffleCheck();
     return nextCard;
 }
 
@@ -56,9 +58,20 @@ Card Model::dealerHit(bool facedown) {
     if (facedown) {
         dealerTotal -= nextCard.getValue();
     }
-
+    shuffleCheck();
     return nextCard;
 }
+
+void Model::shuffleCheck() {
+
+    qDebug() << deck.getSize();
+
+    if (deck.getSize() < 27) {
+        Deck newDeck;
+        deck = newDeck;
+    }
+}
+
 
 int Model::stand() {
     return Model::getUserTotal();

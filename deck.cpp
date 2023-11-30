@@ -30,7 +30,7 @@ Deck::Deck()
         cards.push_back(*ace);
 
         //Iterate through values
-        for (int j = 2; j < 10; j++) {
+        for (int j = 2; j < 11; j++) {
             Card* addCard = new Card(suits[i],j);
             cards.push_back(*addCard);
         }

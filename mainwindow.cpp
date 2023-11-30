@@ -76,7 +76,7 @@ void MainWindow::hideAllButtons() {
 
 void MainWindow::updateBankDisplay() {
     ui->bank->setText("BANK: $" + QString::number(model.getbankTotal()));
-    ui->currentBet->setText("CURRENT BET: $" + QString::number(model.getBet()));
+    ui->currentBet->setText("BET: $" + QString::number(model.getBet()));
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
@@ -105,6 +105,8 @@ void MainWindow::addDealer(bool facedown) {
 
 void MainWindow::addPlayer() {
     QString fileName = QString::fromStdString(convertCardToPath(model.userHit()));
+
+    qDebug() << fileName;
 
     if(model.getSplitCheck()) {
         MainWindow::splitAdd();
