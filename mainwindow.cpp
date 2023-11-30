@@ -158,14 +158,24 @@ void MainWindow::beginGame() {
     ui->playerHand->clearAllCards();
 
     //Add dealer faceup card
-    addDealer();
+//    addDealer();
+    Card dealerFaceUp = model.dealerHit();
+
+    QString faceUpFileName = QString::fromStdString(convertCardToPath(model.dealerHit()));
+
+    ui->dealerHand->addDealerCard(faceUpFileName);
+    ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
+
+    //get the dealers face up value and suit for giving tips
+    dealerFaceUpValue = dealerFaceUp.getValue();
+    dealerFaceUpSuit = dealerFaceUp.getFace();
 
     //Add dealer facedown card
     Card dealerFaceDown = model.dealerHit();
     dealerFaceDown.setFaceDown(true);
-    QString fileName = QString::fromStdString(convertCardToPath(dealerFaceDown));
+    QString faceDownFileName = QString::fromStdString(convertCardToPath(dealerFaceDown));
 
-    ui->dealerHand->addDealerCard(fileName);
+    ui->dealerHand->addDealerCard(faceDownFileName);
     ui->dealerScore->setText("DEALER SCORE: " + QString::number(model.getDealerTotal()));
 
     //Add player cards
@@ -202,4 +212,51 @@ void MainWindow::beginGame() {
 
      ui->playerHand->addPlayerCard(fileName);
      ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.getSplitTotal()));
+ }
+
+ void MainWindow::showATip(){
+     int usersTotal = model.getUserTotal();
+//     int dealersUpCard = figure this out
+     // first we will go through the hard hands where ace is not counted in the count
+     if(dealerFaceUpSuit != "A"){
+        if(usersTotal == 5 ||
+            usersTotal == 6 ||
+            usersTotal == 7 ||
+            usersTotal == 8){
+            // add code to tell the user that hit is the best option
+            if(dealerFaceUpValue){
+
+            }
+        }
+        else if(usersTotal == 9 ||
+                 usersTotal == 10 ||
+                 usersTotal == 11){
+            // check if the user can double down depending on if of what the
+            // dealer has as the face up card
+        }
+        else if(usersTotal == 13 ||
+                 usersTotal == 14 ||
+                 usersTotal == 15 ||
+                 usersTotal == 16 ||
+                 usersTotal == 17){
+            // add cod to say if 17, then just stand, but then also
+            //check for cases for when the dealer has the upcard of either
+            // 2 - 6
+        }
+     }
+     else{
+        // goes through all possible soft hand cases
+        if(usersTotal == 13 ||
+           usersTotal == 14 ||
+           usersTotal == 15 ||
+           usersTotal == 16 ||
+           usersTotal == 17){
+            // add code for if the user should hit or double down depending on face up value
+        }
+        else if(usersTotal == 18 ||
+                 usersTotal == 19 ||
+                 usersTotal == 20){
+            // add code for if the user should stand or double down, and a special case of hit
+        }
+     }
  }

@@ -32,7 +32,6 @@ private slots:
     void beginGame();
     void stand();
     void splitAdd();
-
     void nextSplit(); // just for demonstration REMOVE WHEN NEEDED
 
 private:
@@ -50,5 +49,8 @@ private:
     void toggleBetButtons(bool);
     void updateBankDisplay();
     void updateScores();
+    void showATip();
+    int dealerFaceUpValue;
+    string dealerFaceUpSuit;
 };
 #endif // MAINWINDOW_H
