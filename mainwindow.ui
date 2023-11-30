@@ -1421,6 +1421,16 @@ QPushButton:pressed {
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Rules of Blackjack</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
          </layout>
