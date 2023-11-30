@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->flipDealerButton, ui->doubleDemoButton,
-               ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand};
+               ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand,
+               ui->allIn};
 
     setupConnections();
     initializeUI();
@@ -35,6 +36,7 @@ void MainWindow::setupConnections() {
     connect(ui->add100, &QPushButton::clicked, this, [this](){ addToBet(100); });
     connect(ui->add250, &QPushButton::clicked, this, [this](){ addToBet(250); });
     connect(ui->add500, &QPushButton::clicked, this, [this](){ addToBet(500); });
+    connect(ui->allIn, &QPushButton::clicked, this, [this](){ addToBet(model.getbankTotal()); });
 
     // Reset Bet buttons
     connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::resetBet);
@@ -51,7 +53,6 @@ void MainWindow::setupConnections() {
 
     connect(ui->dealButton, &QPushButton::clicked, this, &MainWindow::deal);
     connect(ui->nextHand, &QPushButton::clicked, this, &MainWindow::setupDeal);
-
 
 }
 
@@ -111,6 +112,9 @@ void MainWindow::addPlayer() {
     else {
         ui->playerHand->addPlayerCard(fileName);
         ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
+        if (model.getUserTotal() > 21) {
+            determineWinner();
+        }
     }
 }
 
@@ -302,6 +306,7 @@ void MainWindow::determineWinner() {
      ui->add100->setVisible(true);
      ui->add250->setVisible(true);
      ui->add500->setVisible(true);
+     ui->allIn->setVisible(true);
      ui->resetButton->setVisible(true);
 
      ui->dealButton->setVisible(true);
