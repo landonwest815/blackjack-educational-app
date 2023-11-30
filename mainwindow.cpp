@@ -23,6 +23,8 @@ void MainWindow::setupConnections() {
     connect(ui->standButton, &QPushButton::clicked, this, &MainWindow::stand);
 
     connect(ui->nextSplitButton, &QPushButton::clicked, this, &MainWindow::nextSplit);
+    connect(ui->flipDealerButton, &QPushButton::clicked, this, &MainWindow::dealerFlip);
+    connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
 
     // Bet buttons
     connect(ui->add50, &QPushButton::clicked, this, [this](){ addToBet(50); });
@@ -111,6 +113,14 @@ void MainWindow::splitHand() {
 
 void MainWindow::nextSplit() {
     ui->playerHand->nextSplitHand();
+}
+
+void MainWindow::dealerFlip() {
+    ui->dealerHand->flipDealerCard(":/cards/AC.png");
+}
+
+void MainWindow::doubleDownHand() {
+    ui->playerHand->doubleDownPlayerCard(":/cards/AC.png");
 }
 
 string MainWindow::convertCardToPath(Card card) {
