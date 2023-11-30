@@ -30,7 +30,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -1347,6 +1347,65 @@ QPushButton:pressed {
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="lessons">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <spacer name="horizontalSpacer_16">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="titleLabel">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+            </property>
+            <property name="text">
+             <string>Lessons</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_15">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <layout class="QVBoxLayout" name="Lesson1Layout"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -1357,7 +1416,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1696</width>
-     <height>37</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
