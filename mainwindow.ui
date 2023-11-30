@@ -1373,7 +1373,7 @@ QPushButton:pressed {
     padding: 3px;
     font-weight: bold;
     font-style: italic;
-    font-size: 20px;
+    font-size: 40px;
     font-family: &quot;Arial&quot;, sans-serif;
 }</string>
             </property>
@@ -1400,7 +1400,28 @@ QPushButton:pressed {
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
-           <layout class="QVBoxLayout" name="Lesson1Layout"/>
+           <layout class="QVBoxLayout" name="Lesson1Layout">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>Lesson 1</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
