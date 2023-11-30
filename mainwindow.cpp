@@ -106,7 +106,7 @@ void MainWindow::addDealer(bool facedown) {
 void MainWindow::addPlayer() {
     QString fileName = QString::fromStdString(convertCardToPath(model.userHit()));
 
-    qDebug() << fileName;
+    //qDebug() << fileName;
 
     if(model.getSplitCheck()) {
         MainWindow::splitAdd();
@@ -226,7 +226,7 @@ void MainWindow::hit() {
 void MainWindow::stand() {
     // must flip over facedown card
     dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
-    updateBankDisplay();
+    updateScores();
 
     while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0)) {
         addDealer(false);
@@ -282,7 +282,7 @@ void MainWindow::determineWinner() {
 
  void MainWindow::onQuitGameClicked()
  {
-     qDebug() << "clicked on quit game";
+     //qDebug() << "clicked on quit game";
      this->close();
  }
 

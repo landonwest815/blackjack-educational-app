@@ -19,6 +19,8 @@ Model::Model() :
 Card Model::userHit() {
     Card nextCard = deck.drawCard();
 
+    qDebug() << userAceCounter;
+
     if(nextCard.getFace() == "A") {
         userTotal += 11;
         userAceCounter++;
@@ -27,8 +29,9 @@ Card Model::userHit() {
             userAceCounter--;
         }
     } else {
-        userTotal = userTotal + nextCard.getValue();
-        if(userAceCounter != 0 && userTotal > 21) {
+        userTotal += nextCard.getValue();
+        //qDebug() << nextCard.getValue();
+        if(userAceCounter > 0 && userTotal > 21) {
             userTotal -= 10;
             userAceCounter--;
         }
@@ -41,15 +44,15 @@ Card Model::dealerHit(bool facedown) {
     Card nextCard = deck.drawCard();
 
     if(nextCard.getFace() == "A") {
-        if(dealerTotal + nextCard.getValue() > 21) {
-            dealerTotal += 1;
-        } else {
-            dealerTotal += 11;
-            dealerAceCounter++;
+        dealerTotal += 11;
+        dealerAceCounter++;
+        if(dealerTotal > 21) {
+            dealerTotal -= 10;
+            dealerAceCounter--;
         }
     } else {
         dealerTotal = dealerTotal + nextCard.getValue();
-        if(dealerAceCounter > 0 && dealerTotal > 21) {
+        if(dealerAceCounter != 0 && dealerTotal > 21) {
             dealerTotal -= 10;
             dealerAceCounter--;
         }
@@ -64,7 +67,7 @@ Card Model::dealerHit(bool facedown) {
 
 void Model::shuffleCheck() {
 
-    qDebug() << deck.getSize();
+    //qDebug() << deck.getSize();
 
     if (deck.getSize() < 27) {
         Deck newDeck;
@@ -75,6 +78,7 @@ void Model::shuffleCheck() {
 
 int Model::stand() {
     return Model::getUserTotal();
+    dealerAceCounter = 0;
 }
 
 Card Model::doubleDown() {
