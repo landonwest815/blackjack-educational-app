@@ -47,7 +47,7 @@ void MainWindow::setupConnections() {
     connect(ui->allIn, &QPushButton::clicked, this, [this](){ addToBet(model.getbankTotal()); });
     connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::resetBet);
     connect(ui->dealButton, &QPushButton::clicked, this, &MainWindow::deal);
-    connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
+   // connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
     connect(ui->insuranceButton, &QPushButton::clicked, this, &MainWindow::insurance);
     connect(ui->doubleDownButton, &QPushButton::clicked, this, &MainWindow::doubleDown);
 
