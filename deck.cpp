@@ -15,6 +15,7 @@
 #include "deck.h"
 #include <random>
 #include <chrono>
+#include <algorithm>
 
 // random numbers
 std::random_device Deck::rd;
