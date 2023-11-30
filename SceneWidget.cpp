@@ -132,14 +132,14 @@ void SceneWidget::paintEvent(QPaintEvent *) {
             if (i == 1) {
                 painter.drawImage((position.x * 0.5 * 600), (position.y * 0.5 * 70), playerImages[1]);
             }
-            if (i >= 2 && i < splitCount && !nextSplit) {
-                painter.drawImage((position.x * 0.5 * 325) + (i * 20) - 20, (position.y * 0.5 * 70), playerImages[i]);
+            if (i >= 2 && !nextSplit) {
+                painter.drawImage((position.x * 0.5 * 325) + (i * 30) - 30, (position.y * 0.5 * 70), playerImages[i]);
             }
             if (i >= 2 && i < splitCount && nextSplit) {
-                painter.drawImage((position.x * 0.5 * 325) + (i * 20) - 20, (position.y * 0.5 * 70), playerImages[i]);
+                painter.drawImage((position.x * 0.5 * 325) + (i * 30) - 30, (position.y * 0.5 * 70), playerImages[i]);
             }
             if (i >= 2 && i >= splitCount && nextSplit) {
-                painter.drawImage((position.x * 0.5 * 600) + (i * 20) - (splitCount * 20) + 20, (position.y * 0.5 * 70), playerImages[i]);
+                painter.drawImage((position.x * 0.5 * 600) + (i * 30) - (splitCount * 30) + 30, (position.y * 0.5 * 70), playerImages[i]);
             }
         } else {
             painter.drawImage((position.x * 0.5 * 325) + (i * 40), (position.y * 0.5 * 70), playerImages[i]);
