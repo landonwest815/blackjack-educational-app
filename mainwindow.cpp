@@ -123,11 +123,18 @@ void MainWindow::addPlayer() {
         updateScores();
 
         // End round if player hits 21
-        if (model.getUserTotal() >= 21 || model.getSplitTotal() >= 21) {
+        if (model.getUserTotal() > 21 || model.getSplitTotal() > 21) {
             if (!model.getSplitCheck()) {
-                stand();
-            }
-            else {
+                    dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+                    updateScores();
+                    determineWinner();
+            } else if(model.getUserTotal() == 21 || model.getSplitTotal() == 21) {
+                    while(model.getDealerTotal() < 17) {
+                        addDealer(true);
+                        updateScores();
+                    }
+                    determineWinner();
+            } else {
                 nextSplit();
             }
         }
@@ -226,14 +233,18 @@ void MainWindow::deal() {
 
     // Check for blackjack conditions
     if (model.getUserTotal() == 21) {
-        if (!model.getSplitCheck()) {
-            stand();
-        }
-        else {
-            nextSplit();
-        }
+        dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+        updateScores();
+        determineWinner();
     }
 
+    if(model.getDealerTotal() == 10) {
+        updateScores();
+        if(model.getDealerTotal() == 21) {
+            dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+                determineWinner();
+        }
+    }
     if(model.insuranceAllowed()) {
         ui->insuranceButton->setVisible(true);
     }
