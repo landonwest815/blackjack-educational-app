@@ -61,5 +61,6 @@ private:
     void hideAllUI();
     void setupDeal();
     void showOutcome(QString outcome);
+    void insurance();
 };
 #endif // MAINWINDOW_H

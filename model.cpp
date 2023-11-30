@@ -104,6 +104,10 @@ int Model::getbankTotal() {
     return bankTotal;
 }
 
+void Model::adjustBankTotal(int total) {
+    bankTotal += total;
+}
+
 int Model::getBet() {
     return bet;
 }

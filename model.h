@@ -45,6 +45,8 @@ public:
 
     int getbankTotal();
 
+    void adjustBankTotal(int);
+
     int getBet();
 
     void setBet(int);

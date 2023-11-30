@@ -221,6 +221,11 @@ void MainWindow::deal() {
             nextSplit();
         }
     }
+
+    if(model.insuranceAllowed()) {
+        ui->insuranceButton->setVisible(true);
+        insurance();
+    }
 }
 
 void MainWindow::stand() {
@@ -316,4 +321,17 @@ void MainWindow::showOutcome(QString outcome) {
 
      ui->playerHand->addPlayerCard(fileName);
      updateScores();
+ }
+
+ void MainWindow::insurance() {
+     int sideBet = model.getBet() / 2 ;
+
+     if(model.getDealerTotal() == 21) {
+        model.adjustBankTotal(2 * sideBet);
+     } else {
+        model.adjustBankTotal(-sideBet);
+     }
+
+     ui->insuranceButton->setVisible(false);
+     updateBankDisplay();
  }
