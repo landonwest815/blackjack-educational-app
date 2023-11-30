@@ -101,6 +101,8 @@ public:
 
     void setOnSecondHand(bool);
 
+    int faceDownValue();
+
 };
 
 #endif // MODEL_H

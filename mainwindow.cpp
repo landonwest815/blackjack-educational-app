@@ -48,6 +48,7 @@ void MainWindow::setupConnections() {
     connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::resetBet);
     connect(ui->dealButton, &QPushButton::clicked, this, &MainWindow::deal);
     connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
+    connect(ui->insuranceButton, &QPushButton::clicked, this, &MainWindow::insurance);
 
     // Menus
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
@@ -117,6 +118,7 @@ void MainWindow::addPlayer() {
         ui->playerHand->addPlayerCard(QString::fromStdString(convertCardToPath(playerCard)));
     }
 
+        ui->insuranceButton->setVisible(false);
         updateScores();
 
         // End round if player hits 21
@@ -224,13 +226,13 @@ void MainWindow::deal() {
 
     if(model.insuranceAllowed()) {
         ui->insuranceButton->setVisible(true);
-        insurance();
     }
 }
 
 void MainWindow::stand() {
     // must flip over facedown card
     dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+    ui->insuranceButton->setVisible(false);
     updateScores();
 
     while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0)) {
@@ -305,6 +307,7 @@ void MainWindow::showOutcome(QString outcome) {
      hideAllUI();
      clearAll();
      model.endRound();
+     addToBet(100);
 
      // Show Betting Actions
      ui->add50->setVisible(true);
@@ -326,7 +329,7 @@ void MainWindow::showOutcome(QString outcome) {
  void MainWindow::insurance() {
      int sideBet = model.getBet() / 2 ;
 
-     if(model.getDealerTotal() == 21) {
+     if(model.getDealerTotal() + model.faceDownValue() == 21) {
         model.adjustBankTotal(2 * sideBet);
      } else {
         model.adjustBankTotal(-sideBet);
