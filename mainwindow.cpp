@@ -104,18 +104,23 @@ void MainWindow::addDealer(bool facedown) {
 }
 
 void MainWindow::addPlayer() {
-    QString fileName = QString::fromStdString(convertCardToPath(model.userHit()));
-
-    //qDebug() << fileName;
+    Card playerCard = model.userHit();
 
     if(model.getSplitCheck()) {
         MainWindow::splitAdd();
     }
     else {
-        ui->playerHand->addPlayerCard(fileName);
+        model.addUserCard(playerCard);
+        ui->playerHand->addPlayerCard(QString::fromStdString(convertCardToPath(playerCard)));
         ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getUserTotal()));
+
         if (model.getUserTotal() > 21) {
-            determineWinner();
+            if (!model.getSplitCheck()) {
+                determineWinner();
+            }
+            else {
+                ui->playerHand->nextSplitHand();
+            }
         }
     }
 }
@@ -123,6 +128,7 @@ void MainWindow::addPlayer() {
 void MainWindow::splitHand() {
     ui->playerHand->splitPlayerCards();
     ui->splitScore->setVisible(true);
+    ui->nextSplitButton->setVisible(true);
     ui->splitScore->setText("SPLIT SCORE: " + QString::number(model.split()));
     ui->playerScore->setText("PLAYER SCORE: " + QString::number(model.getSplitTotal()));
 }
@@ -203,9 +209,11 @@ void MainWindow::deal() {
     // Must make certain buttons and functions unavailable once the game starts and cards are dealt
 
     hideAllButtons();
+    ui->splitScore->setVisible(false);
 
     ui->hitButton->setVisible(true);
     ui->standButton->setVisible(true);
+    if (model.allowedToSplit()) ui->splitButton->setVisible(true);
 
     // Check for blackjack conditions
     if (model.getUserTotal() == 21) {
@@ -216,10 +224,11 @@ void MainWindow::deal() {
 void MainWindow::hit() {
     addPlayer();
 
-    if (model.getUserTotal() > 21) {
-        stand();
-    } else if (model.getUserTotal() == 21) {
-        stand();
+    if (model.getUserTotal() >= 21) {
+        if (!model.getSplitCheck())
+            stand();
+        else
+            ui->playerHand->nextSplitHand();
     }
 }
 
@@ -233,12 +242,14 @@ void MainWindow::stand() {
     }
 
     determineWinner();
-    model.setSplitCheck(true);
+    //model.setSplitCheck(true);
 }
 
 void MainWindow::determineWinner() {
     int userTotal = model.getUserTotal();
     int dealerTotal = model.getDealerTotal();
+
+
 
     // Check for bust conditions
     if (userTotal > 21) {
@@ -304,6 +315,7 @@ void MainWindow::determineWinner() {
      // prompt the bet amounts
      hideAllButtons();
      clearAll();
+     model.endRound();
 
      ui->add50->setVisible(true);
      ui->add100->setVisible(true);

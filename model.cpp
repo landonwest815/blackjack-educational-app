@@ -143,6 +143,10 @@ void Model::dealerBlackJack(Card faceDown, Card faceUp) {
         this->bankTotal -= this->bet;
 }
 
+bool Model::allowedToSplit() {
+    return (userHand[0].getValue() == userHand[1].getValue());
+}
+
 int Model::split() {
     userTotal = userTotal / 2;
     splitTotal = userTotal;

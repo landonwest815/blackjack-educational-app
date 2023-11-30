@@ -56,6 +56,8 @@ public:
 
     void userBlackJack(Card first, Card second);
 
+    bool allowedToSplit();
+
     int split ();
 
     int getSplitTotal();
