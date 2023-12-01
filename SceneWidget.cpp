@@ -154,7 +154,13 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     }
 
 
-    drawTextBox("Hello, Qt! yttttttttttttttttttttttttttttttttttttttttttttttttttttttttt the reason");
+    drawTextBox("Card Values\n"
+                "1) Number cards (2-10) are worth their face value.\n"
+                "2) Face cards (Jack, Queen, King) are each worth 10.\n"
+                "3) Aces can be worth 1 or 11, whichever is more beneficial.\n"
+                "Example\n"
+                "Dealer Hand) 7D(7) + 10C(10) = 17\n"
+                "Player Hand) QC(10) + AC(1/11) = 11 or 21<\n");
 
     painter.end();
 }
@@ -252,8 +258,6 @@ void SceneWidget::resizeEvent(QResizeEvent *event) {
 void SceneWidget::drawTextBox(const QString &text) {
     QPainter painter(this);
 
-    int margin = 400;
-    int xCoordinate = width() - margin - 200;
     QRectF textBoxRect(this->width() * 0.76, this->height() * 0.001, this->width() * 0.2, this->height());
     painter.setBrush(QBrush(QColor::fromRgb(62, 62, 66)));
     painter.setPen(QColor(62, 62, 66));
@@ -262,9 +266,10 @@ void SceneWidget::drawTextBox(const QString &text) {
     QFont font;
     font.setPointSize(12);
     painter.setFont(font);
-    painter.setPen(Qt::black);
+    painter.setPen(Qt::white);
 
     QTextOption textOption;
+    textOption.setAlignment(Qt::AlignLeft);
     textOption.setWrapMode(QTextOption::WordWrap);
 
     painter.drawText(textBoxRect, Qt::AlignCenter, text);
