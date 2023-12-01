@@ -30,7 +30,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -1329,6 +1329,47 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="adviceButton">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Advice</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_11">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -1753,7 +1794,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1696</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

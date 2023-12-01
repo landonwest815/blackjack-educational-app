@@ -37,6 +37,7 @@ private slots:
     void stand();
     void doubleDownHand();
     void doubleDown();
+    void displayAdvice();
 
     // just for demonstration REMOVE when needed
     void nextSplit();

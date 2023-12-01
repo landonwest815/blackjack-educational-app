@@ -56,7 +56,8 @@ void MainWindow::setupConnections() {
     connect(ui->mainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
     connect(ui->tutorial, &QPushButton::clicked, this, &MainWindow::switchToLessonsWindow);
-    connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+    connect(ui->quitGameMenu, &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+    connect(ui->adviceButton, &QPushButton::clicked, this, &MainWindow::displayAdvice);
 }
 
 void MainWindow::initializeUI() {
@@ -364,4 +365,8 @@ void MainWindow::showOutcome(QString outcome) {
 
      ui->insuranceButton->setVisible(false);
      updateBankDisplay();
+ }
+
+ void MainWindow::displayAdvice() {
+
  }
