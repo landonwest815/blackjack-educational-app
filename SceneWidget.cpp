@@ -264,7 +264,7 @@ void SceneWidget::drawTextBox(const QString &text) {
     painter.drawRoundedRect(textBoxRect, 10, 10);
 
     QFont font;
-    font.setPointSize(12);
+    font.setPointSize(this->height() * 0.03);
     painter.setFont(font);
     painter.setPen(Qt::white);
 
