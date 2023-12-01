@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "helpwidget.h"
 #include "QDebug"
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -285,7 +286,7 @@ void MainWindow::stand() {
     ui->insuranceButton->setVisible(false);
     updateScores();
 
-    while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0)) {
+    while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0) || model.getDealerTotal() < model.getUserTotal()) {
         addDealer(false);
     }
 
@@ -300,10 +301,16 @@ void MainWindow::determineWinner() {
     if (userTotal > 21) {
         model.playerBust();
         showOutcome("PLAYER BUSTS!");
+        QTimer::singleShot(1100, this, [this]() {
+            ui->playerHand->setShakingEnabled(true);
+        });
 
     } else if (dealerTotal > 21) {
         model.dealerBust();
         showOutcome("DEALER BUSTS!");
+        QTimer::singleShot(1100, this, [this]() {
+            ui->dealerHand->setShakingEnabled(true);
+        });
 
     } else {
         // Compare hand values to determine the winner
@@ -368,6 +375,8 @@ void MainWindow::showOutcome(QString outcome) {
      clearAll();
      model.endRound();
      addToBet(100);
+     ui->playerHand->setShakingEnabled(false);
+     ui->dealerHand->setShakingEnabled(false);
 
      // Show Betting Actions
      ui->add50->setVisible(true);
@@ -468,6 +477,7 @@ void MainWindow::showOutcome(QString outcome) {
             tellUserToStand();
         }
      }
+
  }
 
  void MainWindow::tellUserToHit(){

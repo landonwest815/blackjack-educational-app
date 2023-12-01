@@ -78,6 +78,8 @@ private:
     /// @param y coordinate for card body location
     b2Body* createCardBody(float x, float y);
 
+    bool isShakingEnabled;
+
 protected:
     /// @brief Overrides the paintEvent function to customize the rendering.
     void paintEvent(QPaintEvent *) override;
@@ -119,6 +121,11 @@ public slots:
 
     /// @brief Sets the text displayed in the text box.
     void setTextBox(const QString &text);
+
+    void setShakingEnabled(bool);
+
+    void applyTiltAngle(b2Body* body, float angle);
+
 
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.

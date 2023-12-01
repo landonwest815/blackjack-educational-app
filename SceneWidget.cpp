@@ -22,7 +22,8 @@ SceneWidget::SceneWidget(QWidget *parent)
     splitCount(0),
     doubleDown(false),
     textBoxEnabled(false),
-    textBoxString("") {
+    textBoxString(""),
+    isShakingEnabled(false) {
 
     // Defines the low ground body and its various settings
     b2BodyDef lowGroundDef;
@@ -43,6 +44,9 @@ SceneWidget::SceneWidget(QWidget *parent)
     // Assists in updating the world based on a timer
     connect(&timer, &QTimer::timeout, this, &SceneWidget::updateWorld);
     timer.start(10);
+
+    srand(static_cast<unsigned int>(time(nullptr)));
+
 }
 
 void SceneWidget::addDealerCard(const QString& imagePath) {
@@ -101,7 +105,6 @@ b2Body* SceneWidget::createCardBody(float x, float y) {
 }
 
 void SceneWidget::paintEvent(QPaintEvent *) {
-
     /// Set the pen width
     int penWidth = 4;
 
@@ -123,13 +126,40 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     // Draw the rounded rectangle
     painter.drawRoundedRect(left, top, rectWidth, rectHeight, 10, 10);
 
+//    // Draws the card bodies of the dealer
+//    for (int i = 0; i < dealerBodies.size(); ++i) {
+//        b2Vec2 position = dealerBodies[i]->GetPosition();
+
+//        // Sets the position where each dealer card body added will fall
+//        painter.drawImage((position.x * 0.5 * 145) - (i * 40), (position.y * 0.5 * 10), dealerImages[i]);
+//    }
+
     // Draws the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
         b2Vec2 position = dealerBodies[i]->GetPosition();
+        QImage &image = dealerImages[i];
+        QRect cardRect((position.x * 0.5 * 145) - (i * 40), (position.y * 0.5 * 10), image.width(), image.height());
 
-        // Sets the position where each dealer card body added will fall
-        painter.drawImage((position.x * 0.5 * 145) - (i * 40), (position.y * 0.5 * 10), dealerImages[i]);
+        if (isShakingEnabled) {
+            painter.save(); // Save the current state of the painter
+
+            // Translate the painter to the center of the last card
+            painter.translate(cardRect.left() + image.width() / 2, cardRect.top() + image.height() / 2);
+
+            // Apply rotation
+            float angle = dealerBodies[i]->GetAngle();
+            painter.rotate(angle * 180.0 / M_PI * 0.5); // Convert radians to degrees
+
+            // Draw the last card image, taking into account the rotation
+            painter.drawImage(QRect(-image.width() / 2, -image.height() / 2, image.width(), image.height()), image);
+
+            painter.restore(); // Restore the painter's state
+        } else {
+            // Draw the card normally if it's not the last card or shaking is not enabled
+            painter.drawImage(cardRect, image);
+        }
     }
+
 
     // Draws the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
@@ -138,27 +168,46 @@ void SceneWidget::paintEvent(QPaintEvent *) {
         float positionRightX = position.x * 0.5 * 600;
         float positionY = position.y * 0.5 * 70;
 
-        // Sets the position where each player card body added will fall and will change is split is true
+        QImage &image = playerImages[i];
+        QRect cardRect;
+
         if (split) {
             if (i == 0) {
-                painter.drawImage(positionLeftX, positionY, playerImages[0]);
-            }
-            if (i == 1) {
-                painter.drawImage(positionRightX, positionY, playerImages[1]);
-            }
-            if (i >= 2 && !nextSplit) {
-                painter.drawImage(positionLeftX + (i * 30) - 30, positionY, playerImages[i]);
-            }
-            if (i >= 2 && i < splitCount && nextSplit) {
-                painter.drawImage(positionLeftX + (i * 30) - 30, positionY, playerImages[i]);
-            }
-            if (i >= 2 && i >= splitCount && nextSplit) {
-                painter.drawImage(positionRightX + (i * 30) - ((splitCount - 1) * 30), positionY, playerImages[i]);
+                cardRect = QRect(positionLeftX, positionY, image.width(), image.height());
+            } else if (i == 1) {
+                cardRect = QRect(positionRightX, positionY, image.width(), image.height());
+            } else if (i >= 2) {
+                if (!nextSplit || i < splitCount) {
+                    cardRect = QRect(positionLeftX + (i * 30) - 30, positionY, image.width(), image.height());
+                } else {
+                    cardRect = QRect(positionRightX + (i * 30) - ((splitCount - 1) * 30), positionY, image.width(), image.height());
+                }
             }
         } else {
-            painter.drawImage(positionLeftX + (i * 40), positionY, playerImages[i]);
+            cardRect = QRect(positionLeftX + (i * 40), positionY, image.width(), image.height());
+        }
+
+       // if (isShakingEnabled && i == playerBodies.size() - 1) {
+        if (isShakingEnabled) {
+            painter.save(); // Save the current state of the painter
+
+            // Translate the painter to the center of the last card
+            painter.translate(cardRect.left() + image.width() / 2, cardRect.top() + image.height() / 2);
+
+            // Apply rotation
+            float angle = playerBodies[i]->GetAngle();
+            painter.rotate(angle * 180.0 / M_PI * 0.5); // Convert radians to degrees
+
+            // Draw the last card image, taking into account the rotation
+            painter.drawImage(QRect(-image.width() / 2, -image.height() / 2, image.width(), image.height()), image);
+
+            painter.restore(); // Restore the painter's state
+        } else {
+            // Draw the card normally if it's not the last card or shaking is not enabled
+            painter.drawImage(cardRect, image);
         }
     }
+
 
     // Paints the text box if it is enabled
     if (textBoxEnabled) {
@@ -167,6 +216,8 @@ void SceneWidget::paintEvent(QPaintEvent *) {
 
     painter.end();
 }
+
+float elapsedTime = 0.0f;
 
 void SceneWidget::updateWorld() {
     // Updates all the card bodies of the dealer
@@ -183,6 +234,23 @@ void SceneWidget::updateWorld() {
         if (playerBodies[i]->GetPosition().x * 50 <= this->width() / 12.0) {
             playerBodies[i]->SetLinearVelocity(b2Vec2_zero);
         }
+    }
+
+    elapsedTime += 1.0f / 60.0f;
+
+    // Oscillation parameters
+    float tiltAmplitude = M_PI / 18; // Adjust the tilt amplitude as needed
+    float tiltFrequency = 2.0f; // Adjust the frequency of oscillation as needed
+
+    // Calculate the tilt angle using a sine wave
+    float tiltAngle = sin(elapsedTime * tiltFrequency) * tiltAmplitude;
+
+    // Apply this tilt angle to each card body
+    for (b2Body* body : dealerBodies) {
+        applyTiltAngle(body, tiltAngle);
+    }
+    for (b2Body* body : playerBodies) {
+        applyTiltAngle(body, tiltAngle);
     }
 
     world.Step(1.0 / 60.0, 6, 2);
@@ -289,4 +357,13 @@ void SceneWidget::enableTextBox() {
 
 void SceneWidget::setTextBox(const QString &text) {
     textBoxString = text;
+}
+
+void SceneWidget::setShakingEnabled(bool enabled) {
+    isShakingEnabled = enabled;
+}
+
+void SceneWidget::applyTiltAngle(b2Body* body, float angle) {
+    b2Vec2 position = body->GetPosition();
+    body->SetTransform(position, angle); // Directly sets the angle of the body
 }
