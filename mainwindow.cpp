@@ -836,7 +836,7 @@ void MainWindow::showOutcome(QString outcome) {
 
  void MainWindow::displayAdvice() {
      showATip();
-     tipTimer.start(10000);
+     tipTimer.start(4000);
      qDebug() << "ran displayAdvice";
  }
 
