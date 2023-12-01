@@ -30,12 +30,14 @@ private slots:
     void splitHand();
     void onQuitGameClicked();
     void switchToGameWindow();
+    void switchToLessonsWindow();
     void switchToMainMenu();
     void splitAdd();
     void deal();
     void stand();
     void doubleDownHand();
     void doubleDown();
+    void displayAdvice();
 
     // just for demonstration REMOVE when needed
     void nextSplit();

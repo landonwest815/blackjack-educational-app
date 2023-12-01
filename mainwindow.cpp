@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Contains all buttons so we can turn all of them off at once
-    buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->flipDealerButton, ui->doubleDownButton,
+    buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->flipDealerButton, ui->doubleDemoButton,
                ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand,
                ui->allIn};
 
@@ -49,12 +49,15 @@ void MainWindow::setupConnections() {
     connect(ui->dealButton, &QPushButton::clicked, this, &MainWindow::deal);
    // connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
     connect(ui->insuranceButton, &QPushButton::clicked, this, &MainWindow::insurance);
-    connect(ui->doubleDownButton, &QPushButton::clicked, this, &MainWindow::doubleDown);
+    connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDown);
 
     // Menus
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
+    connect(ui->mainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
-    connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+    connect(ui->tutorial, &QPushButton::clicked, this, &MainWindow::switchToLessonsWindow);
+    connect(ui->quitGameMenu, &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+    connect(ui->adviceButton, &QPushButton::clicked, this, &MainWindow::displayAdvice);
 }
 
 void MainWindow::initializeUI() {
@@ -228,7 +231,7 @@ void MainWindow::deal() {
     hideAllUI();
     ui->hitButton->setVisible(true);
     ui->standButton->setVisible(true);
-    ui->doubleDownButton->setVisible(true);
+    ui->doubleDemoButton->setVisible(true);
     if (model.allowedToSplit()) ui->splitButton->setVisible(true);
 
     // Check for blackjack conditions
@@ -323,6 +326,10 @@ void MainWindow::showOutcome(QString outcome) {
      setupDeal();
  }
 
+ void MainWindow::switchToLessonsWindow() {
+     ui->stackedWidget->setCurrentWidget(ui->lessons);
+ }
+
  void MainWindow::setupDeal() {
      // prompt the bet amounts
      hideAllUI();
@@ -358,4 +365,8 @@ void MainWindow::showOutcome(QString outcome) {
 
      ui->insuranceButton->setVisible(false);
      updateBankDisplay();
+ }
+
+ void MainWindow::displayAdvice() {
+
  }
