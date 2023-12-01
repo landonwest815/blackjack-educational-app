@@ -45,8 +45,10 @@ SceneWidget::SceneWidget(QWidget *parent)
     connect(&timer, &QTimer::timeout, this, &SceneWidget::updateWorld);
     timer.start(10);
 
-    srand(static_cast<unsigned int>(time(nullptr)));
+    srand(static_cast<unsigned int>(time(nullptr)));    
 
+    QImage image(":/cards/facedown.png");
+    faceDownImage = image;
 }
 
 void SceneWidget::addDealerCard(const QString& imagePath) {
@@ -68,7 +70,7 @@ void SceneWidget::addPlayerCard(const QString& imagePath) {
 
     // Creates body of player card and adds to the associated vector
     b2Body* playerBody = nullptr;
-    playerBody = createCardBody(12.0, this->height() / 200.0); // Initial position of player body
+    playerBody = createCardBody(this->width() / 225.0, this->height() / 200.0); // Initial position of player body
     playerBodies.push_back(playerBody);
 
     // Creates image of player card and adds to the associated vector
@@ -148,7 +150,7 @@ void SceneWidget::paintEvent(QPaintEvent *) {
 
             // Apply rotation
             float angle = dealerBodies[i]->GetAngle();
-            painter.rotate(angle * 180.0 / M_PI * 0.5); // Convert radians to degrees
+            painter.rotate(angle * 180.0 / M_PI * 0.25); // Convert radians to degrees
 
             // Draw the last card image, taking into account the rotation
             painter.drawImage(QRect(-image.width() / 2, -image.height() / 2, image.width(), image.height()), image);
@@ -196,7 +198,7 @@ void SceneWidget::paintEvent(QPaintEvent *) {
 
             // Apply rotation
             float angle = playerBodies[i]->GetAngle();
-            painter.rotate(angle * 180.0 / M_PI * 0.5); // Convert radians to degrees
+            painter.rotate(angle * 180.0 / M_PI * 0.25); // Convert radians to degrees
 
             // Draw the last card image, taking into account the rotation
             painter.drawImage(QRect(-image.width() / 2, -image.height() / 2, image.width(), image.height()), image);
@@ -207,6 +209,41 @@ void SceneWidget::paintEvent(QPaintEvent *) {
             painter.drawImage(cardRect, image);
         }
     }
+
+     //Draws the card bodies of the player discard
+        for (int i = 0; i < playerDiscardBodies.size(); ++i) {
+            b2Vec2 position = playerDiscardBodies[i]->GetPosition();
+            float positionLeftX = position.x * 0.5 * 325;
+            float positionY = position.y * 0.5 * 70;
+
+            QImage &image = playerDiscardImages[i];
+            QRect cardRect;
+
+            if (i == 0)
+                cardRect = QRect(positionLeftX - 10, positionY, image.width(), image.height());
+            else if (i == 1)
+                cardRect = QRect(positionLeftX - 5, positionY, image.width(), image.height());
+            else
+                cardRect = QRect(positionLeftX, positionY, image.width(), image.height());
+
+            painter.drawImage(cardRect, image);
+        }
+
+
+        for (int i = 0; i < 3; i++) {
+            float positionY = (this->height() / 200.0) * 0.5 * 70;
+            QImage image = faceDownImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
+            QRect cardRect;
+
+            if (i == 0)
+                cardRect = QRect(this->width() * 0.75 + 100, positionY, image.width(), image.height());
+            else if (i == 1)
+                cardRect = QRect(this->width() * 0.75 + 105, positionY, image.width(), image.height());
+            else
+                cardRect = QRect(this->width() * 0.75 + 110, positionY, image.width(), image.height());
+
+            painter.drawImage(cardRect, image);
+        }
 
 
     // Paints the text box if it is enabled
@@ -233,6 +270,14 @@ void SceneWidget::updateWorld() {
         playerBodies[i]->SetLinearVelocity(b2Vec2(-6.0f, 0.0f)); // Velocity direction left
         if (playerBodies[i]->GetPosition().x * 50 <= this->width() / 12.0) {
             playerBodies[i]->SetLinearVelocity(b2Vec2_zero);
+        }
+    }
+
+    // Stop player bodies if they reach the target position
+    for (b2Body* playerDiscardBody : playerDiscardBodies) {
+        playerDiscardBody->SetLinearVelocity(b2Vec2(-5.0f, 0.0f)); // Velocity direction left
+        if (playerDiscardBody->GetPosition().x <= 0.75) {
+            playerDiscardBody->SetLinearVelocity(b2Vec2_zero);
         }
     }
 
@@ -273,8 +318,14 @@ void SceneWidget::clearAllCards() {
     }
     // Removes all player bodies from the world
     for (b2Body* playerBody : playerBodies) {
-        world.DestroyBody(playerBody);
+        //world.DestroyBody(playerBody);
+        playerDiscardBodies.append(playerBody);
     }
+
+    for (QImage& playerImage : playerImages) {
+        playerDiscardImages.append(playerImage);
+    }
+
     // Clears out all associated dealer and player vectors
     dealerBodies.clear();
     playerBodies.clear();

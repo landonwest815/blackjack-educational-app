@@ -67,6 +67,10 @@ private:
     /// @brief Stores all player bodies that are created.
     QVector<b2Body*> playerBodies;
 
+    QVector<b2Body*> playerDiscardBodies;
+
+    QVector<QImage> playerDiscardImages;
+
     /// @brief Stores all dealer images that are added.
     QVector<QImage> dealerImages;
 
@@ -79,6 +83,8 @@ private:
     b2Body* createCardBody(float x, float y);
 
     bool isShakingEnabled;
+
+    QImage faceDownImage;
 
 protected:
     /// @brief Overrides the paintEvent function to customize the rendering.
