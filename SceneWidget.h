@@ -117,6 +117,7 @@ public slots:
     /// @brief Allows text box to be displayed.
     void enableTextBox();
 
+    /// @brief Sets the text displayed in the text box.
     void setTextBox(const QString &text);
 
 private slots:
