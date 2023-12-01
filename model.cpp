@@ -88,14 +88,8 @@ Card Model::doubleDown() {
     bankTotal -= this->bet;
 }
 
-bool Model::insurance() {
-    Card nextCard = deck.drawCard();
-    if(nextCard.getFace() == "A")
-    {
-        return true;
-    } else {
-        return false;
-    }
+bool Model::insuranceAllowed() {
+    return (dealerHand[1].getFace() == "A");
 }
 
 int Model::getUserTotal() {
@@ -108,6 +102,10 @@ int Model::getDealerTotal() {
 
 int Model::getbankTotal() {
     return bankTotal;
+}
+
+void Model::adjustBankTotal(int total) {
+    bankTotal += total;
 }
 
 int Model::getBet() {
@@ -220,9 +218,13 @@ void Model::addDealerCard(Card newCard) {
 }
 
 Card Model::revealDealer() {
-    dealerTotal += dealerHand[0].getValue();
+    dealerTotal += faceDownValue();
     dealerHand[0].setFaceDown(false);
     return dealerHand[0];
+}
+
+int Model::faceDownValue() {
+    return dealerHand[0].getValue();
 }
 
 int Model::getDealerAces() {
@@ -270,4 +272,6 @@ void Model::endRound() {
     userAceCounter = 0;
     dealerAceCounter = 0;
     splitAceCounter = 0;
+    onSecondHand = false;
+    splitCheck = false;
 }

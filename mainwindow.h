@@ -35,12 +35,12 @@ private slots:
     void splitAdd();
     void deal();
     void stand();
+    void doubleDownHand();
+    void doubleDown();
 
     // just for demonstration REMOVE when needed
     void nextSplit();
     void dealerFlip(QString fileName);
-    void doubleDownHand();
-
 
 private:
     Ui::MainWindow *ui;
@@ -62,5 +62,6 @@ private:
     void hideAllUI();
     void setupDeal();
     void showOutcome(QString outcome);
+    void insurance();
 };
 #endif // MAINWINDOW_H

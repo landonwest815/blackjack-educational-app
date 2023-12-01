@@ -37,13 +37,15 @@ public:
 
     Card doubleDown();
 
-    bool insurance();
+    bool insuranceAllowed();
 
     int getUserTotal();
 
     int getDealerTotal();
 
     int getbankTotal();
+
+    void adjustBankTotal(int);
 
     int getBet();
 
@@ -98,6 +100,8 @@ public:
     bool getOnSecondHand();
 
     void setOnSecondHand(bool);
+
+    int faceDownValue();
 
 };
 
