@@ -104,6 +104,12 @@ public slots:
     /// @param imagePath String path of image for player card to display.
     void doubleDownPlayerCard(const QString& imagePath);
 
+
+
+    void drawTextBox(const QString &text);
+
+
+
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.
     void updateWorld();

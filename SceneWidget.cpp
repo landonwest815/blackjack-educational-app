@@ -153,6 +153,9 @@ void SceneWidget::paintEvent(QPaintEvent *) {
         }
     }
 
+
+    drawTextBox("Hello, Qt! yttttttttttttttttttttttttttttttttttttttttttttttttttttttttt the reason");
+
     painter.end();
 }
 
@@ -245,3 +248,27 @@ void SceneWidget::resizeEvent(QResizeEvent *event) {
     // Repaint the widget with the new sizes
     update();
 }
+
+void SceneWidget::drawTextBox(const QString &text) {
+    QPainter painter(this);
+
+    int margin = 400;
+    int xCoordinate = width() - margin - 200;
+    QRectF textBoxRect(xCoordinate, 0, 500, 500);
+
+    painter.drawRect(textBoxRect);
+
+    QFont font;
+    font.setPointSize(12);
+    painter.setFont(font);
+    painter.setPen(Qt::black);
+
+    painter.drawText(textBoxRect, Qt::AlignCenter, text);
+}
+
+
+
+
+
+
+
