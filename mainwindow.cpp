@@ -23,8 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // set up tips
     createHelpWidget("");
-    tipTimer = new QTimer(this);
-    tipTimer->setSingleShot(true);
+    tipTimer.setSingleShot(true);
 }
 
 MainWindow::~MainWindow()
@@ -76,7 +75,7 @@ void MainWindow::setupConnections() {
     connect(ui->adviceButton, &QPushButton::clicked, this, &MainWindow::displayAdvice);
 
     // set up tip timer
-    connect(tipTimer, &QTimer::timeout, this, &MainWindow::hideTip);
+    connect(&tipTimer, &QTimer::timeout, this, &MainWindow::hideTip);
 }
 
 void MainWindow::initializeUI() {
@@ -161,6 +160,8 @@ void MainWindow::addPlayer() {
             }
         }
 
+        helpwidget->hide();
+
         qDebug() << model.getOnSecondHand();
 
 }
@@ -170,12 +171,14 @@ void MainWindow::splitHand() {
     ui->splitScore->setVisible(true);
     ui->nextSplitButton->setVisible(true);
     ui->splitButton->setVisible(false);
+    helpwidget->hide();
     model.split();
     updateScores();
 }
 
 void MainWindow::nextSplit() {
     ui->playerHand->nextSplitHand();
+    helpwidget->hide();
     model.setOnSecondHand(true);
     model.setSplitCheck(false);
 }
@@ -251,6 +254,7 @@ void MainWindow::deal() {
     ui->hitButton->setVisible(true);
     ui->standButton->setVisible(true);
     ui->doubleDemoButton->setVisible(true);
+    ui->adviceButton->setVisible(true);
     if (model.allowedToSplit()) ui->splitButton->setVisible(true);
 
     // Check for blackjack conditions
@@ -273,6 +277,7 @@ void MainWindow::deal() {
 }
 
 void MainWindow::stand() {
+    helpwidget->hide();
     // must flip over facedown card
     dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
     ui->insuranceButton->setVisible(false);
@@ -333,6 +338,7 @@ void MainWindow::showOutcome(QString outcome) {
  void MainWindow::switchToMainMenu() {
      ui->stackedWidget->setCurrentWidget(ui->startMenu);
      tutorialStep = 1;
+     helpwidget->hide();
      ui->dealerScore->setVisible(true);
      ui->playerScore->setVisible(true);
      ui->bank->setVisible(true);
@@ -457,7 +463,7 @@ void MainWindow::showOutcome(QString outcome) {
             }
         }
         else if(usersTotal >= 17){
-            tellUserToHit();
+            tellUserToStand();
         }
      }
  }
@@ -828,7 +834,7 @@ void MainWindow::showOutcome(QString outcome) {
 
  void MainWindow::displayAdvice() {
      showATip();
-     tipTimer->start(1000);
+     tipTimer.start(10000);
      qDebug() << "ran displayAdvice";
  }
 

@@ -66,7 +66,7 @@ private:
     HelpWidget *helpwidget;
     QList<QPushButton*> buttons;
     QList<QLabel*> labels;
-    QTimer *tipTimer;
+    QTimer tipTimer;
 
     void determineWinner();
     // Probably will remove, serves as demo functions
