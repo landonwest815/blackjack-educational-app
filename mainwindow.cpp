@@ -469,22 +469,22 @@ void MainWindow::showOutcome(QString outcome) {
  }
 
  void MainWindow::tellUserToHit(){
-     helpwidget->setText("It is best option would be to hit.");
+     helpwidget->setText("You'd be best off hitting.");
      helpwidget->show();
  }
 
  void MainWindow::tellUserToStand(){
-     helpwidget->setText("It best option would be to stand.");
+     helpwidget->setText("You'd be best off standing.");
      helpwidget->show();
  }
 
  void MainWindow::tellUserToDoubleDownOrHit(){
-     helpwidget->setText("It best option would be to double down or hit.");
+     helpwidget->setText("This hand has good potential. Consider Doubling Down or Hitting.");
      helpwidget->show();
  }
 
  void MainWindow::tellUserToDoubleDownOrStand(){
-     helpwidget->setText("The best option would be to double down or stand.");
+     helpwidget->setText("This hand has good potential. Consider Doubling Down or Standing");
      helpwidget->show();
  }
 
