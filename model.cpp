@@ -288,3 +288,7 @@ bool Model::userHasAceInHand(){
 Card Model::getDealerFaceUpCard(){
     return dealerHand.at(1);
 }
+
+int Model::getTotalCardsForUser(){
+    return (int)userHand.size();
+}
