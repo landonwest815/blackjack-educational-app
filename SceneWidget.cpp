@@ -254,14 +254,18 @@ void SceneWidget::drawTextBox(const QString &text) {
 
     int margin = 400;
     int xCoordinate = width() - margin - 200;
-    QRectF textBoxRect(this->width() * 0.76, this->height() * 0.001, 500, 100);
-
-    painter.drawRect(textBoxRect);
+    QRectF textBoxRect(this->width() * 0.76, this->height() * 0.001, this->width() * 0.2, this->height());
+    painter.setBrush(QBrush(QColor::fromRgb(62, 62, 66)));
+    painter.setPen(QColor(62, 62, 66));
+    painter.drawRoundedRect(textBoxRect, 10, 10);
 
     QFont font;
     font.setPointSize(12);
     painter.setFont(font);
     painter.setPen(Qt::black);
+
+    QTextOption textOption;
+    textOption.setWrapMode(QTextOption::WordWrap);
 
     painter.drawText(textBoxRect, Qt::AlignCenter, text);
 }
