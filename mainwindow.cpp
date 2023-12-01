@@ -402,17 +402,21 @@ void MainWindow::showOutcome(QString outcome) {
  }
 
  void MainWindow::tellUserToHit(){
-
+     helpwidget->setText("It is best option would be to hit.");
+     helpwidget->show();
  }
 
  void MainWindow::tellUserToStand(){
-
+     helpwidget->setText("It best option would be to stand.");
+     helpwidget->show();
  }
 
  void MainWindow::tellUserToDoubleDownOrHit(){
-
+     helpwidget->setText("It best option would be to double down or hit.");
+     helpwidget->show();
  }
 
  void MainWindow::tellUserToDoubleDownOrStand(){
-
+     helpwidget->setText("The best option would be to double down or stand.");
+     helpwidget->show();
  }
