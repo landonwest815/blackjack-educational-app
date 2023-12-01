@@ -684,8 +684,8 @@ void MainWindow::showOutcome(QString outcome) {
      case 4:
         ui->dealerHand->clearAllCards();
         ui->playerHand->clearAllCards();
-        ui->dealerHand->addPlayerCard(":/cards/AH.png");
-        ui->dealerHand->addPlayerCard(":/cards/AC.png");
+        ui->playerHand->addPlayerCard(":/cards/AH.png");
+        ui->playerHand->addPlayerCard(":/cards/AC.png");
         ui->playerHand->addPlayerCard(":/cards/AD.png");
         ui->playerHand->addPlayerCard(":/cards/AS.png");
 
