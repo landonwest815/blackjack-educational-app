@@ -101,6 +101,13 @@ public:
 
     void setOnSecondHand(bool);
 
+    /// \brief userHasAceInHand allows to check if ace in hand
+    /// \return returns true or false depending if there are any aces at all.
+    bool userHasAceInHand();
+
+    /// \brief getDealerFaceUpFace used to get information of face up card
+    /// \return returns the face up card of the dealer
+    Card getDealerFaceUpCard();
     int faceDownValue();
 
 };

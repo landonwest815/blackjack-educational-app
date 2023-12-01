@@ -6,6 +6,7 @@
 #include "model.h"
 #include <QPushButton>
 #include <QLabel>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -46,6 +47,11 @@ private slots:
     void doubleDownHand();
     void doubleDown();
     void displayAdvice();
+    void tellUserToHit();
+    void tellUserToStand();
+    void tellUserToDoubleDownOrHit();
+    void tellUserToDoubleDownOrStand();
+    void hideTip();
 
     // just for demonstration REMOVE when needed
     void nextSplit();
@@ -60,6 +66,7 @@ private:
     HelpWidget *helpwidget;
     QList<QPushButton*> buttons;
     QList<QLabel*> labels;
+    QTimer tipTimer;
 
     void determineWinner();
     // Probably will remove, serves as demo functions
@@ -68,6 +75,9 @@ private:
     void createHelpWidget(QString);
     void updateBankDisplay();
     void updateScores();
+    void showATip();
+    int dealerFaceUpValue;
+    string dealerFaceUpSuit;
     void hideAllUI();
     void setupDeal();
     void showOutcome(QString outcome);

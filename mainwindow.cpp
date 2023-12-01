@@ -20,7 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupConnections();
     initializeUI();
-    //createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. Is this a sentence?");
+
+    // set up tips
+    createHelpWidget("");
+    tipTimer.setSingleShot(true);
 }
 
 MainWindow::~MainWindow()
@@ -70,6 +73,9 @@ void MainWindow::setupConnections() {
 
     connect(ui->quitGameMenu, &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
     connect(ui->adviceButton, &QPushButton::clicked, this, &MainWindow::displayAdvice);
+
+    // set up tip timer
+    connect(&tipTimer, &QTimer::timeout, this, &MainWindow::hideTip);
 }
 
 void MainWindow::initializeUI() {
@@ -99,13 +105,13 @@ void MainWindow::updateBankDisplay() {
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
     QMainWindow::resizeEvent(event);
-    //if (helpwidget) helpwidget->setSize();
+    if (helpwidget) helpwidget->setSize();
 }
 
 void MainWindow::createHelpWidget(QString text) {
     helpwidget = new HelpWidget(this);
     helpwidget->setText(text);
-    helpwidget->show();
+    helpwidget->hide();
 }
 
 // Just example code for how you would call to add a card or clear them from the Box2D scene
@@ -154,6 +160,8 @@ void MainWindow::addPlayer() {
             }
         }
 
+        helpwidget->hide();
+
         qDebug() << model.getOnSecondHand();
 
 }
@@ -163,12 +171,14 @@ void MainWindow::splitHand() {
     ui->splitScore->setVisible(true);
     ui->nextSplitButton->setVisible(true);
     ui->splitButton->setVisible(false);
+    helpwidget->hide();
     model.split();
     updateScores();
 }
 
 void MainWindow::nextSplit() {
     ui->playerHand->nextSplitHand();
+    helpwidget->hide();
     model.setOnSecondHand(true);
     model.setSplitCheck(false);
 }
@@ -227,7 +237,7 @@ void MainWindow::resetBet() {
 }
 
 void MainWindow::deal() {
-
+    //Add player cards
     // Deal to player
     addPlayer();
     addPlayer();
@@ -244,6 +254,7 @@ void MainWindow::deal() {
     ui->hitButton->setVisible(true);
     ui->standButton->setVisible(true);
     ui->doubleDemoButton->setVisible(true);
+    ui->adviceButton->setVisible(true);
     if (model.allowedToSplit()) ui->splitButton->setVisible(true);
 
     // Check for blackjack conditions
@@ -266,6 +277,7 @@ void MainWindow::deal() {
 }
 
 void MainWindow::stand() {
+    helpwidget->hide();
     // must flip over facedown card
     dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
     ui->insuranceButton->setVisible(false);
@@ -326,6 +338,7 @@ void MainWindow::showOutcome(QString outcome) {
  void MainWindow::switchToMainMenu() {
      ui->stackedWidget->setCurrentWidget(ui->startMenu);
      tutorialStep = 1;
+     helpwidget->hide();
      ui->dealerScore->setVisible(true);
      ui->playerScore->setVisible(true);
      ui->bank->setVisible(true);
@@ -369,6 +382,110 @@ void MainWindow::showOutcome(QString outcome) {
 
      ui->playerHand->addPlayerCard(fileName);
      updateScores();
+ }
+
+ void MainWindow::showATip(){
+     qDebug() << "ran showATip()";
+     int usersTotal = model.getUserTotal();
+     int dealerFaceUpValue = model.getDealerFaceUpCard().getValue();
+     if(model.userHasAceInHand()){
+        if((usersTotal == 3 || usersTotal == 13) ||
+           (usersTotal == 4 || usersTotal == 14)){
+            if(dealerFaceUpValue == 5 || dealerFaceUpValue == 6){
+                tellUserToDoubleDownOrHit();
+            } else{
+                tellUserToHit();
+            }
+        }
+        else if((usersTotal == 5 || usersTotal == 15) ||
+                (usersTotal == 6 || usersTotal == 16)){
+            if(dealerFaceUpValue == 5|| dealerFaceUpValue == 6 ||
+                dealerFaceUpValue == 4){
+                tellUserToDoubleDownOrHit();
+            } else{
+                tellUserToHit();
+            }
+
+        }
+        else if(usersTotal == 7 || usersTotal == 17){
+            if(dealerFaceUpValue == 3 || dealerFaceUpValue == 5 || dealerFaceUpValue == 6 ||
+                dealerFaceUpValue == 4){
+                tellUserToDoubleDownOrHit();
+            } else{
+                tellUserToHit();
+            }
+        }
+        else if(usersTotal >= 8 || usersTotal >= 18){
+            if((usersTotal == 8 || usersTotal == 18) &&
+                (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6))
+            {
+                tellUserToDoubleDownOrStand();
+            }
+            else if((usersTotal == 8 || usersTotal == 18) &&
+                       (dealerFaceUpValue >= 9 || model.getDealerFaceUpCard().getFace() == "A")){
+                tellUserToHit();
+            }
+            else {
+                tellUserToStand();
+            }
+        }
+     }
+     else{
+        if(usersTotal <= 8){
+            tellUserToHit();
+        }
+        else if(usersTotal > 8 && usersTotal <= 12){
+            if(usersTotal == 11){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 10) &&
+                       (dealerFaceUpValue >= 2 && dealerFaceUpValue <=9)){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 9) &&
+                       (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6)){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 12) &&
+                       (dealerFaceUpValue >= 4 && dealerFaceUpValue <= 6)){
+                tellUserToStand();
+            }
+            else{
+                tellUserToHit();
+            }
+        }
+        else if(usersTotal >= 13 && usersTotal <= 16){
+            if(dealerFaceUpValue >= 2 && dealerFaceUpValue <= 6){
+                tellUserToStand();
+            }
+            else{
+                tellUserToHit();
+            }
+        }
+        else if(usersTotal >= 17){
+            tellUserToStand();
+        }
+     }
+ }
+
+ void MainWindow::tellUserToHit(){
+     helpwidget->setText("It is best option would be to hit.");
+     helpwidget->show();
+ }
+
+ void MainWindow::tellUserToStand(){
+     helpwidget->setText("It best option would be to stand.");
+     helpwidget->show();
+ }
+
+ void MainWindow::tellUserToDoubleDownOrHit(){
+     helpwidget->setText("It best option would be to double down or hit.");
+     helpwidget->show();
+ }
+
+ void MainWindow::tellUserToDoubleDownOrStand(){
+     helpwidget->setText("The best option would be to double down or stand.");
+     helpwidget->show();
  }
 
  void MainWindow::insurance() {
@@ -716,6 +833,13 @@ void MainWindow::showOutcome(QString outcome) {
 
 
  void MainWindow::displayAdvice() {
+     showATip();
+     tipTimer.start(10000);
+     qDebug() << "ran displayAdvice";
+ }
 
+ void MainWindow::hideTip(){
+     helpwidget->hide();
+     qDebug() << "ran hideTip";
  }
 
