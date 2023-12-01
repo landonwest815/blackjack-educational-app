@@ -18,7 +18,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupConnections();
     initializeUI();
+
+    // set up tips
     createHelpWidget("");
+    tipTimer = new QTimer(this);
+    tipTimer->setSingleShot(true);
 }
 
 MainWindow::~MainWindow()
@@ -58,6 +62,9 @@ void MainWindow::setupConnections() {
     connect(ui->tutorial, &QPushButton::clicked, this, &MainWindow::switchToLessonsWindow);
     connect(ui->quitGameMenu, &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
     connect(ui->adviceButton, &QPushButton::clicked, this, &MainWindow::displayAdvice);
+
+    // set up tip timer
+    connect(tipTimer, &QTimer::timeout, this, &MainWindow::hideTip);
 }
 
 void MainWindow::initializeUI() {
@@ -87,7 +94,7 @@ void MainWindow::updateBankDisplay() {
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
     QMainWindow::resizeEvent(event);
-    //if (helpwidget) helpwidget->setSize();
+    if (helpwidget) helpwidget->setSize();
 }
 
 void MainWindow::createHelpWidget(QString text) {
@@ -355,6 +362,7 @@ void MainWindow::showOutcome(QString outcome) {
  }
 
  void MainWindow::showATip(){
+     qDebug() << "ran showATip()";
      int usersTotal = model.getUserTotal();
      int dealerFaceUpValue = model.getDealerFaceUpCard().getValue();
      if(model.userHasAceInHand()){
@@ -455,6 +463,8 @@ void MainWindow::showOutcome(QString outcome) {
  void MainWindow::tellUserToDoubleDownOrStand(){
      helpwidget->setText("The best option would be to double down or stand.");
      helpwidget->show();
+ }
+
  void MainWindow::insurance() {
      int sideBet = model.getBet() / 2 ;
 
@@ -469,5 +479,12 @@ void MainWindow::showOutcome(QString outcome) {
  }
 
  void MainWindow::displayAdvice() {
+     showATip();
+     tipTimer->start(1000);
+     qDebug() << "ran displayAdvice";
+ }
 
+ void MainWindow::hideTip(){
+     helpwidget->hide();
+     qDebug() << "ran hideTip";
  }
