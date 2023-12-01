@@ -37,13 +37,15 @@ public:
 
     Card doubleDown();
 
-    bool insurance();
+    bool insuranceAllowed();
 
     int getUserTotal();
 
     int getDealerTotal();
 
     int getbankTotal();
+
+    void adjustBankTotal(int);
 
     int getBet();
 
@@ -106,6 +108,7 @@ public:
     /// \brief getDealerFaceUpFace used to get information of face up card
     /// \return returns the face up card of the dealer
     Card getDealerFaceUpCard();
+    int faceDownValue();
 
 };
 

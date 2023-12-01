@@ -30,14 +30,19 @@ private slots:
     void splitHand();
     void onQuitGameClicked();
     void switchToGameWindow();
+    void switchToLessonsWindow();
     void switchToMainMenu();
     void splitAdd();
     void nextSplit(); // just for demonstration REMOVE WHEN NEEDED
     void deal();
     void stand();
-    void dealerFlip(QString fileName);
     void doubleDownHand();
+    void doubleDown();
+    void displayAdvice();
 
+    // just for demonstration REMOVE when needed
+    void nextSplit();
+    void dealerFlip(QString fileName);
 
 private:
     Ui::MainWindow *ui;
@@ -66,5 +71,6 @@ private:
     void tellUserToStand();
     void tellUserToDoubleDownOrHit();
     void tellUserToDoubleDownOrStand();
+    void insurance();
 };
 #endif // MAINWINDOW_H

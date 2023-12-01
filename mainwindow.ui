@@ -30,7 +30,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -1329,6 +1329,47 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="adviceButton">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Advice</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_11">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -1347,6 +1388,402 @@ QPushButton:pressed {
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="lessons">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <spacer name="horizontalSpacer_16">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="titleLabel">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 40px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+            </property>
+            <property name="text">
+             <string>Lessons</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_15">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <layout class="QVBoxLayout" name="Lesson1Layout">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>Lesson 1</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="Assets/Cards.qrc">:/lesson1.png</pixmap>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-size: 15px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>Rules of Blackjack</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="lesson1Button">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Start</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="Lesson2Layout">
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>Lesson 2</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="Assets/Cards.qrc">:/lesson2-2.png</pixmap>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-size: 15px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>Basic Strategies</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="lesson2Button">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Start</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="Lesson3Layout">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>Lesson 3</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="Assets/Cards.qrc">:/lesson3-2.png</pixmap>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-size: 15px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>Advanced Strategies</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Start</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <spacer name="horizontalSpacer_18">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mainMenuButton">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+            </property>
+            <property name="text">
+             <string>Main Menu</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_17">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -1357,7 +1794,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1696</width>
-     <height>37</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
@@ -1371,6 +1808,9 @@ QPushButton:pressed {
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="Assets/Cards.qrc"/>
+  <include location="Assets/Cards.qrc"/>
+ </resources>
  <connections/>
 </ui>

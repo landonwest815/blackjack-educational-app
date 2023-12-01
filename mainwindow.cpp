@@ -47,12 +47,17 @@ void MainWindow::setupConnections() {
     connect(ui->allIn, &QPushButton::clicked, this, [this](){ addToBet(model.getbankTotal()); });
     connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::resetBet);
     connect(ui->dealButton, &QPushButton::clicked, this, &MainWindow::deal);
-    connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
+   // connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
+    connect(ui->insuranceButton, &QPushButton::clicked, this, &MainWindow::insurance);
+    connect(ui->doubleDemoButton, &QPushButton::clicked, this, &MainWindow::doubleDown);
 
     // Menus
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
+    connect(ui->mainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
-    connect(ui->quitGameMenu , &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+    connect(ui->tutorial, &QPushButton::clicked, this, &MainWindow::switchToLessonsWindow);
+    connect(ui->quitGameMenu, &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
+    connect(ui->adviceButton, &QPushButton::clicked, this, &MainWindow::displayAdvice);
 }
 
 void MainWindow::initializeUI() {
@@ -117,14 +122,22 @@ void MainWindow::addPlayer() {
         ui->playerHand->addPlayerCard(QString::fromStdString(convertCardToPath(playerCard)));
     }
 
+        ui->insuranceButton->setVisible(false);
         updateScores();
 
         // End round if player hits 21
-        if (model.getUserTotal() >= 21 || model.getSplitTotal() >= 21) {
+        if (model.getUserTotal() > 21 || model.getSplitTotal() > 21) {
             if (!model.getSplitCheck()) {
-                stand();
-            }
-            else {
+                    dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+                    updateScores();
+                    determineWinner();
+            } else if(model.getUserTotal() == 21 || model.getSplitTotal() == 21) {
+                    while(model.getDealerTotal() < 17) {
+                        addDealer(true);
+                        updateScores();
+                    }
+                    determineWinner();
+            } else {
                 nextSplit();
             }
         }
@@ -153,7 +166,15 @@ void MainWindow::dealerFlip(QString fileName) {
 }
 
 void MainWindow::doubleDownHand() {
-    ui->playerHand->doubleDownPlayerCard(":/cards/AC.png");
+    doubleDown();
+}
+
+void MainWindow::doubleDown() {
+    Card doubleDownCard = model.userHit();
+    model.addUserCard(doubleDownCard);
+    ui->playerHand->doubleDownPlayerCard(QString::fromStdString(convertCardToPath(doubleDownCard)));
+    addToBet(2 * model.getBet());
+    stand();
 }
 
 string MainWindow::convertCardToPath(Card card) {
@@ -210,22 +231,32 @@ void MainWindow::deal() {
     hideAllUI();
     ui->hitButton->setVisible(true);
     ui->standButton->setVisible(true);
+    ui->doubleDemoButton->setVisible(true);
     if (model.allowedToSplit()) ui->splitButton->setVisible(true);
 
     // Check for blackjack conditions
     if (model.getUserTotal() == 21) {
-        if (!model.getSplitCheck()) {
-            stand();
+        dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+        updateScores();
+        determineWinner();
+    }
+
+    if(model.getDealerTotal() == 10) {
+        updateScores();
+        if(model.getDealerTotal() == 21) {
+            dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+                determineWinner();
         }
-        else {
-            nextSplit();
-        }
+    }
+    if(model.insuranceAllowed()) {
+        ui->insuranceButton->setVisible(true);
     }
 }
 
 void MainWindow::stand() {
     // must flip over facedown card
     dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+    ui->insuranceButton->setVisible(false);
     updateScores();
 
     while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0)) {
@@ -295,11 +326,16 @@ void MainWindow::showOutcome(QString outcome) {
      setupDeal();
  }
 
+ void MainWindow::switchToLessonsWindow() {
+     ui->stackedWidget->setCurrentWidget(ui->lessons);
+ }
+
  void MainWindow::setupDeal() {
      // prompt the bet amounts
      hideAllUI();
      clearAll();
      model.endRound();
+     addToBet(100);
 
      // Show Betting Actions
      ui->add50->setVisible(true);
@@ -419,4 +455,19 @@ void MainWindow::showOutcome(QString outcome) {
  void MainWindow::tellUserToDoubleDownOrStand(){
      helpwidget->setText("The best option would be to double down or stand.");
      helpwidget->show();
+ void MainWindow::insurance() {
+     int sideBet = model.getBet() / 2 ;
+
+     if(model.getDealerTotal() + model.faceDownValue() == 21) {
+        model.adjustBankTotal(2 * sideBet);
+     } else {
+        model.adjustBankTotal(-sideBet);
+     }
+
+     ui->insuranceButton->setVisible(false);
+     updateBankDisplay();
+ }
+
+ void MainWindow::displayAdvice() {
+
  }
