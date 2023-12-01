@@ -20,7 +20,9 @@ SceneWidget::SceneWidget(QWidget *parent)
     nextSplit(false),
     splitCountBool(true),
     splitCount(0),
-    doubleDown(false) {
+    doubleDown(false),
+    textBoxEnabled(false),
+    textBoxString("") {
 
     // Defines the low ground body and its various settings
     b2BodyDef lowGroundDef;
@@ -153,6 +155,11 @@ void SceneWidget::paintEvent(QPaintEvent *) {
         }
     }
 
+    // Paints the text box if it is enabled
+    if (textBoxEnabled) {
+        drawTextBox(textBoxString);
+    }
+
     painter.end();
 }
 
@@ -183,6 +190,10 @@ void SceneWidget::clearAllCards() {
     split = false;
     nextSplit = false;
     splitCountBool = true;
+    doubleDown = false;
+    textBoxEnabled = false;
+    textBoxString = "";
+
     // Removes all dealer bodies from the world
     for (b2Body* dealerBody : dealerBodies) {
         world.DestroyBody(dealerBody);
@@ -244,4 +255,33 @@ void SceneWidget::resizeEvent(QResizeEvent *event) {
 
     // Repaint the widget with the new sizes
     update();
+}
+
+void SceneWidget::drawTextBox(const QString &text) {
+    QPainter painter(this);
+
+    // Set rectangle options
+    QRectF textBoxRect(this->width() * 0.76, this->height() * 0.001, this->width() * 0.2, this->height());
+    painter.setBrush(QBrush(QColor::fromRgb(62, 62, 66)));
+    painter.setPen(QColor(62, 62, 66));
+    painter.drawRoundedRect(textBoxRect, 10, 10);
+
+    // Set text options
+    QFont font;
+    font.setPointSize(this->height() * 0.03);
+    painter.setFont(font);
+    painter.setPen(Qt::white);
+    QTextOption textOption;
+    textOption.setWrapMode(QTextOption::WordWrap);
+
+    // Draw within center
+    painter.drawText(textBoxRect, Qt::AlignCenter, text);
+}
+
+void SceneWidget::enableTextBox() {
+    textBoxEnabled = true;
+}
+
+void SceneWidget::setTextBox(const QString &text) {
+    textBoxString = text;
 }
