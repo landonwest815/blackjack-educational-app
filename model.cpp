@@ -274,10 +274,6 @@ void Model::endRound() {
     splitCheck = false;
 }
 
-int Model::getDealerFaceUpValue(){
-    return dealerHand.at(1).getValue();
-}
-
 bool Model::userHasAceInHand(){
     for(auto card : userHand){
         if(card.getFace() == "A"){
@@ -285,4 +281,8 @@ bool Model::userHasAceInHand(){
         }
     }
     return false;
+}
+
+Card Model::getDealerFaceUpCard(){
+    return dealerHand.at(1);
 }

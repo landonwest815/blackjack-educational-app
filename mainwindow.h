@@ -62,5 +62,9 @@ private:
     void hideAllUI();
     void setupDeal();
     void showOutcome(QString outcome);
+    void tellUserToHit();
+    void tellUserToStand();
+    void tellUserToDoubleDownOrHit();
+    void tellUserToDoubleDownOrStand();
 };
 #endif // MAINWINDOW_H

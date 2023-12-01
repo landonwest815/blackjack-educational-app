@@ -99,13 +99,13 @@ public:
 
     void setOnSecondHand(bool);
 
-    /// @brief getDealerFaceUpValue used mainly to show a tip based on game state.
-    /// @return returns the value of the dealers face up card.
-    int getDealerFaceUpValue();
-
     /// \brief userHasAceInHand allows to check if ace in hand
     /// \return returns true or false depending if there are any aces at all.
     bool userHasAceInHand();
+
+    /// \brief getDealerFaceUpFace used to get information of face up card
+    /// \return returns the face up card of the dealer
+    Card getDealerFaceUpCard();
 
 };
 

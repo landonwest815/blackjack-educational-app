@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupConnections();
     initializeUI();
-    //createHelpWidget("This is a very helpful tip on how to win the game!! blah blah blah blah blah blah. Is this a sentence?");
+    createHelpWidget("");
 }
 
 MainWindow::~MainWindow()
@@ -88,7 +88,7 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 void MainWindow::createHelpWidget(QString text) {
     helpwidget = new HelpWidget(this);
     helpwidget->setText(text);
-    helpwidget->show();
+    helpwidget->hide();
 }
 
 // Just example code for how you would call to add a card or clear them from the Box2D scene
@@ -320,47 +320,99 @@ void MainWindow::showOutcome(QString outcome) {
 
  void MainWindow::showATip(){
      int usersTotal = model.getUserTotal();
-     int dealerFaceUpValue = model.getDealerFaceUpValue();
+     int dealerFaceUpValue = model.getDealerFaceUpCard().getValue();
      if(model.userHasAceInHand()){
         if((usersTotal == 3 || usersTotal == 13) ||
            (usersTotal == 4 || usersTotal == 14)){
             if(dealerFaceUpValue == 5 || dealerFaceUpValue == 6){
-                // give user hint to double down or just hit.
+                tellUserToDoubleDownOrHit();
             } else{
-                // tell user best it to hit
+                tellUserToHit();
             }
         }
         else if((usersTotal == 5 || usersTotal == 15) ||
                 (usersTotal == 6 || usersTotal == 16)){
             if(dealerFaceUpValue == 5|| dealerFaceUpValue == 6 ||
                 dealerFaceUpValue == 4){
-                // give user hint to double down or just hit.
+                tellUserToDoubleDownOrHit();
             } else{
-                // tell user best it to hit
+                tellUserToHit();
             }
 
         }
         else if(usersTotal == 7 || usersTotal == 17){
             if(dealerFaceUpValue == 3 || dealerFaceUpValue == 5 || dealerFaceUpValue == 6 ||
                 dealerFaceUpValue == 4){
-                // give user hint to double down or just hit.
+                tellUserToDoubleDownOrHit();
             } else{
-                // tell user best it to hit
+                tellUserToHit();
             }
         }
         else if(usersTotal >= 8 || usersTotal >= 18){
-            if(usersTotal == 8 || usersTotal == 18){
-                // todo
+            if((usersTotal == 8 || usersTotal == 18) &&
+                (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6))
+            {
+                tellUserToDoubleDownOrStand();
+            }
+            else if((usersTotal == 8 || usersTotal == 18) &&
+                       (dealerFaceUpValue >= 9 || model.getDealerFaceUpCard().getFace() == "A")){
+                tellUserToHit();
+            }
+            else {
+                tellUserToStand();
             }
         }
      }
      else{
-        if(usersTotal >= 13 && usersTotal <= 16){
-            // add code for if the user should hit or double down depending on face up value
-
+        if(usersTotal <= 8){
+            tellUserToHit();
+        }
+        else if(usersTotal > 8 && usersTotal <= 12){
+            if(usersTotal == 11){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 10) &&
+                       (dealerFaceUpValue >= 2 && dealerFaceUpValue <=9)){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 9) &&
+                       (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6)){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 12) &&
+                       (dealerFaceUpValue >= 4 && dealerFaceUpValue <= 6)){
+                tellUserToStand();
+            }
+            else{
+                tellUserToHit();
+            }
+        }
+        else if(usersTotal >= 13 && usersTotal <= 16){
+            if(dealerFaceUpValue >= 2 && dealerFaceUpValue <= 6){
+                tellUserToStand();
+            }
+            else{
+                tellUserToHit();
+            }
         }
         else if(usersTotal >= 17){
-            // add code for if the user should stand or double down, and a special case of hit
+            tellUserToHit();
         }
      }
+ }
+
+ void MainWindow::tellUserToHit(){
+
+ }
+
+ void MainWindow::tellUserToStand(){
+
+ }
+
+ void MainWindow::tellUserToDoubleDownOrHit(){
+
+ }
+
+ void MainWindow::tellUserToDoubleDownOrStand(){
+
  }
