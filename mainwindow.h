@@ -32,6 +32,14 @@ private slots:
     void onQuitGameClicked();
     void switchToGameWindow();
     void switchToLessonsWindow();
+
+    void handleLessonSelect();
+
+    void nextLessonOneStep();
+    void nextLessonTwoStep();
+    void nextLessonThreeStep();
+
+
     void switchToMainMenu();
     void splitAdd();
     void deal();
@@ -74,5 +82,9 @@ private:
     void setupDeal();
     void showOutcome(QString outcome);
     void insurance();
+
+    /// Keeps track of current tutorial step.
+    int tutorialStep;
+
 };
 #endif // MAINWINDOW_H
