@@ -108,6 +108,8 @@ public:
     /// \brief getDealerFaceUpFace used to get information of face up card
     /// \return returns the face up card of the dealer
     Card getDealerFaceUpCard();
+
+    int getTotalCardsForUser();
     int faceDownValue();
 
 };
