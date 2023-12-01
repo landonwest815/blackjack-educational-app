@@ -320,24 +320,38 @@ void MainWindow::showOutcome(QString outcome) {
 
  void MainWindow::showATip(){
      int usersTotal = model.getUserTotal();
+     int dealerFaceUpValue = model.getDealerFaceUpValue();
      if(model.userHasAceInHand()){
-        if(usersTotal == 3 || usersTotal == 13){
-
+        if((usersTotal == 3 || usersTotal == 13) ||
+           (usersTotal == 4 || usersTotal == 14)){
+            if(dealerFaceUpValue == 5 || dealerFaceUpValue == 6){
+                // give user hint to double down or just hit.
+            } else{
+                // tell user best it to hit
+            }
         }
-        else if(usersTotal == 4 || usersTotal == 14){
-
-        }
-        else if(usersTotal == 5 || usersTotal == 15){
-
-        }
-        else if(usersTotal == 6 || usersTotal == 16){
+        else if((usersTotal == 5 || usersTotal == 15) ||
+                (usersTotal == 6 || usersTotal == 16)){
+            if(dealerFaceUpValue == 5|| dealerFaceUpValue == 6 ||
+                dealerFaceUpValue == 4){
+                // give user hint to double down or just hit.
+            } else{
+                // tell user best it to hit
+            }
 
         }
         else if(usersTotal == 7 || usersTotal == 17){
-
+            if(dealerFaceUpValue == 3 || dealerFaceUpValue == 5 || dealerFaceUpValue == 6 ||
+                dealerFaceUpValue == 4){
+                // give user hint to double down or just hit.
+            } else{
+                // tell user best it to hit
+            }
         }
         else if(usersTotal >= 8 || usersTotal >= 18){
-
+            if(usersTotal == 8 || usersTotal == 18){
+                // todo
+            }
         }
      }
      else{
