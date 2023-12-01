@@ -101,21 +101,26 @@ b2Body* SceneWidget::createCardBody(float x, float y) {
 }
 
 void SceneWidget::paintEvent(QPaintEvent *) {
-    QPainter painter(this);
 
-    // Get positions
-    int rectWidth = this->width() / 2;
-    int rectHeight = this->height();
+    /// Set the pen width
+    int penWidth = 4;
+
+    // Calculate the adjusted positions and dimensions
+    int rectWidth = this->width() / 2 - penWidth;
+    int rectHeight = this->height() - penWidth;
     int left = (this->width() - rectWidth) / 2;
     int top = (this->height() - rectHeight) / 2;
 
-    // Use the gradient as the brush
-    painter.setBrush(QBrush(QColor::fromRgb(62, 62, 66)));
+    // Set up the painter
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing); // For smoother edges
 
-    // Set the pen to NoPen to avoid drawing the widget's border
-    painter.setPen(Qt::NoPen);
+    // Set the pen and brush
+    QPen outlinePen(Qt::white, penWidth, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
+    painter.setPen(outlinePen);
+    painter.setBrush(QBrush(QColor::fromRgb(46, 77, 62)));
 
-    // You can adjust the corner radius by changing the '10'
+    // Draw the rounded rectangle
     painter.drawRoundedRect(left, top, rectWidth, rectHeight, 10, 10);
 
     // Draws the card bodies of the dealer
@@ -262,8 +267,8 @@ void SceneWidget::drawTextBox(const QString &text) {
 
     // Set rectangle options
     QRectF textBoxRect(this->width() * 0.76, this->height() * 0.001, this->width() * 0.2, this->height());
-    painter.setBrush(QBrush(QColor::fromRgb(62, 62, 66)));
-    painter.setPen(QColor(62, 62, 66));
+    painter.setBrush(QBrush(QColor::fromRgb(46, 77, 62)));
+    painter.setPen(QColor::fromRgb(46, 77, 62));
     painter.drawRoundedRect(textBoxRect, 10, 10);
 
     // Set text options

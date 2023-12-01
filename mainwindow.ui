@@ -30,7 +30,7 @@
     </sizepolicy>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: #2d2d30</string>
+    <string notr="true">background-color: rgb(46, 77, 62)</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -138,25 +138,26 @@
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Start Game</string>
@@ -185,25 +186,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Tutorial</string>
@@ -232,25 +234,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Quit Game</string>
@@ -583,25 +586,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Next Hand</string>
@@ -630,25 +634,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Insurance</string>
@@ -677,25 +682,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Hit</string>
@@ -724,25 +730,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Stand</string>
@@ -765,23 +772,25 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }</string>
               </property>
               <property name="text">
@@ -811,23 +820,25 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }</string>
               </property>
               <property name="text">
@@ -857,23 +868,25 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }</string>
               </property>
               <property name="text">
@@ -903,23 +916,25 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }</string>
               </property>
               <property name="text">
@@ -965,25 +980,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>+50</string>
@@ -1012,25 +1028,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>+100</string>
@@ -1059,25 +1076,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>+250</string>
@@ -1106,25 +1124,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>+500</string>
@@ -1153,25 +1172,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>All In</string>
@@ -1216,25 +1236,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Deal</string>
@@ -1257,25 +1278,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Reset</string>
@@ -1487,25 +1509,26 @@ QPushButton:pressed {
                </property>
                <property name="styleSheet">
                 <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
                </property>
                <property name="text">
                 <string>Advice</string>
@@ -1575,25 +1598,26 @@ QPushButton:pressed {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Main Menu</string>
@@ -1604,25 +1628,26 @@ QPushButton:pressed {
              <widget class="QPushButton" name="nextStepOneButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Next Step</string>
@@ -1633,25 +1658,26 @@ QPushButton:pressed {
              <widget class="QPushButton" name="nextStepTwoButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Next Step</string>
@@ -1662,25 +1688,26 @@ QPushButton:pressed {
              <widget class="QPushButton" name="nextStepThreeButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
               </property>
               <property name="text">
                <string>Next Step</string>
@@ -1852,25 +1879,26 @@ QPushButton:pressed {
                 </property>
                 <property name="styleSheet">
                  <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
                 </property>
                 <property name="text">
                  <string>Start</string>
@@ -1956,25 +1984,26 @@ QPushButton:pressed {
                 </property>
                 <property name="styleSheet">
                  <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
                 </property>
                 <property name="text">
                  <string>Start</string>
@@ -2060,25 +2089,26 @@ QPushButton:pressed {
                 </property>
                 <property name="styleSheet">
                  <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
                 </property>
                 <property name="text">
                  <string>Start</string>
@@ -2129,25 +2159,26 @@ QPushButton:pressed {
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
-    background-color: #333333;
+    background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
     text-shadow: 1px 1px 2px black;
     padding: 5px;
-    border: 1px solid #555555;
+    border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
     font-size: 16px;
     font-family: &quot;Arial&quot;, sans-serif;
 }
 
 QPushButton:hover {
-    background-color: #444444;
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
 }
 
 QPushButton:pressed {
-    background-color: #333333;
-}
-</string>
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
             </property>
             <property name="text">
              <string>Main Menu</string>
@@ -2185,7 +2216,6 @@ QPushButton:pressed {
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
   <customwidget>
