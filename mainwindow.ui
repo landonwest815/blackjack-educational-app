@@ -454,6 +454,30 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
+             <widget class="QLabel" name="tutorialLabel">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>TUTORIAL MODE</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_8">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -1370,6 +1394,93 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="nextStepOneButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Next Step</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="nextStepTwoButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Next Step</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="nextStepThreeButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #333333;
+    color: white;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+    padding: 5px;
+    border: 1px solid #555555;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #444444;
+}
+
+QPushButton:pressed {
+    background-color: #333333;
+}
+</string>
+              </property>
+              <property name="text">
+               <string>Next Step</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_11">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -1508,7 +1619,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="lesson1Button">
+             <widget class="QPushButton" name="lessonOneButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #333333;
@@ -1593,7 +1704,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="lesson2Button">
+             <widget class="QPushButton" name="lessonTwoButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #333333;
@@ -1678,7 +1789,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="lessonThreeButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #333333;
@@ -1794,7 +1905,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1696</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

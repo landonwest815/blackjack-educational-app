@@ -20,7 +20,9 @@ SceneWidget::SceneWidget(QWidget *parent)
     nextSplit(false),
     splitCountBool(true),
     splitCount(0),
-    doubleDown(false) {
+    doubleDown(false),
+    textBoxEnabled(false),
+    textBoxString("") {
 
     // Defines the low ground body and its various settings
     b2BodyDef lowGroundDef;
@@ -153,14 +155,10 @@ void SceneWidget::paintEvent(QPaintEvent *) {
         }
     }
 
-
-    drawTextBox("Card Values\n"
-                "1) Number cards (2-10) are worth their face value.\n"
-                "2) Face cards (Jack, Queen, King) are each worth 10.\n"
-                "3) Aces can be worth 1 or 11, whichever is more beneficial.\n"
-                "Example\n"
-                "Dealer Hand) 7D(7) + 10C(10) = 17\n"
-                "Player Hand) QC(10) + AC(1/11) = 11 or 21<\n");
+    // Paints the text box if it is enabled
+    if (textBoxEnabled) {
+        drawTextBox(textBoxString);
+    }
 
     painter.end();
 }
@@ -192,6 +190,10 @@ void SceneWidget::clearAllCards() {
     split = false;
     nextSplit = false;
     splitCountBool = true;
+    doubleDown = false;
+    textBoxEnabled = false;
+    textBoxString = "";
+
     // Removes all dealer bodies from the world
     for (b2Body* dealerBody : dealerBodies) {
         world.DestroyBody(dealerBody);
@@ -258,26 +260,28 @@ void SceneWidget::resizeEvent(QResizeEvent *event) {
 void SceneWidget::drawTextBox(const QString &text) {
     QPainter painter(this);
 
+    // Set rectangle options
     QRectF textBoxRect(this->width() * 0.76, this->height() * 0.001, this->width() * 0.2, this->height());
     painter.setBrush(QBrush(QColor::fromRgb(62, 62, 66)));
     painter.setPen(QColor(62, 62, 66));
     painter.drawRoundedRect(textBoxRect, 10, 10);
 
+    // Set text options
     QFont font;
     font.setPointSize(this->height() * 0.03);
     painter.setFont(font);
     painter.setPen(Qt::white);
-
     QTextOption textOption;
-    textOption.setAlignment(Qt::AlignLeft);
     textOption.setWrapMode(QTextOption::WordWrap);
 
+    // Draw within center
     painter.drawText(textBoxRect, Qt::AlignCenter, text);
 }
 
+void SceneWidget::enableTextBox() {
+    textBoxEnabled = true;
+}
 
-
-
-
-
-
+void SceneWidget::setTextBox(const QString &text) {
+    textBoxString = text;
+}
