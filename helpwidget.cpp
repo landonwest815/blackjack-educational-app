@@ -49,7 +49,7 @@ void HelpWidget::setSize() {
 
 void HelpWidget::reposition() {
     if (QMainWindow *mainWindow = qobject_cast<QMainWindow*>(parent())) {
-        int marginRight = mainWindow->width() / 4.25;
+        int marginRight = mainWindow->width() / 4.0;
         int verticalCenter = (mainWindow->height() - height()) / 1.66;
         int newX = mainWindow->width() - width() - marginRight;
         int newY = verticalCenter;
