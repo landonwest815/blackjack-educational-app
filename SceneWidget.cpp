@@ -254,7 +254,7 @@ void SceneWidget::drawTextBox(const QString &text) {
 
     int margin = 400;
     int xCoordinate = width() - margin - 200;
-    QRectF textBoxRect(xCoordinate, 0, 500, 500);
+    QRectF textBoxRect(this->width() * 0.76, this->height() * 0.001, 500, 100);
 
     painter.drawRect(textBoxRect);
 
