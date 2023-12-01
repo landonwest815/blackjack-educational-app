@@ -52,6 +52,12 @@ private:
     /// @brief Whether the player body cards are double down.
     bool doubleDown;
 
+    /// @brief Whether text box is enabled or not.
+    bool textBoxEnabled;
+
+    /// @brief Text to display within text box.
+    QString textBoxString;
+
     /// @brief Stores blackground image of a blackjack table.
     QImage backgroundImage;
 
@@ -103,6 +109,15 @@ public slots:
     /// @brief Draws a new player card with given image on its side to represent double down.
     /// @param imagePath String path of image for player card to display.
     void doubleDownPlayerCard(const QString& imagePath);
+
+    /// @brief Draws a text box that contains the text the parameter is given.
+    /// @param text String to display in the text box.
+    void drawTextBox(const QString &text);
+
+    /// @brief Allows text box to be displayed.
+    void enableTextBox();
+
+    void setTextBox(const QString &text);
 
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.
