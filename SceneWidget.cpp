@@ -23,7 +23,8 @@ SceneWidget::SceneWidget(QWidget *parent)
     doubleDown(false),
     textBoxEnabled(false),
     textBoxString(""),
-    isShakingEnabled(false) {
+    isShakingEnabled(false),
+    discardBound(0.75) {
 
     // Defines the low ground body and its various settings
     b2BodyDef lowGroundDef;
@@ -276,7 +277,7 @@ void SceneWidget::updateWorld() {
     // Stop player bodies if they reach the target position
     for (b2Body* playerDiscardBody : playerDiscardBodies) {
         playerDiscardBody->SetLinearVelocity(b2Vec2(-5.0f, 0.0f)); // Velocity direction left
-        if (playerDiscardBody->GetPosition().x <= 0.75) {
+        if (playerDiscardBody->GetPosition().x <= discardBound) {
             playerDiscardBody->SetLinearVelocity(b2Vec2_zero);
         }
     }
@@ -284,8 +285,8 @@ void SceneWidget::updateWorld() {
     elapsedTime += 1.0f / 60.0f;
 
     // Oscillation parameters
-    float tiltAmplitude = M_PI / 18; // Adjust the tilt amplitude as needed
-    float tiltFrequency = 2.0f; // Adjust the frequency of oscillation as needed
+    float tiltAmplitude = M_PI / 20; // Adjust the tilt amplitude as needed
+    float tiltFrequency = 3.0f; // Adjust the frequency of oscillation as needed
 
     // Calculate the tilt angle using a sine wave
     float tiltAngle = sin(elapsedTime * tiltFrequency) * tiltAmplitude;
@@ -417,4 +418,40 @@ void SceneWidget::setShakingEnabled(bool enabled) {
 void SceneWidget::applyTiltAngle(b2Body* body, float angle) {
     b2Vec2 position = body->GetPosition();
     body->SetTransform(position, angle); // Directly sets the angle of the body
+}
+
+void SceneWidget::clearDiscardPile() {
+    // Removes all dealer bodies from the world
+//    for (b2Body* dealerDiscardBody : dealerDiscardBodies) {
+//        world.DestroyBody(dealerDiscardBody);
+//    }
+
+    discardBound *= -2.0;
+
+    QTimer::singleShot(400, this, [this]() {
+        for (QImage& card : playerDiscardImages) {
+            card = faceDownImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
+        }
+        discardBound *= -5;
+        for (b2Body* playerBody : playerDiscardBodies) {
+            b2Vec2 newPosition(18, playerBody->GetPosition().y); // Set the new x and y coordinates
+            qDebug() << newPosition.y;
+            playerBody->SetTransform(newPosition, 0.0f);
+        }
+    });
+
+    QTimer::singleShot(1675, this, [this]() {
+
+        for (b2Body* playerBody : playerDiscardBodies) {
+            world.DestroyBody(playerBody);
+        }
+
+        playerBodies.clear();
+        playerImages.clear();
+        playerDiscardBodies.clear();
+        playerDiscardImages.clear();
+
+        discardBound = 0.75;
+    });
+
 }

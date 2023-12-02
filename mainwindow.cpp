@@ -378,6 +378,13 @@ void MainWindow::showOutcome(QString outcome) {
      ui->playerHand->setShakingEnabled(false);
      ui->dealerHand->setShakingEnabled(false);
 
+
+     if (model.shuffleCheck()) {
+        ui->playerHand->clearDiscardPile();
+        ui->dealerHand->clearDiscardPile();
+     }
+
+
      // Show Betting Actions
      ui->add50->setVisible(true);
      ui->add100->setVisible(true);

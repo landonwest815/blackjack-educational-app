@@ -86,6 +86,8 @@ private:
 
     QImage faceDownImage;
 
+    float discardBound;
+
 protected:
     /// @brief Overrides the paintEvent function to customize the rendering.
     void paintEvent(QPaintEvent *) override;
@@ -132,6 +134,7 @@ public slots:
 
     void applyTiltAngle(b2Body* body, float angle);
 
+    void clearDiscardPile();
 
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.

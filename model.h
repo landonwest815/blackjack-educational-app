@@ -95,7 +95,7 @@ public:
 
     void endRound();
 
-    void shuffleCheck();
+    bool shuffleCheck();
 
     bool getOnSecondHand();
 

@@ -37,7 +37,6 @@ Card Model::userHit() {
             userAceCounter--;
         }
     }
-    shuffleCheck();
     return nextCard;
 }
 
@@ -63,17 +62,20 @@ Card Model::dealerHit(bool facedown) {
         dealerTotal -= nextCard.getValue();
         nextCard.setFaceDown(true);
     }
-    shuffleCheck();
     return nextCard;
 }
 
-void Model::shuffleCheck() {
+bool Model::shuffleCheck() {
 
-    //qDebug() << deck.getSize();
+    qDebug() << deck.getSize();
 
     if (deck.getSize() < 27) {
         Deck newDeck;
         deck = newDeck;
+        return true;
+    }
+    else {
+        return false;
     }
 }
 
@@ -189,7 +191,6 @@ Card Model::splitHit() {
             splitAceCounter--;
         }
     }
-    shuffleCheck();
     return nextCard;
 }
 
