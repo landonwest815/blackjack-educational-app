@@ -64,6 +64,10 @@ private:
     /// @brief Stores all dealer bodies that are created.
     QVector<b2Body*> dealerBodies;
 
+    QVector<b2Body*> dealerDiscardBodies;
+
+    QVector<QImage> dealerDiscardImages;
+
     /// @brief Stores all player bodies that are created.
     QVector<b2Body*> playerBodies;
 
@@ -86,7 +90,11 @@ private:
 
     QImage faceDownImage;
 
-    float discardBound;
+    float playerDiscardBound;
+
+    float dealerDiscardBound;
+
+    bool isPlayerHand;
 
 protected:
     /// @brief Overrides the paintEvent function to customize the rendering.
@@ -135,6 +143,8 @@ public slots:
     void applyTiltAngle(b2Body* body, float angle);
 
     void clearDiscardPile();
+
+    void setPlayerOrDealer(bool isPlayer);
 
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.

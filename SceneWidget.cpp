@@ -24,7 +24,8 @@ SceneWidget::SceneWidget(QWidget *parent)
     textBoxEnabled(false),
     textBoxString(""),
     isShakingEnabled(false),
-    discardBound(0.75) {
+    playerDiscardBound(0.75),
+    isPlayerHand(true) {
 
     // Defines the low ground body and its various settings
     b2BodyDef lowGroundDef;
@@ -50,18 +51,22 @@ SceneWidget::SceneWidget(QWidget *parent)
 
     QImage image(":/cards/facedown.png");
     faceDownImage = image;
+
+    dealerDiscardBound = (this->width() / 80.0) - 1.0;
 }
 
 void SceneWidget::addDealerCard(const QString& imagePath) {
     // Creates body of dealer card and adds to the associated vector
     b2Body* dealerBody = nullptr;
-    dealerBody = createCardBody(-6.0, this->height() / 30.0); // Initial position of dealer body
+    dealerBody = createCardBody(2.0, this->height() / 30.0); // Initial position of dealer body
     dealerBodies.push_back(dealerBody);
 
     // Creates image of dealer card and adds to the associated vector
     QImage dealerImage(imagePath);
     dealerImage = dealerImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
     dealerImages.push_back(dealerImage);
+
+    isPlayerHand = false;
 }
 
 void SceneWidget::addPlayerCard(const QString& imagePath) {
@@ -71,7 +76,7 @@ void SceneWidget::addPlayerCard(const QString& imagePath) {
 
     // Creates body of player card and adds to the associated vector
     b2Body* playerBody = nullptr;
-    playerBody = createCardBody(this->width() / 225.0, this->height() / 200.0); // Initial position of player body
+    playerBody = createCardBody(this->width() / 200.0, this->height() / 200.0); // Initial position of player body
     playerBodies.push_back(playerBody);
 
     // Creates image of player card and adds to the associated vector
@@ -81,6 +86,8 @@ void SceneWidget::addPlayerCard(const QString& imagePath) {
         playerImage = playerImage.transformed(QTransform().rotate(-90));
     }
     playerImages.push_back(playerImage);
+
+    isPlayerHand = true;
 }
 
 b2Body* SceneWidget::createCardBody(float x, float y) {
@@ -137,11 +144,19 @@ void SceneWidget::paintEvent(QPaintEvent *) {
 //        painter.drawImage((position.x * 0.5 * 145) - (i * 40), (position.y * 0.5 * 10), dealerImages[i]);
 //    }
 
+
+    if (!isPlayerHand) {
     // Draws the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
+
         b2Vec2 position = dealerBodies[i]->GetPosition();
+        float positionLeftX = position.x * 0.5 * 145;
+        float positionY = position.y * 0.5 * 10;
+
         QImage &image = dealerImages[i];
-        QRect cardRect((position.x * 0.5 * 145) - (i * 40), (position.y * 0.5 * 10), image.width(), image.height());
+        QRect cardRect;
+
+        cardRect = QRect(positionLeftX - (i * 40), positionY, image.width(), image.height());
 
         if (isShakingEnabled) {
             painter.save(); // Save the current state of the painter
@@ -162,7 +177,8 @@ void SceneWidget::paintEvent(QPaintEvent *) {
             painter.drawImage(cardRect, image);
         }
     }
-
+    }
+    else {
 
     // Draws the card bodies of the player
     for (int i = 0; i < playerBodies.size(); ++i) {
@@ -210,8 +226,10 @@ void SceneWidget::paintEvent(QPaintEvent *) {
             painter.drawImage(cardRect, image);
         }
     }
+    }
 
      //Draws the card bodies of the player discard
+    if (isPlayerHand) {
         for (int i = 0; i < playerDiscardBodies.size(); ++i) {
             b2Vec2 position = playerDiscardBodies[i]->GetPosition();
             float positionLeftX = position.x * 0.5 * 325;
@@ -229,6 +247,27 @@ void SceneWidget::paintEvent(QPaintEvent *) {
 
             painter.drawImage(cardRect, image);
         }
+    }
+    else {
+        //Draws the card bodies of the player discard
+        for (int i = 0; i < dealerDiscardBodies.size(); ++i) {
+            b2Vec2 position = dealerDiscardBodies[i]->GetPosition();
+            float positionLeftX = position.x * 0.5 * 145;
+            float positionY = position.y * 0.5 * 10;
+
+            QImage &image = dealerDiscardImages[i];
+            QRect cardRect;
+
+            if (i == 0)
+                cardRect = QRect(positionLeftX - 10, positionY, image.width(), image.height());
+            else if (i == 1)
+                cardRect = QRect(positionLeftX - 5, positionY, image.width(), image.height());
+            else
+                cardRect = QRect(positionLeftX, positionY, image.width(), image.height());
+
+            painter.drawImage(cardRect, image);
+        }
+    }
 
 
         for (int i = 0; i < 3; i++) {
@@ -236,12 +275,17 @@ void SceneWidget::paintEvent(QPaintEvent *) {
             QImage image = faceDownImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
             QRect cardRect;
 
+            float positionX = 0.0;
+
+            if (isPlayerHand) positionX = this->width() - 200;
+            else              positionX = 110;
+
             if (i == 0)
-                cardRect = QRect(this->width() * 0.75 + 100, positionY, image.width(), image.height());
+                cardRect = QRect(positionX - 10, positionY, image.width(), image.height());
             else if (i == 1)
-                cardRect = QRect(this->width() * 0.75 + 105, positionY, image.width(), image.height());
+                cardRect = QRect(positionX - 5, positionY, image.width(), image.height());
             else
-                cardRect = QRect(this->width() * 0.75 + 110, positionY, image.width(), image.height());
+                cardRect = QRect(positionX, positionY, image.width(), image.height());
 
             painter.drawImage(cardRect, image);
         }
@@ -258,6 +302,7 @@ void SceneWidget::paintEvent(QPaintEvent *) {
 float elapsedTime = 0.0f;
 
 void SceneWidget::updateWorld() {
+
     // Updates all the card bodies of the dealer
     for (int i = 0; i < dealerBodies.size(); ++i) {
         dealerBodies[i]->SetLinearVelocity(b2Vec2(14.0f, 0.0f)); // Velocity direction right
@@ -276,9 +321,17 @@ void SceneWidget::updateWorld() {
 
     // Stop player bodies if they reach the target position
     for (b2Body* playerDiscardBody : playerDiscardBodies) {
-        playerDiscardBody->SetLinearVelocity(b2Vec2(-5.0f, 0.0f)); // Velocity direction left
-        if (playerDiscardBody->GetPosition().x <= discardBound) {
+        playerDiscardBody->SetLinearVelocity(b2Vec2(-6.0f, 0.0f)); // Velocity direction left
+        if (playerDiscardBody->GetPosition().x <= playerDiscardBound) {
             playerDiscardBody->SetLinearVelocity(b2Vec2_zero);
+        }
+    }
+
+    // Stop player bodies if they reach the target position
+    for (b2Body* dealerDiscardBody : dealerDiscardBodies) {
+        dealerDiscardBody->SetLinearVelocity(b2Vec2(14.0f, 0.0f)); // Velocity direction left
+        if (dealerDiscardBody->GetPosition().x >= dealerDiscardBound) {
+            dealerDiscardBody->SetLinearVelocity(b2Vec2_zero);
         }
     }
 
@@ -315,7 +368,8 @@ void SceneWidget::clearAllCards() {
 
     // Removes all dealer bodies from the world
     for (b2Body* dealerBody : dealerBodies) {
-        world.DestroyBody(dealerBody);
+        //world.DestroyBody(dealerBody);
+        dealerDiscardBodies.append(dealerBody);
     }
     // Removes all player bodies from the world
     for (b2Body* playerBody : playerBodies) {
@@ -323,9 +377,15 @@ void SceneWidget::clearAllCards() {
         playerDiscardBodies.append(playerBody);
     }
 
+    for (QImage& dealerImage : dealerImages) {
+        dealerDiscardImages.append(dealerImage);
+    }
+
     for (QImage& playerImage : playerImages) {
         playerDiscardImages.append(playerImage);
     }
+
+    qDebug() << dealerDiscardBodies.size();
 
     // Clears out all associated dealer and player vectors
     dealerBodies.clear();
@@ -371,12 +431,14 @@ void SceneWidget::resizeEvent(QResizeEvent *event) {
 
     // Update the scale of the card images
     for (QImage &image : dealerImages) {
-        image = image.scaled(this->width() / 2, this->height() / 2, Qt::KeepAspectRatio);
+        image = image.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
     }
 
     for (QImage &image : playerImages) {
-        image = image.scaled(this->width() / 2, this->height() / 2, Qt::KeepAspectRatio);
+        image = image.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
     }
+
+    dealerDiscardBound = (this->width() / 80.0) - 1.0;
 
     // Repaint the widget with the new sizes
     update();
@@ -426,32 +488,35 @@ void SceneWidget::clearDiscardPile() {
 //        world.DestroyBody(dealerDiscardBody);
 //    }
 
-    discardBound *= -2.0;
-
-    QTimer::singleShot(400, this, [this]() {
-        for (QImage& card : playerDiscardImages) {
-            card = faceDownImage.scaled(this->width() / 1.5, this->height() / 1.5, Qt::KeepAspectRatio);
-        }
-        discardBound *= -5;
-        for (b2Body* playerBody : playerDiscardBodies) {
-            b2Vec2 newPosition(18, playerBody->GetPosition().y); // Set the new x and y coordinates
-            qDebug() << newPosition.y;
-            playerBody->SetTransform(newPosition, 0.0f);
-        }
+    QTimer::singleShot(500, this, [this]() {
+        playerDiscardBound *= -2.0;
+        dealerDiscardBound *= 2.0;
     });
 
-    QTimer::singleShot(1675, this, [this]() {
+    QTimer::singleShot(1000, this, [this]() {
 
         for (b2Body* playerBody : playerDiscardBodies) {
             world.DestroyBody(playerBody);
         }
+        for (b2Body* dealerBody : dealerDiscardBodies) {
+            world.DestroyBody(dealerBody);
+        }
 
-        playerBodies.clear();
-        playerImages.clear();
+//        playerBodies.clear();
+//        playerImages.clear();
         playerDiscardBodies.clear();
         playerDiscardImages.clear();
+//        dealerBodies.clear();
+//        dealerImages.clear();
+        dealerDiscardBodies.clear();
+        dealerDiscardImages.clear();
 
-        discardBound = 0.75;
+        playerDiscardBound = 0.75;
+        dealerDiscardBound = (this->width() / 80.0) - 1.0;
     });
 
+}
+
+void SceneWidget::setPlayerOrDealer(bool isPlayer) {
+    isPlayerHand = isPlayer;
 }

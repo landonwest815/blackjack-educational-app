@@ -87,7 +87,8 @@ void MainWindow::initializeUI() {
     // Initially hide all buttons and labels
     hideAllUI();
 
-    //ui->centralwidget->setGeometry(0, 0, 1000, 500);
+    ui->playerHand->setPlayerOrDealer(true);
+    ui->dealerHand->setPlayerOrDealer(false);
 
     updateBankDisplay();
 }
