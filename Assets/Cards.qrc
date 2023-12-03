@@ -55,6 +55,8 @@
         <file>QS.png</file>
         <file>table.png</file>
         <file>facedown.png</file>
+        <file>coin.png</file>
+        <file>chip.png</file>
     </qresource>
     <qresource prefix="/">
         <file>lesson1.png</file>

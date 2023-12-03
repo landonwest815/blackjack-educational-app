@@ -1,4 +1,5 @@
 #include "SceneWidget.h"
+#include <Random>
 
 /**
  * Author(s):     Team Six of Hearts:
@@ -12,10 +13,15 @@
  * which all come together to create and display a game of blackjack.
  */
 
+std::random_device rd;  // Will be used to obtain a seed for the random number engine
+std::mt19937 gen;       // Standard mersenne_twister_engine seeded with rd()
+std::uniform_real_distribution<> dis;
+
 SceneWidget::SceneWidget(QWidget *parent)
     : QWidget(parent),
     world(b2Vec2(0.0f, 0.0f)),
     timer(this),
+    coinTimer(this),
     split(false),
     nextSplit(false),
     splitCountBool(true),
@@ -45,7 +51,9 @@ SceneWidget::SceneWidget(QWidget *parent)
 
     // Assists in updating the world based on a timer
     connect(&timer, &QTimer::timeout, this, &SceneWidget::updateWorld);
+    connect(&coinTimer, &QTimer::timeout, this, &SceneWidget::spawnCoin);
     timer.start(10);
+    coinTimer.start(150);
 
     srand(static_cast<unsigned int>(time(nullptr)));    
 
@@ -115,6 +123,15 @@ b2Body* SceneWidget::createCardBody(float x, float y) {
 }
 
 void SceneWidget::paintEvent(QPaintEvent *) {
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing); // For smoother edges
+
+    for (int i = 0; i < coinBodies.size(); ++i) {
+        b2Vec2 position = coinBodies[i]->GetPosition();
+        QImage &coinImage = coinImages[i];
+        painter.drawImage(QRectF(position.x, position.y, coinImage.width(), coinImage.height()), coinImage);
+    }
+
     /// Set the pen width
     int penWidth = 4;
 
@@ -124,26 +141,13 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     int left = (this->width() - rectWidth) / 2;
     int top = (this->height() - rectHeight) / 2;
 
-    // Set up the painter
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing); // For smoother edges
-
     // Set the pen and brush
     QPen outlinePen(Qt::white, penWidth, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
     painter.setPen(outlinePen);
-    painter.setBrush(QBrush(QColor::fromRgb(46, 77, 62)));
+    painter.setBrush(QBrush(QColorConstants::Transparent));
 
     // Draw the rounded rectangle
     painter.drawRoundedRect(left, top, rectWidth, rectHeight, 10, 10);
-
-//    // Draws the card bodies of the dealer
-//    for (int i = 0; i < dealerBodies.size(); ++i) {
-//        b2Vec2 position = dealerBodies[i]->GetPosition();
-
-//        // Sets the position where each dealer card body added will fall
-//        painter.drawImage((position.x * 0.5 * 145) - (i * 40), (position.y * 0.5 * 10), dealerImages[i]);
-//    }
-
 
     if (!isPlayerHand) {
     // Draws the card bodies of the dealer
@@ -295,6 +299,7 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     if (textBoxEnabled) {
         drawTextBox(textBoxString);
     }
+
 
     painter.end();
 }
@@ -519,4 +524,54 @@ void SceneWidget::clearDiscardPile() {
 
 void SceneWidget::setPlayerOrDealer(bool isPlayer) {
     isPlayerHand = isPlayer;
+}
+
+b2Body* SceneWidget::createCoinBody(float x, float y) {
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(x, y); // Starting position for the coin
+
+    b2Body* body = world.CreateBody(&bodyDef);
+
+    b2CircleShape circleShape;
+    circleShape.m_radius = 0.5f; // Adjust the size as needed
+
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &circleShape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.3f;
+    fixtureDef.restitution = 0.5f; // A bit of a bounce
+
+    body->CreateFixture(&fixtureDef);
+
+    return body;
+}
+
+// Method to add a coin to the world
+void SceneWidget::addCoin(float x) {
+    float startX = x; // Assume this is already in the correct coordinate system for your screen
+    float startY = -50.0f; // Start above the screen, adjust as necessary
+
+    b2Body* coinBody = createCoinBody(startX, startY);
+    coinBodies.append(coinBody);
+
+    // Apply initial velocity to simulate falling straight down
+    float initialVerticalVelocity = 300.0f; // Adjust this speed as necessary
+    coinBody->SetLinearVelocity(b2Vec2(0.0f, initialVerticalVelocity));
+
+    // Load and scale the coin image
+    QImage coinImage(":/cards/chip.png");
+    // Adjust size as necessary
+    coinImage = coinImage.scaled(50, 50, Qt::KeepAspectRatio);
+    coinImages.append(coinImage);
+}
+
+void SceneWidget::spawnCoin() {
+    if (isPlayerHand) {
+        gen = std::mt19937(rd()); // Seed the generator
+        dis = std::uniform_real_distribution<>(this->width() / 4, this->width() / 1.4);
+        float randomX = dis(gen);
+
+        addCoin(randomX);
+    }
 }

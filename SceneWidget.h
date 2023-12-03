@@ -37,6 +37,8 @@ private:
     /// @brief Handles periodically updating the world.
     QTimer timer;
 
+    QTimer coinTimer;
+
     /// @brief Whether the player body cards are split.
     bool split;
 
@@ -96,6 +98,9 @@ private:
 
     bool isPlayerHand;
 
+    QList<b2Body*> coinBodies;
+    QList<QImage> coinImages;
+
 protected:
     /// @brief Overrides the paintEvent function to customize the rendering.
     void paintEvent(QPaintEvent *) override;
@@ -145,6 +150,12 @@ public slots:
     void clearDiscardPile();
 
     void setPlayerOrDealer(bool isPlayer);
+
+    b2Body* createCoinBody(float x, float y);
+
+    void addCoin(float x);
+
+    void spawnCoin();
 
 private slots:
     /// @brief Utilized with a timer to update the world and card physics.
