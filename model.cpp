@@ -148,8 +148,13 @@ bool Model::allowedToSplit() {
 }
 
 void Model::split() {
-    userTotal = userTotal / 2;
-    splitTotal = userTotal;
+    if(userHand[0].getFace() == "A" && userHand[1].getFace() == "A") {
+        userTotal = 11;
+        splitTotal = userTotal;
+    } else {
+        userTotal = userTotal / 2;
+        splitTotal = userTotal;
+    }
     splitCheck = true;
 }
 
