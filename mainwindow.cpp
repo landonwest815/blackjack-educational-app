@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Contains all buttons so we can turn all of them off at once
     buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->doubleDownButton,
                ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand,
-               ui->allIn, ui->lessonOneNextStep, ui->lessonTwoNextStep, ui->lessonThreeNextStep, ui->adviceButton, ui->newGame};
+               ui->allIn, ui->nextLessonOne, ui->nextLessonTwo, ui->nextLessonThree, ui->adviceButton, ui->newGame};
 
     // Contains all labels so we can turn all of them off at once
     labels = {ui->outcome, ui->splitScore, ui->tutorialLabel, ui->splitIndicator, ui->nonSplitIndicator, ui->insuranceResult};
@@ -72,9 +72,9 @@ void MainWindow::setupConnections() {
     connect(ui->lessonThree, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
 
     // Lesson Traversal
-    connect(ui->lessonOneNextStep, &QPushButton::clicked, this, &MainWindow::nextLessonOneStep);
-    connect(ui->lessonTwoNextStep, &QPushButton::clicked, this, &MainWindow::nextLessonTwoStep);
-    connect(ui->lessonThreeNextStep, &QPushButton::clicked, this, &MainWindow::nextLessonThreeStep);
+    connect(ui->nextLessonOne, &QPushButton::clicked, this, &MainWindow::nextLessonOneStep);
+    connect(ui->nextLessonTwo, &QPushButton::clicked, this, &MainWindow::nextLessonTwoStep);
+    connect(ui->nextLessonThree, &QPushButton::clicked, this, &MainWindow::nextLessonThreeStep);
 
     // Set up tip timer
     connect(&tipTimer, &QTimer::timeout, this, &MainWindow::hideTip);
@@ -707,13 +707,13 @@ void MainWindow::showOutcome(QString outcome) {
      ui->currentBet->setVisible(false);
      ui->tutorialLabel->setVisible(true);
      if (sender() == ui->lessonOne) {
-        ui->lessonOneNextStep->setVisible(true);
+        ui->nextLessonOne->setVisible(true);
      }
      if (sender() == ui->lessonTwo) {
-        ui->lessonTwoNextStep->setVisible(true);
+        ui->nextLessonTwo->setVisible(true);
      }
      if (sender() == ui->lessonThree) {
-        ui->lessonThreeNextStep->setVisible(true);
+        ui->nextLessonThree->setVisible(true);
      }
      ui->playerHand->setTextBoxEnabled();
      ui->playerHand->setTextBoxText("ℹ️ Tutorial Selected\n"
@@ -828,7 +828,7 @@ void MainWindow::showOutcome(QString outcome) {
         ui->dealerHand->clearAllCards();
         ui->playerHand->clearAllCards();
 
-        ui->lessonOneNextStep->setVisible(false);
+        ui->nextLessonOne->setVisible(false);
         ui->playerHand->setTextBoxEnabled();
         ui->playerHand->setTextBoxText("ℹ️ 'Rules of Blackjack' Tutorial Complete\n"
                                    "Please click the 'Main Menu' button to return back\n"
@@ -919,7 +919,7 @@ void MainWindow::showOutcome(QString outcome) {
         ui->dealerHand->clearAllCards();
         ui->playerHand->clearAllCards();
 
-        ui->lessonTwoNextStep->setVisible(false);
+        ui->nextLessonTwo->setVisible(false);
         ui->playerHand->setTextBoxEnabled();
         ui->playerHand->setTextBoxText("ℹ️ 'Basic Strategies' Tutorial Complete\n"
                                    "Please click the 'Main Menu' button to return back\n"
@@ -1012,7 +1012,7 @@ void MainWindow::showOutcome(QString outcome) {
         ui->dealerHand->clearAllCards();
         ui->playerHand->clearAllCards();
 
-        ui->lessonThreeNextStep->setVisible(false);
+        ui->nextLessonThree->setVisible(false);
         ui->playerHand->setTextBoxEnabled();
         ui->playerHand->setTextBoxText("ℹ️ 'Advanced Strategies' Tutorial Complete\n"
                                    "Please click the 'Main Menu' button to return back\n"
@@ -1032,7 +1032,8 @@ void MainWindow::showOutcome(QString outcome) {
      if(speech) {
         QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
         const QString name = clickedButton->objectName();
-        say.say(name);
+        if (name.startsWith("nextLesson"))  say.say("Next Step");
+        else                                say.say(name);
      }
  }
 

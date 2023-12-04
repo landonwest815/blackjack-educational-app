@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -1868,7 +1868,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="lessonOneNextStep">
+             <widget class="QPushButton" name="nextLessonOne">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
@@ -1897,7 +1897,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="lessonTwoNextStep">
+             <widget class="QPushButton" name="nextLessonTwo">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
@@ -1926,7 +1926,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="lessonThreeNextStep">
+             <widget class="QPushButton" name="nextLessonThree">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
