@@ -1033,6 +1033,7 @@ void MainWindow::showOutcome(QString outcome) {
         QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
         const QString name = clickedButton->objectName();
         if (name.startsWith("nextLesson"))  say.say("Next Step");
+        else if (name.endsWith("Button"))   say.say(name.left(name.length() - 6));
         else                                say.say(name);
      }
  }
