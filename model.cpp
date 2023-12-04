@@ -7,42 +7,45 @@
 Model::Model() :
     bankTotal(1500),
     dealerTotal(0),
-    userTotal(0),
+    playerTotal(0),
     bet(0),
     win(true),
     splitTotal(0),
-    userAceCounter(0),
+    playerAceCounter(0),
     dealerAceCounter(0),
     splitAceCounter(0),
     splitCheck(false),
     onSecondHand(false){ }
 
 Card Model::userHit() {
+
+    // Draw a card from deck
     Card nextCard = deck.drawCard();
 
-    qDebug() << userAceCounter;
-
+    // If an Ace is drawn adjust the value if beneficial
     if(nextCard.getFace() == "A") {
-        userTotal += 11;
-        userAceCounter++;
-        if(userTotal > 21) {
-            userTotal -= 10;
-            userAceCounter--;
+        playerTotal += 11;
+        playerAceCounter++;
+        if(playerTotal > 21) {
+            playerTotal -= 10;
+            playerAceCounter--;
         }
     } else {
-        userTotal += nextCard.getValue();
-        //qDebug() << nextCard.getValue();
-        if(userAceCounter > 0 && userTotal > 21) {
-            userTotal -= 10;
-            userAceCounter--;
+        playerTotal += nextCard.getValue();
+        if(playerAceCounter > 0 && playerTotal > 21) {
+            playerTotal -= 10;
+            playerAceCounter--;
         }
     }
     return nextCard;
 }
 
 Card Model::dealerHit(bool facedown) {
+
+    // Draw a card from deck
     Card nextCard = deck.drawCard();
 
+    // If an Ace is drawn adjust the value if beneficial
     if(nextCard.getFace() == "A") {
         dealerTotal += 11;
         dealerAceCounter++;
@@ -58,6 +61,7 @@ Card Model::dealerHit(bool facedown) {
         }
     }
 
+    // If this is the face down card subtract the value to keep the dealer total hidden
     if (facedown) {
         dealerTotal -= nextCard.getValue();
         nextCard.setFaceDown(true);
@@ -65,10 +69,33 @@ Card Model::dealerHit(bool facedown) {
     return nextCard;
 }
 
+Card Model::splitHit() {
+
+    // Draw a card from deck
+    Card nextCard = deck.drawCard();
+
+    // If an Ace is drawn adjust the value if beneficial
+    if(nextCard.getFace() == "A") {
+        splitTotal += 11;
+        splitAceCounter++;
+        if(splitTotal > 21) {
+            splitTotal -= 10;
+            splitAceCounter--;
+        }
+    } else {
+        splitTotal += nextCard.getValue();
+        if(splitAceCounter > 0 && splitTotal > 21) {
+            splitTotal -= 10;
+            splitAceCounter--;
+        }
+    }
+    return nextCard;
+}
+
 bool Model::shuffleCheck() {
 
-    qDebug() << deck.getSize();
-
+    // Check if the deck is halfway depleted
+    // We are using a 52 card deck as expected
     if (deck.getSize() < 27) {
         Deck newDeck;
         deck = newDeck;
@@ -79,7 +106,6 @@ bool Model::shuffleCheck() {
     }
 }
 
-
 int Model::stand() {
     return Model::getUserTotal();
     dealerAceCounter = 0;
@@ -87,57 +113,49 @@ int Model::stand() {
 
 Card Model::doubleDown() {
     return Model::userHit();
-    bankTotal -= this->bet;
+    bankTotal -= bet;
+    bet *= 2;
 }
 
 bool Model::insuranceAllowed() {
+    // If the dealer's second card is an Ace (the first card is the face down card)
     return (dealerHand[1].getFace() == "A");
 }
 
-int Model::getUserTotal() {
-    return userTotal;
-}
+int Model::getUserTotal() { return playerTotal; }
 
-int Model::getDealerTotal() {
-    return dealerTotal;
-}
+int Model::getDealerTotal() { return dealerTotal; }
 
-int Model::getbankTotal() {
-    return bankTotal;
-}
+int Model::getbankTotal() { return bankTotal; }
 
-void Model::adjustBankTotal(int total) {
-    bankTotal += total;
-}
+void Model::adjustBankTotal(int total) { bankTotal += total; }
 
-int Model::getBet() {
-    return bet;
-}
+int Model::getBet() { return bet; }
 
 void Model::setBet(int increment) {
     if ((bankTotal - increment) >= 0) {
         bet += increment;
         bankTotal -= increment;
+    } else {
+        bet += bankTotal;
+        bankTotal = 0;
     }
 }
 
 void Model::resetBet() {
-    bankTotal += 2 * bet;
-    bet = 0;
+    bankTotal += bet - 100;
+    bet = 100;
 }
 
-int Model::updateBankTotal(int bet) {
-    if(win) {
-        bankTotal += 2 * bet;
-    } else {
-        bankTotal -= bet;
-    }
+int Model::updateBankAfterWin(int bet) {
+    if(win) bankTotal += 2 * bet;
+
     return bankTotal;
 }
 
 void Model::userBlackJack(Card first, Card second) {
     if(first.getValue() + second.getValue() == 21)
-        this->bankTotal += (this->bet * 1.5);
+        this->bankTotal += (2 * this->bet * 1.5);
 }
 
 void Model::dealerBlackJack(Card faceDown, Card faceUp) {
@@ -150,73 +168,34 @@ bool Model::allowedToSplit() {
 }
 
 void Model::split() {
-    userTotal = userTotal / 2;
-    splitTotal = userTotal;
+    playerTotal = playerTotal / 2;
+    splitTotal = playerTotal;
     splitCheck = true;
 }
 
-int Model::getSplitTotal() {
-    return splitTotal;
-}
+int Model::getSplitTotal() { return splitTotal; }
 
-void Model::setOnSecondHand(bool secondHand) {
-    onSecondHand = secondHand;
-}
+void Model::setOnSecondHand(bool secondHand) { onSecondHand = secondHand; }
 
-bool Model::getOnSecondHand() {
-    return onSecondHand;
-}
+bool Model::getOnSecondHand() { return onSecondHand; }
 
-void Model::clearTotal() {
-    userTotal = 0;
+void Model::resetAllScores() {
+    playerTotal = 0;
     dealerTotal = 0;
     splitTotal = 0;
 }
 
-Card Model::splitHit() {
-    Card nextCard = deck.drawCard();
+bool Model::getSplitCheck() { return splitCheck; }
 
-    if(nextCard.getFace() == "A") {
-        splitTotal += 11;
-        splitAceCounter++;
-        if(splitTotal > 21) {
-            splitTotal -= 10;
-            splitAceCounter--;
-        }
-    } else {
-        splitTotal += nextCard.getValue();
-        //qDebug() << nextCard.getValue();
-        if(splitAceCounter > 0 && splitTotal > 21) {
-            splitTotal -= 10;
-            splitAceCounter--;
-        }
-    }
-    return nextCard;
-}
+void Model::setSplitCheck(bool split ) { splitCheck = split; }
 
-bool Model::getSplitCheck() {
-    return splitCheck;
-}
+Card Model::getUserCard(int index) { return userHand[index]; }
 
-void Model::setSplitCheck(bool split ) {
-    splitCheck = split;
-}
+Card Model::getDealerCard(int index) { return dealerHand[index]; }
 
-Card Model::getUserCard(int index) {
-    return userHand[index];
-}
+void Model::addUserCard(Card newCard) { userHand.push_back(newCard); }
 
-Card Model::getDealerCard(int index) {
-    return dealerHand[index];
-}
-
-void Model::addUserCard(Card newCard) {
-    userHand.push_back(newCard);
-}
-
-void Model::addDealerCard(Card newCard) {
-    dealerHand.push_back(newCard);
-}
+void Model::addDealerCard(Card newCard) { dealerHand.push_back(newCard); }
 
 Card Model::revealDealer() {
     dealerTotal += faceDownValue();
@@ -224,25 +203,12 @@ Card Model::revealDealer() {
     return dealerHand[0];
 }
 
-int Model::faceDownValue() {
-    return dealerHand[0].getValue();
-}
+int Model::faceDownValue() { return dealerHand[0].getValue(); }
 
-int Model::getDealerAces() {
-    return dealerAceCounter;
-}
-
-void Model::playerBust() {
-    dealerWins();
-}
-
-void Model::dealerBust() {
-    playerWins();
-}
+int Model::getDealerAces() { return dealerAceCounter; }
 
 void Model::playerWins() {
     win = true;
-    resetBet();
 
     // Determine whether it's a blackjack win or a standard win
     if (getUserTotal() == 21 && userHand.size() == 2) {
@@ -250,39 +216,47 @@ void Model::playerWins() {
         userBlackJack(userHand[0], userHand[1]);
     } else {
         // Standard win
-        updateBankTotal(getBet());
+        updateBankAfterWin(bet);
     }
-
-    endRound();
 }
 
 void Model::dealerWins() {
     win = false;
-    bet = 0;
-    endRound();
 }
 
 void Model::handlePush() {
-    resetBet();
-    endRound();
+    bankTotal += bet;
 }
 
 void Model::endRound() {
+
+    // Clear all hand data
     userHand.clear();
     dealerHand.clear();
-    userAceCounter = 0;
+
+    // Clear all Ace data
+    playerAceCounter = 0;
     dealerAceCounter = 0;
     splitAceCounter = 0;
+
+    // Reset split data
     onSecondHand = false;
     splitCheck = false;
+
+    // Empty the bet
+    bet = 0;
 }
 
-bool Model::userHasAceInHand(){
-    for(auto card : userHand){
-        if(card.getFace() == "A"){
+bool Model::userHasAceInHand() {
+    for(auto card : userHand) {
+        if(card.getFace() == "A") {
             return true;
         }
     }
+
+    // Better?
+    // return (aceCounter != 0)
+
     return false;
 }
 

@@ -45,7 +45,6 @@ private slots:
     void deal();
     void stand();
     void doubleDownHand();
-    void doubleDown();
     void displayAdvice();
     void tellUserToHit();
     void tellUserToStand();
@@ -56,6 +55,8 @@ private slots:
     // just for demonstration REMOVE when needed
     void nextSplit();
     void dealerFlip(QString fileName);
+
+    void lostGame();
 
 private:
     Ui::MainWindow *ui;
@@ -82,6 +83,7 @@ private:
     void setupDeal();
     void showOutcome(QString outcome);
     void insurance();
+    void newGame();
 
     /// Keeps track of current tutorial step.
     int tutorialStep;
