@@ -12,11 +12,11 @@ private:
     int bankTotal;
     int startingCash;
     int dealerTotal;
-    int userTotal;
+    int playerTotal;
     int bet;
     bool win;
     int splitTotal;
-    int userAceCounter;
+    int playerAceCounter;
     int dealerAceCounter;
     int splitAceCounter;
     bool splitCheck;
@@ -52,8 +52,8 @@ public:
     void setBet(int);
 
     void resetBet();
-
-    int updateBankTotal(int bet);
+    
+    int updateBankAfterWin(int bet);
 
     void dealerBlackJack(Card facedown, Card faceUp);
 
@@ -64,8 +64,8 @@ public:
     void split ();
 
     int getSplitTotal();
-
-    void clearTotal();
+    
+    void resetAllScores();
 
     bool getSplitCheck();
 
@@ -83,10 +83,6 @@ public:
 
     int getDealerAces();
 
-    void playerBust();
-
-    void dealerBust();
-
     void playerWins();
 
     void dealerWins();
@@ -95,7 +91,7 @@ public:
 
     void endRound();
 
-    void shuffleCheck();
+    bool shuffleCheck();
 
     bool getOnSecondHand();
 
