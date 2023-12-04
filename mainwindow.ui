@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -1868,7 +1868,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="nextStepOneButton">
+             <widget class="QPushButton" name="lessonOneNextStep">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
@@ -1897,7 +1897,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="nextStepTwoButton">
+             <widget class="QPushButton" name="lessonTwoNextStep">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
@@ -1926,7 +1926,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="nextStepThreeButton">
+             <widget class="QPushButton" name="lessonThreeNextStep">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
@@ -2099,7 +2099,7 @@ QPushButton:pressed {
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
-               <widget class="QPushButton" name="lessonOneButton">
+               <widget class="QPushButton" name="lessonOne">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -2201,7 +2201,7 @@ QPushButton:pressed {
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
               <item>
-               <widget class="QPushButton" name="lessonTwoButton">
+               <widget class="QPushButton" name="lessonTwo">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -2303,7 +2303,7 @@ QPushButton:pressed {
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_11">
               <item>
-               <widget class="QPushButton" name="lessonThreeButton">
+               <widget class="QPushButton" name="lessonThree">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>0</horstretch>
