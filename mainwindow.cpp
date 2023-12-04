@@ -452,6 +452,17 @@ void MainWindow::showOutcome(QString outcome) {
      int usersTotal = model.getUserTotal();
      int dealerFaceUpValue = model.getDealerFaceUpCard().getValue();
      if(model.userHasAceInHand()){
+        if(model.getTotalCardsForUser() > 2){
+            if(usersTotal >= 17){
+                tellUserToStand();
+                return;
+            }
+        }
+        // this just checks for a case where there are two aces so the user would be best to go for a split
+        if(model.getTotalCardsForUser() == 2 && ((model.getUserCard(0).getFace() == "A") && (model.getUserCard(1).getFace() == "A"))){
+            tellUserToSplit();
+            return;
+        }
         if((usersTotal == 3 || usersTotal == 13) ||
            (usersTotal == 4 || usersTotal == 14)){
             if(dealerFaceUpValue == 5 || dealerFaceUpValue == 6){
@@ -494,6 +505,11 @@ void MainWindow::showOutcome(QString outcome) {
         }
      }
      else{
+        if(model.getTotalCardsForUser() == 2){
+            if(checkForDuplicateUserHand()){
+                return;
+            }
+        }
         if(usersTotal <= 8){
             tellUserToHit();
         }
@@ -532,6 +548,87 @@ void MainWindow::showOutcome(QString outcome) {
 
  }
 
+ bool MainWindow::checkForDuplicateUserHand(){
+     Card firstCard = model.getUserCard(0);
+     Card secondCard = model.getUserCard(1);
+     if(firstCard.getValue() == 8 && secondCard.getValue() == 8){
+        tellUserToSplit();
+        return true;
+     }
+     else if((firstCard.getValue() == 2 && secondCard.getValue() == 2) ||
+              (firstCard.getValue() == 3 && secondCard.getValue() == 3)){
+        if(dealerFaceUpValue == 2 || dealerFaceUpValue == 3){
+            tellUserToSplitOrHit();
+        }
+        else if(dealerFaceUpValue >= 4 && dealerFaceUpValue <= 7){
+            tellUserToSplit();
+        }
+        else{
+            tellUserToHit();
+        }
+        return true;
+     }
+     else if(firstCard.getValue() == 4 && secondCard.getValue() == 4){
+        if((dealerFaceUpValue >= 2 && dealerFaceUpValue <= 4) ||
+            (dealerFaceUpValue >= 7) || (model.getDealerFaceUpCard().getFace() == "A")){
+            tellUserToHit();
+        }
+        else{
+            tellUserToSplitOrHit();
+        }
+        return true;
+     }
+     else if(firstCard.getValue() == 5 && secondCard.getValue() == 5){
+        if(dealerFaceUpValue <= 9){
+            tellUserToDoubleDownOrHit();
+        }
+        else{
+            tellUserToHit();
+        }
+        return true;
+     }
+     else if(firstCard.getValue() == 6 && secondCard.getValue() == 6){
+        if(dealerFaceUpValue == 2){
+            tellUserToSplitOrHit();
+        }
+        else if(dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6){
+            tellUserToSplit();
+        }
+        else{
+            tellUserToHit();
+        }
+        return true;
+     }
+     else if(firstCard.getValue() == 7 && secondCard.getValue() == 7){
+        if(dealerFaceUpValue <= 7){
+            tellUserToSplit();
+        }
+        else{
+            tellUserToHit();
+        }
+        return true;
+     }
+     else if(firstCard.getValue() == 8 && secondCard.getValue() == 8){
+        tellUserToSplit();
+        return true;
+     }
+     else if(firstCard.getValue() == 9 && secondCard.getValue() == 9){
+        if(dealerFaceUpValue <= 6 || (dealerFaceUpValue == 8 || dealerFaceUpValue == 9)){
+            tellUserToSplit();
+        }
+        else{
+            tellUserToStand();
+        }
+        return true;
+     }
+     else if(firstCard.getValue() == 10 && secondCard.getValue() == 10){
+        tellUserToStand();
+        return true;
+     }
+
+     return false;
+ }
+
  void MainWindow::tellUserToHit(){
      helpwidget->setText("HIT");
      helpwidget->show();
@@ -549,6 +646,16 @@ void MainWindow::showOutcome(QString outcome) {
 
  void MainWindow::tellUserToDoubleDownOrStand(){
      helpwidget->setText("DOUBLE DOWN or STAND");
+     helpwidget->show();
+ }
+
+ void MainWindow::tellUserToSplit(){
+     helpwidget->setText("SPLIT");
+     helpwidget->show();
+ }
+
+ void MainWindow::tellUserToSplitOrHit(){
+     helpwidget->setText("SPLIT or HIT");
      helpwidget->show();
  }
 

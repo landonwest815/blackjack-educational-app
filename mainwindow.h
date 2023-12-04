@@ -50,6 +50,8 @@ private slots:
     void tellUserToStand();
     void tellUserToDoubleDownOrHit();
     void tellUserToDoubleDownOrStand();
+    void tellUserToSplit();
+    void tellUserToSplitOrHit();
     void hideTip();
 
     // just for demonstration REMOVE when needed
@@ -84,6 +86,7 @@ private:
     void showOutcome(QString outcome);
     void insurance();
     void newGame();
+    bool checkForDuplicateUserHand();
 
     /// Keeps track of current tutorial step.
     int tutorialStep;

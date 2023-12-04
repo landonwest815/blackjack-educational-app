@@ -168,8 +168,13 @@ bool Model::allowedToSplit() {
 }
 
 void Model::split() {
-    playerTotal = playerTotal / 2;
-    splitTotal = playerTotal;
+    if(userHand[0].getFace() == "A" && userHand[1].getFace() == "A") {
+        userTotal = 11;
+        splitTotal = userTotal;
+    } else {
+        userTotal = userTotal / 2;
+        splitTotal = userTotal;
+    }
     splitCheck = true;
 }
 
@@ -262,4 +267,8 @@ bool Model::userHasAceInHand() {
 
 Card Model::getDealerFaceUpCard(){
     return dealerHand.at(1);
+}
+
+int Model::getTotalCardsForUser(){
+    return (int)userHand.size();
 }
