@@ -8,13 +8,14 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , tutorialStep(1)
+    , speech(false)
 {
     ui->setupUi(this);
 
     // Contains all buttons so we can turn all of them off at once
     buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->doubleDownButton,
                ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand,
-               ui->allIn, ui->nextStepOneButton, ui->nextStepTwoButton, ui->nextStepThreeButton, ui->adviceButton, ui->newGame};
+               ui->allIn, ui->lessonOneNextStep, ui->lessonTwoNextStep, ui->lessonThreeNextStep, ui->adviceButton, ui->newGame};
 
     // Contains all labels so we can turn all of them off at once
     labels = {ui->outcome, ui->splitScore, ui->tutorialLabel, ui->splitIndicator, ui->nonSplitIndicator, ui->insuranceResult};
@@ -66,17 +67,26 @@ void MainWindow::setupConnections() {
     connect(ui->newGame, &QPushButton::clicked, this, &MainWindow::newGame);
 
     // Lessons
-    connect(ui->lessonOneButton, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
-    connect(ui->lessonTwoButton, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
-    connect(ui->lessonThreeButton, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
+    connect(ui->lessonOne, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
+    connect(ui->lessonTwo, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
+    connect(ui->lessonThree, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
 
     // Lesson Traversal
-    connect(ui->nextStepOneButton, &QPushButton::clicked, this, &MainWindow::nextLessonOneStep);
-    connect(ui->nextStepTwoButton, &QPushButton::clicked, this, &MainWindow::nextLessonTwoStep);
-    connect(ui->nextStepThreeButton, &QPushButton::clicked, this, &MainWindow::nextLessonThreeStep);
+    connect(ui->lessonOneNextStep, &QPushButton::clicked, this, &MainWindow::nextLessonOneStep);
+    connect(ui->lessonTwoNextStep, &QPushButton::clicked, this, &MainWindow::nextLessonTwoStep);
+    connect(ui->lessonThreeNextStep, &QPushButton::clicked, this, &MainWindow::nextLessonThreeStep);
 
     // Set up tip timer
     connect(&tipTimer, &QTimer::timeout, this, &MainWindow::hideTip);
+
+    // For the speech mode
+    connect(ui->speechModeButton, &QPushButton::toggled, this ,&MainWindow::speechModeClicked);
+
+    // Connect all button clicks to a speech slot
+    QList<QPushButton*> allButtons = findChildren<QPushButton*>();
+    for (QPushButton* button : allButtons) {
+        connect(button, &QPushButton::clicked, this, &MainWindow::sayObjectName);
+    }
 }
 
 void MainWindow::initializeUI() {
@@ -691,14 +701,14 @@ void MainWindow::showOutcome(QString outcome) {
      ui->bank->setVisible(false);
      ui->currentBet->setVisible(false);
      ui->tutorialLabel->setVisible(true);
-     if (sender() == ui->lessonOneButton) {
-        ui->nextStepOneButton->setVisible(true);
+     if (sender() == ui->lessonOne) {
+        ui->lessonOneNextStep->setVisible(true);
      }
-     if (sender() == ui->lessonTwoButton) {
-        ui->nextStepTwoButton->setVisible(true);
+     if (sender() == ui->lessonTwo) {
+        ui->lessonTwoNextStep->setVisible(true);
      }
-     if (sender() == ui->lessonThreeButton) {
-        ui->nextStepThreeButton->setVisible(true);
+     if (sender() == ui->lessonThree) {
+        ui->lessonThreeNextStep->setVisible(true);
      }
      ui->playerHand->setTextBoxEnabled();
      ui->playerHand->setTextBoxText("ℹ️ Tutorial Selected\n"
@@ -813,7 +823,7 @@ void MainWindow::showOutcome(QString outcome) {
         ui->dealerHand->clearAllCards();
         ui->playerHand->clearAllCards();
 
-        ui->nextStepOneButton->setVisible(false);
+        ui->lessonOneNextStep->setVisible(false);
         ui->playerHand->setTextBoxEnabled();
         ui->playerHand->setTextBoxText("ℹ️ 'Rules of Blackjack' Tutorial Complete\n"
                                    "Please click the 'Main Menu' button to return back\n"
@@ -904,7 +914,7 @@ void MainWindow::showOutcome(QString outcome) {
         ui->dealerHand->clearAllCards();
         ui->playerHand->clearAllCards();
 
-        ui->nextStepTwoButton->setVisible(false);
+        ui->lessonTwoNextStep->setVisible(false);
         ui->playerHand->setTextBoxEnabled();
         ui->playerHand->setTextBoxText("ℹ️ 'Basic Strategies' Tutorial Complete\n"
                                    "Please click the 'Main Menu' button to return back\n"
@@ -997,7 +1007,7 @@ void MainWindow::showOutcome(QString outcome) {
         ui->dealerHand->clearAllCards();
         ui->playerHand->clearAllCards();
 
-        ui->nextStepThreeButton->setVisible(false);
+        ui->lessonThreeNextStep->setVisible(false);
         ui->playerHand->setTextBoxEnabled();
         ui->playerHand->setTextBoxText("ℹ️ 'Advanced Strategies' Tutorial Complete\n"
                                    "Please click the 'Main Menu' button to return back\n"
@@ -1006,6 +1016,19 @@ void MainWindow::showOutcome(QString outcome) {
      }
      // Increment the tutorial step
      ++tutorialStep;
+ }
+
+ void MainWindow::speechModeClicked(int toggled) {
+     if (toggled) speech = true;
+     else         speech = false;
+ }
+
+ void MainWindow::sayObjectName() {
+     if(speech) {
+        QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
+        const QString name = clickedButton->objectName();
+        say.say(name);
+     }
  }
 
  void MainWindow::displayAdvice() {

@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QTimer>
+#include <QtTextToSpeech/QTextToSpeech>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -90,6 +91,22 @@ private:
 
     /// Keeps track of current tutorial step.
     int tutorialStep;
+
+    /// Flag indicating whether speech mode is enabled.
+    bool speech;
+
+    /// Text-to-speech object.
+    QTextToSpeech say;
+
+    /// @brief Enables or disables speech mode.
+    /// @param mode The speech mode (1 for enable, 0 for disable).
+    void speechModeClicked(int mode);
+
+    /// @brief When the speech assistant is activated, the assistant says the object's name.
+    void sayObjectName();
+
+
+
 
 };
 #endif // MAINWINDOW_H
