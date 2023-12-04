@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -2067,6 +2067,18 @@ QPushButton:pressed {
             </item>
             <item>
              <widget class="QLabel" name="label_4">
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="lineWidth">
+               <number>3</number>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -2084,7 +2096,9 @@ QPushButton:pressed {
                <string notr="true">QLabel {
     color: white;
     padding: 3px;
-    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
     font-family: &quot;Arial&quot;, sans-serif;
 }</string>
               </property>
@@ -2169,6 +2183,15 @@ QPushButton:pressed {
             </item>
             <item>
              <widget class="QLabel" name="label_6">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="lineWidth">
+               <number>3</number>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -2186,7 +2209,9 @@ QPushButton:pressed {
                <string notr="true">QLabel {
     color: white;
     padding: 3px;
-    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
     font-family: &quot;Arial&quot;, sans-serif;
 }</string>
               </property>
@@ -2271,6 +2296,15 @@ QPushButton:pressed {
             </item>
             <item>
              <widget class="QLabel" name="label_9">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Box</enum>
+              </property>
+              <property name="lineWidth">
+               <number>3</number>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -2288,7 +2322,9 @@ QPushButton:pressed {
                <string notr="true">QLabel {
     color: white;
     padding: 3px;
-    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
     font-family: &quot;Arial&quot;, sans-serif;
 }</string>
               </property>
