@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -315,6 +315,10 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #7c1f1f; /* Darker red for pressed state */
     border: 2px solid #822121; /* Consistent darker outline */
+}
+
+QPushButton:checked {
+    background-color: #7c1f1f; /* Darker red when toggled */
 }</string>
                 </property>
                 <property name="text">
