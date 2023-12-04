@@ -69,6 +69,9 @@
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <item>
              <spacer name="verticalSpacer">
               <property name="orientation">
@@ -87,7 +90,29 @@
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 35px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+              </property>
+              <property name="text">
+               <string>Blackjack</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="indent">
+               <number>0</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_11">
+              <property name="styleSheet">
+               <string notr="true">QLabel {
+    color: white;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -96,7 +121,13 @@
 }</string>
               </property>
               <property name="text">
-               <string>Blackjack</string>
+               <string>by Six of Hearts</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="indent">
+               <number>0</number>
               </property>
              </widget>
             </item>
@@ -117,31 +148,35 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="startGame">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <property name="verticalSpacing">
+               <number>15</number>
               </property>
-              <property name="minimumSize">
-               <size>
-                <width>120</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>120</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
+              <item row="1" column="0">
+               <widget class="QPushButton" name="tutorial">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -158,38 +193,37 @@ QPushButton:pressed {
     background-color: #7c1f1f; /* Darker red for pressed state */
     border: 2px solid #822121; /* Consistent darker outline */
 }</string>
-              </property>
-              <property name="text">
-               <string>Start Game</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="tutorial">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>120</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>120</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
+                </property>
+                <property name="text">
+                 <string>Tutorial</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="startGame">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -206,38 +240,37 @@ QPushButton:pressed {
     background-color: #7c1f1f; /* Darker red for pressed state */
     border: 2px solid #822121; /* Consistent darker outline */
 }</string>
-              </property>
-              <property name="text">
-               <string>Tutorial</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="quitGameMenu">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>120</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>120</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
+                </property>
+                <property name="text">
+                 <string>Start Game</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="quitGameMenu">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -254,11 +287,13 @@ QPushButton:pressed {
     background-color: #7c1f1f; /* Darker red for pressed state */
     border: 2px solid #822121; /* Consistent darker outline */
 }</string>
-              </property>
-              <property name="text">
-               <string>Quit Game</string>
-              </property>
-             </widget>
+                </property>
+                <property name="text">
+                 <string>Quit Game</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <spacer name="verticalSpacer_2">
@@ -362,7 +397,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -428,7 +462,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -464,7 +497,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -502,7 +534,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -550,7 +581,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -584,7 +614,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -608,7 +637,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -681,11 +709,10 @@ QPushButton:pressed {
                   <property name="styleSheet">
                    <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
-    font-size: 18px;
+    font-size: 24px;
     font-family: &quot;Arial&quot;, sans-serif;
 }</string>
                   </property>
@@ -721,7 +748,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -769,7 +795,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -826,7 +851,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -874,7 +898,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -925,7 +948,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -973,7 +995,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1021,7 +1042,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1069,7 +1089,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1117,7 +1136,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1165,7 +1183,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1215,7 +1232,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1258,7 +1274,7 @@ QPushButton:pressed {
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="11,0,5,0,11">
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="8,0,5,0,8">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
@@ -1339,7 +1355,6 @@ QPushButton:pressed {
                     <property name="styleSheet">
                      <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -1381,7 +1396,6 @@ QPushButton:pressed {
                     <property name="styleSheet">
                      <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -1416,7 +1430,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1512,7 +1525,6 @@ QPushButton:pressed {
                     <property name="styleSheet">
                      <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -1551,7 +1563,6 @@ QPushButton:pressed {
                     <property name="styleSheet">
                      <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
@@ -1608,7 +1619,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1715,7 +1725,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1804,7 +1813,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1834,7 +1842,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1864,7 +1871,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -1894,7 +1900,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -2014,7 +2019,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-size: 20px;
@@ -2047,7 +2051,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-size: 15px;
     font-family: &quot;Arial&quot;, sans-serif;
@@ -2085,7 +2088,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -2119,7 +2121,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-size: 20px;
@@ -2152,7 +2153,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-size: 15px;
     font-family: &quot;Arial&quot;, sans-serif;
@@ -2190,7 +2190,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -2224,7 +2223,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-weight: bold;
     font-size: 20px;
@@ -2257,7 +2255,6 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QLabel {
     color: white;
-    text-shadow: 2px 2px 4px black;
     padding: 3px;
     font-size: 15px;
     font-family: &quot;Arial&quot;, sans-serif;
@@ -2295,7 +2292,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -2365,7 +2361,6 @@ QPushButton:pressed {
     background-color: #972a27; /* Normal state with red color */
     color: white;
     border-radius: 10px;
-    text-shadow: 1px 1px 2px black;
     padding: 5px;
     border: 2px solid #822121; /* Darker outline for better visibility */
     font-weight: bold;
@@ -2415,7 +2410,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1776</width>
-     <height>37</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

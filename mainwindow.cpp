@@ -375,6 +375,8 @@ void MainWindow::showOutcome(QString outcome) {
 
  void MainWindow::switchToMainMenu() {
      ui->stackedWidget->setCurrentWidget(ui->startMenu);
+     ui->playerHand->setIsInTutorial(true);
+     ui->dealerHand->setIsInTutorial(true);
      tutorialStep = 1;
      helpwidget->hide();
 
@@ -398,6 +400,8 @@ void MainWindow::showOutcome(QString outcome) {
 
  void MainWindow::switchToLessonsWindow() {
      ui->stackedWidget->setCurrentWidget(ui->lessons);
+     ui->playerHand->setIsInTutorial(true);
+     ui->dealerHand->setIsInTutorial(true);
  }
 
  void MainWindow::setupDeal() {
@@ -817,10 +821,8 @@ void MainWindow::showOutcome(QString outcome) {
         return;
      }
      // Increment the tutorial step
-     ++tutorialStep;
+     tutorialStep++;
  }
-
-
 
  void MainWindow::nextLessonTwoStep() {
      // Displays and updates UI and scene based on current tutorial step
@@ -918,7 +920,7 @@ void MainWindow::showOutcome(QString outcome) {
      // Displays and updates UI and scene based on current tutorial step
      switch (tutorialStep) {
      case 1:
-        ui->playerHand->addPlayerCard(":/cards/1C.png");
+        //ui->playerHand->addPlayerCard(":/cards/1C.png");   Why is this here?
         ui->playerHand->addPlayerCard(":/cards/2C.png");
         ui->playerHand->addPlayerCard(":/cards/3C.png");
         ui->playerHand->addPlayerCard(":/cards/4C.png");

@@ -169,11 +169,11 @@ bool Model::allowedToSplit() {
 
 void Model::split() {
     if(userHand[0].getFace() == "A" && userHand[1].getFace() == "A") {
-        userTotal = 11;
-        splitTotal = userTotal;
+        playerTotal = 11;
+        splitTotal = playerTotal;
     } else {
-        userTotal = userTotal / 2;
-        splitTotal = userTotal;
+        playerTotal = playerTotal / 2;
+        splitTotal = playerTotal;
     }
     splitCheck = true;
 }

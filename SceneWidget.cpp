@@ -19,6 +19,7 @@ SceneWidget::SceneWidget(QWidget *parent)
     coinTimer(this),
     playerDiscardBound(0.75),
     elapsedTime(0.0f),
+    inTutorial(false),
     split(false),
     nextSplit(false),
     splitCountBool(true),
@@ -151,7 +152,7 @@ void SceneWidget::paintEvent(QPaintEvent *) {
     drawCardArea(painter);
     drawCards(painter);
     drawDiscardPile(painter);
-    drawDeck(painter);
+    if (!inTutorial) drawDeck(painter);
 
     // Draw tutorial text box if necessary
     if (textBoxEnabled) drawTextBox(textBoxString);
@@ -409,19 +410,21 @@ void SceneWidget::clearAllCards() {
     textBoxString = "";
 
     // Discard all drawn cards
-    for (b2Body* dealerBody : dealerBodies) {
-        dealerDiscardBodies.append(dealerBody);
-    }
-    for (b2Body* playerBody : playerBodies) {
-        playerDiscardBodies.append(playerBody);
-    }
+    if (!inTutorial) {
+        for (b2Body* dealerBody : dealerBodies) {
+            dealerDiscardBodies.append(dealerBody);
+        }
+        for (b2Body* playerBody : playerBodies) {
+            playerDiscardBodies.append(playerBody);
+        }
 
-    // Save the discarded cards' images
-    for (QImage& dealerImage : dealerImages) {
-        dealerDiscardImages.append(dealerImage);
-    }
-    for (QImage& playerImage : playerImages) {
-        playerDiscardImages.append(playerImage);
+        // Save the discarded cards' images
+        for (QImage& dealerImage : dealerImages) {
+            dealerDiscardImages.append(dealerImage);
+        }
+        for (QImage& playerImage : playerImages) {
+            playerDiscardImages.append(playerImage);
+        }
     }
 
     // Clear out the relative data
@@ -523,6 +526,7 @@ void SceneWidget::setShakingEnabled(bool enabled) { isShakingEnabled = enabled; 
 
 void SceneWidget::setIsPlayerHand(bool isPlayer) { isPlayerHand = isPlayer; }
 
+void SceneWidget::setIsInTutorial(bool isInTutorial) { inTutorial = isInTutorial; }
 
 void SceneWidget::applyTiltAngle(b2Body* body, float angle) {
     b2Vec2 position = body->GetPosition();

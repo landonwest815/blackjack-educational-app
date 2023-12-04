@@ -65,6 +65,9 @@ private:
     /// @brief Tracks the time to allow for shaking of cards.
     float elapsedTime;
 
+    /// @brief Whether the program is in the tutorial menu
+    bool inTutorial;
+
     /// @brief Whether the player body cards are split.
     bool split;
 
@@ -239,6 +242,9 @@ public slots:
 
     /// @brief Sets whether the player just won a hand.
     void setPlayerWon(bool);
+
+    /// @brief Sets whether the program is in the tutorial.
+    void setIsInTutorial(bool isInTutorial);
 };
 
 #endif // SCENEWIDGET_H
