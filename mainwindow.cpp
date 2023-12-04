@@ -385,9 +385,14 @@ void MainWindow::showOutcome(QString outcome) {
 
  void MainWindow::switchToMainMenu() {
      ui->stackedWidget->setCurrentWidget(ui->startMenu);
-     ui->playerHand->setIsInTutorial(true);
-     ui->dealerHand->setIsInTutorial(true);
+     ui->playerHand->setIsInTutorial(false);
+     ui->dealerHand->setIsInTutorial(false);
      tutorialStep = 1;
+
+     ui->currentBet->setVisible(true);
+     ui->bank->setVisible(true);
+     ui->playerScore->setVisible(true);
+     ui->dealerScore->setVisible(true);
      helpwidget->hide();
 
      // Reset the model and clear all cards
