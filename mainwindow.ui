@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -152,53 +152,6 @@
               <property name="verticalSpacing">
                <number>15</number>
               </property>
-              <item row="1" column="0">
-               <widget class="QPushButton" name="tutorial">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>120</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>120</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-    background-color: #972a27; /* Normal state with red color */
-    color: white;
-    border-radius: 10px;
-    padding: 5px;
-    border: 2px solid #822121; /* Darker outline for better visibility */
-    font-weight: bold;
-    font-size: 16px;
-    font-family: &quot;Arial&quot;, sans-serif;
-}
-
-QPushButton:hover {
-    background-color: #b33d3d; /* Slightly lighter red for hover state */
-    border: 2px solid #822121; /* Consistent darker outline */
-}
-
-QPushButton:pressed {
-    background-color: #7c1f1f; /* Darker red for pressed state */
-    border: 2px solid #822121; /* Consistent darker outline */
-}</string>
-                </property>
-                <property name="text">
-                 <string>Tutorial</string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="0">
                <widget class="QPushButton" name="startGame">
                 <property name="sizePolicy">
@@ -246,7 +199,7 @@ QPushButton:pressed {
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
+              <item row="3" column="0">
                <widget class="QPushButton" name="quitGameMenu">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -290,6 +243,85 @@ QPushButton:pressed {
                 </property>
                 <property name="text">
                  <string>Quit Game</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="tutorial">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: #972a27; /* Normal state with red color */
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    border: 2px solid #822121; /* Darker outline for better visibility */
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}
+
+QPushButton:pressed {
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
+                </property>
+                <property name="text">
+                 <string>Tutorial</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="speechModeButton">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+    background-color: #972a27; /* Normal state with red color */
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    border: 2px solid #822121; /* Darker outline for better visibility */
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}
+
+QPushButton:pressed {
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
+                </property>
+                <property name="text">
+                 <string>Speech Mode</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -2410,7 +2442,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1776</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

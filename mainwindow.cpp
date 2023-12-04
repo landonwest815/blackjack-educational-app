@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , tutorialStep(1)
+    , speech(false)
 {
     ui->setupUi(this);
 
@@ -77,6 +78,15 @@ void MainWindow::setupConnections() {
 
     // Set up tip timer
     connect(&tipTimer, &QTimer::timeout, this, &MainWindow::hideTip);
+
+    // For the speech mode
+    connect(ui->speechModeButton, &QPushButton::toggled, this ,&MainWindow::speechModeClicked);
+
+    // Connect all button clicks to a speech slot
+    QList<QPushButton*> allButtons = findChildren<QPushButton*>();
+    for (QPushButton* button : allButtons) {
+        connect(button, &QPushButton::clicked, this, &MainWindow::sayObjectName);
+    }
 }
 
 void MainWindow::initializeUI() {
@@ -1006,6 +1016,19 @@ void MainWindow::showOutcome(QString outcome) {
      }
      // Increment the tutorial step
      ++tutorialStep;
+ }
+
+ void MainWindow::speechModeClicked(int toggled) {
+     if (toggled) speech = true;
+     else         speech = false;
+ }
+
+ void MainWindow::sayObjectName() {
+     if(speech) {
+        QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
+        const QString name = clickedButton->objectName();
+        say.say(name);
+     }
  }
 
  void MainWindow::displayAdvice() {
