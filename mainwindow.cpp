@@ -60,11 +60,13 @@ void MainWindow::setupConnections() {
     // Menus
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->mainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
+    connect(ui->settingsMainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
     connect(ui->tutorial, &QPushButton::clicked, this, &MainWindow::switchToLessonsWindow);
     connect(ui->quitGameMenu, &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
     connect(ui->adviceButton, &QPushButton::clicked, this, &MainWindow::displayAdvice);
     connect(ui->newGame, &QPushButton::clicked, this, &MainWindow::newGame);
+    connect(ui->settings, &QPushButton::clicked, this ,&MainWindow::settingsClicked);
 
     // Lessons
     connect(ui->lessonOne, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
@@ -80,7 +82,7 @@ void MainWindow::setupConnections() {
     connect(&tipTimer, &QTimer::timeout, this, &MainWindow::hideTip);
 
     // For the speech mode
-    connect(ui->speechModeButton, &QPushButton::toggled, this ,&MainWindow::speechModeClicked);
+    connect(ui->speechComboBox, &QComboBox::currentTextChanged, this, &MainWindow::speechModeSettingAdjusted);
 
     // Connect all button clicks to a speech slot
     QList<QPushButton*> allButtons = findChildren<QPushButton*>();
@@ -1023,9 +1025,10 @@ void MainWindow::showOutcome(QString outcome) {
      ++tutorialStep;
  }
 
- void MainWindow::speechModeClicked(int toggled) {
+ void MainWindow::speechModeClicked(bool toggled) {
      if (toggled) speech = true;
      else         speech = false;
+     qDebug() << speech;
  }
 
  void MainWindow::sayObjectName() {
@@ -1036,6 +1039,10 @@ void MainWindow::showOutcome(QString outcome) {
         else if (name.endsWith("Button"))   say.say(name.left(name.length() - 6));
         else                                say.say(name);
      }
+ }
+
+ void MainWindow::settingsClicked() {
+     ui->stackedWidget->setCurrentWidget(ui->settingsMenu);
  }
 
  void MainWindow::displayAdvice() {
@@ -1061,3 +1068,8 @@ void MainWindow::showOutcome(QString outcome) {
      ui->dealerHand->clearDiscardPile();
      setupDeal();
  }
+
+void MainWindow::speechModeSettingAdjusted(const QString &arg1)
+{
+    speechModeClicked(arg1 == "On");
+}

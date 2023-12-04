@@ -61,6 +61,10 @@ private slots:
 
     void lostGame();
 
+    void settingsClicked();
+
+    void speechModeSettingAdjusted(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     Model model;
@@ -100,13 +104,10 @@ private:
 
     /// @brief Enables or disables speech mode.
     /// @param mode The speech mode (1 for enable, 0 for disable).
-    void speechModeClicked(int mode);
+    void speechModeClicked(bool mode);
 
     /// @brief When the speech assistant is activated, the assistant says the object's name.
     void sayObjectName();
-
-
-
 
 };
 #endif // MAINWINDOW_H
