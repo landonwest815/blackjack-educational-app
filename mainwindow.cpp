@@ -174,12 +174,8 @@ void MainWindow::addPlayer() {
     // End round if player hits 21
     if (model.getUserTotal() >= 21) {
         if (!model.getSplitCheck()) {
-            // while(model.getDealerTotal() < 17) {
-            //     addDealer(true);
-            //     updateScores();
-            // }
             stand();
-        } else if (!model.getOnSecondHand()) {
+        } else if (!model.getOnSecondHand() && model.getSplitCheck()) {
             nextSplit();
         }
     }
