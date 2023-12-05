@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -89,16 +89,19 @@
              <widget class="QLabel" name="label">
               <property name="styleSheet">
                <string notr="true">QLabel {
-    color: white;
+	font: 20pt &quot;Broadway&quot;;
+    color: red;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
     font-size: 35px;
-    font-family: &quot;Arial&quot;, sans-serif;
 }</string>
               </property>
               <property name="text">
-               <string>Blackjack</string>
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="Assets/Cards.qrc">:/blackjack-logo.png</pixmap>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -112,12 +115,12 @@
              <widget class="QLabel" name="label_11">
               <property name="styleSheet">
                <string notr="true">QLabel {
-    color: white;
+    color: red;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
-    font-size: 20px;
-    font-family: &quot;Arial&quot;, sans-serif;
+	font: 700 9pt &quot;Script MT Bold&quot;;
+    font-size: 25px;
 }</string>
               </property>
               <property name="text">
@@ -2864,7 +2867,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1776</width>
-     <height>37</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
