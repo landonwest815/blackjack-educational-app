@@ -21,6 +21,7 @@ private:
     int splitAceCounter;
     bool splitCheck;
     bool onSecondHand;
+    bool blackJack;
     vector<Card> userHand;
     vector<Card> dealerHand;
     vector<Card> userSplitHand;
@@ -110,6 +111,9 @@ public:
 
     int getTotalCardsForUser();
     int faceDownValue();
+
+    void setBlackJack(bool);
+    bool isBlackJack();
 
 };
 

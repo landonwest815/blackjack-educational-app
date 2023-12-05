@@ -275,3 +275,11 @@ Card Model::getDealerFaceUpCard(){
 int Model::getTotalCardsForUser(){
     return (int)userHand.size();
 }
+
+void Model::setBlackJack(bool blackjack) {
+    blackJack = blackjack;
+}
+
+bool Model::isBlackJack() {
+    return blackJack;
+}

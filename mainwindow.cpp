@@ -23,10 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupConnections();
     initializeUI();
-
-    // set up tips
-    createHelpWidget("");
-    tipTimer.setSingleShot(true);
 }
 
 MainWindow::~MainWindow()
@@ -100,14 +96,19 @@ void MainWindow::initializeUI() {
     // Set the screen to the Main Menu
     ui->stackedWidget->setCurrentWidget(ui->startMenu);
 
-    // Initially hide all buttons and labels
+    // Initially hide all game buttons and labels
     hideAllUI();
 
     // Set the player and dealer hand attributes
     ui->playerHand->setIsPlayerHand(true);
     ui->dealerHand->setIsPlayerHand(false);
 
+    // Set the bank
     updateBankDisplay();
+
+    // set up tips
+    createHelpWidget("");
+    tipTimer.setSingleShot(true);
 }
 
 void MainWindow::hideAllUI() {
@@ -281,6 +282,8 @@ void MainWindow::resetBet() {
 
 void MainWindow::deal() {
 
+    model.setBlackJack(true);
+
     // Give the dealer two cards (one of which is face down)
     addDealer(true);
     qDebug() << QString::number(model.getDealerTotal()) + " 3";
@@ -297,6 +300,8 @@ void MainWindow::deal() {
     // This will be triggered after a bust
     ui->playerHand->setShakingEnabled(false);
     ui->dealerHand->setShakingEnabled(false);
+
+    model.setBlackJack(false);
 
     if (model.getUserTotal() != 21) {
 
@@ -342,7 +347,13 @@ void MainWindow::determineWinner() {
     int dealerTotal = model.getDealerTotal();
 
     // Check for bust conditions
-    if (userTotal > 21) {
+    if (model.isBlackJack()){
+        model.playerWins();
+        // Show chips falling
+        ui->playerHand->setPlayerWon(true);
+        showOutcome("BLACKJACK!", splitHand);
+
+    } else if (userTotal > 21) {
         model.dealerWins();
         showOutcome("PLAYER BUSTS!", splitHand);
         // Shake the cards
@@ -1112,5 +1123,5 @@ void MainWindow::themeChanged(const QString &arg1) {
         ui->centralwidget->setStyleSheet("background-color: rgb(46, 77, 62)");
 
     else if (arg1 == "Modern")
-        ui->centralwidget->setStyleSheet("background-color: #2d2d30");
+        ui->centralwidget->setStyleSheet("background-color: #1e1e21");
 }
