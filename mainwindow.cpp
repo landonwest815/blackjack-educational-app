@@ -61,7 +61,7 @@ void MainWindow::setupConnections() {
     // Menus
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->mainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
-    connect(ui->settingsMainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
+    connect(ui->mainMenuSettingButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->startGame, &QPushButton::clicked, this, &MainWindow::switchToGameWindow);
     connect(ui->tutorial, &QPushButton::clicked, this, &MainWindow::switchToLessonsWindow);
     connect(ui->quitGameMenu, &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
@@ -1068,6 +1068,7 @@ void MainWindow::showOutcome(QString outcome, bool splitHand) {
         QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
         const QString name = clickedButton->objectName();
         if (name.startsWith("nextLesson"))  say.say("Next Step");
+        else if (name.startsWith("main"))   say.say("Main Menu");
         else if (name.endsWith("Button"))   say.say(name.left(name.length() - 6));
         else                                say.say(name);
      }

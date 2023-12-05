@@ -43,6 +43,7 @@
       </property>
       <property name="currentIndex">
        <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -593,7 +594,7 @@ QComboBox QAbstractItemView {
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="settingsMainMenuButton">
+             <widget class="QPushButton" name="mainMenuSettingButton">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #972a27; /* Normal state with red color */
@@ -2798,7 +2799,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1776</width>
-     <height>37</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
