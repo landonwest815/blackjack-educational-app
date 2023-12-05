@@ -179,9 +179,6 @@ void MainWindow::addPlayer() {
             //     updateScores();
             // }
             stand();
-            dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
-            updateScores();
-            determineWinner();
         } else if (!model.getOnSecondHand()) {
             nextSplit();
         }
@@ -189,9 +186,6 @@ void MainWindow::addPlayer() {
 
     if (model.getSplitTotal() >= 21) {
         stand();
-        dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
-        updateScores();
-        determineWinner();
     }
 
     ui->insuranceResult->setVisible(false);
@@ -318,9 +312,7 @@ void MainWindow::deal() {
 
     // Check for blackjack conditions
     if (model.getUserTotal() == 21) {
-        dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
-        updateScores();
-        determineWinner();
+        stand();
     }
 }
 
@@ -391,6 +383,7 @@ void MainWindow::determineWinner() {
         determineWinner();
     }
 
+    ui->adviceButton->setVisible(false);
     updateBankDisplay();
 }
 
