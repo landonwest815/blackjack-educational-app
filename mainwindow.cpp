@@ -281,13 +281,17 @@ void MainWindow::resetBet() {
 
 void MainWindow::deal() {
 
-    // Give the player two cards
-    addPlayer();
-    addPlayer();
-
     // Give the dealer two cards (one of which is face down)
     addDealer(true);
+    qDebug() << QString::number(model.getDealerTotal()) + " 3";
     addDealer(false);
+    qDebug() << QString::number(model.getDealerTotal()) + " 4";
+
+    // Give the player two cards
+    addPlayer();
+    qDebug() << QString::number(model.getDealerTotal()) + " 1";
+    addPlayer();
+    qDebug() << QString::number(model.getDealerTotal()) + " 2";
 
     // Set neither to be able to shake as of now
     // This will be triggered after a bust
@@ -307,19 +311,21 @@ void MainWindow::deal() {
     if(model.insuranceAllowed()) ui->insuranceButton->setVisible(true);
 
     // Check for blackjack conditions
-    if (model.getUserTotal() == 21) {
-        stand();
-    }
+     // if (model.getUserTotal() == 21) {
+     //     stand();
+     // }
 }
 
 void MainWindow::stand() {
     // must flip over facedown card
     dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+    qDebug() << QString::number(model.getDealerTotal()) + " 5";
     updateScores();
 
     // dealer draws until it has a score of 17 or higher
     while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0)) {
         addDealer(false);
+        qDebug() << QString::number(model.getDealerTotal()) + " 6";
     }
 
     helpwidget->hide();
