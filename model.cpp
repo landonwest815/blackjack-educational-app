@@ -200,6 +200,8 @@ Card Model::getDealerCard(int index) { return dealerHand[index]; }
 
 void Model::addUserCard(Card newCard) { userHand.push_back(newCard); }
 
+void Model::addUserSplitCard(Card newCard) { userSplitHand.push_back(newCard); }
+
 void Model::addDealerCard(Card newCard) { dealerHand.push_back(newCard); }
 
 Card Model::revealDealer() {
@@ -238,6 +240,7 @@ void Model::endRound() {
     // Clear all hand data
     userHand.clear();
     dealerHand.clear();
+    userSplitHand.clear();
 
     // Clear all Ace data
     playerAceCounter = 0;

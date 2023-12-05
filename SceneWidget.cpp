@@ -494,25 +494,42 @@ void SceneWidget::resizeEvent(QResizeEvent *event) {
 }
 
 void SceneWidget::drawTextBox(const QString &text) {
-
     // Setup the painter
     QPainter painter(this);
 
-    // Set rectangle options
-    QRectF textBoxRect(this->width() * 0.76, this->height() * 0.001, this->width() * 0.2, this->height());
-    painter.setBrush(QBrush(QColor::fromRgb(46, 77, 62)));
-    painter.setPen(QColor::fromRgb(46, 77, 62));
-    painter.drawRoundedRect(textBoxRect, 10, 10);
+    // Determine dimensions
+    const int areaWidth = this->width();
+    const int areaHeight = this->height();
+
+    // Attributes for border
+    const int penWidth = 4;
+    const int cornerRadius = 10;
+
+    // Calculate the adjusted positions and dimensions for the text box
+    // Adjust for the pen width to ensure uniform border thickness
+    int rectWidth = areaWidth * 0.2 - 2 * penWidth;
+    int rectHeight = areaHeight - 2 * penWidth;
+    int left = areaWidth * 0.76 + penWidth;
+    int top = areaHeight * 0.001 + penWidth;
+
+    // Set the pen and brush for the border
+    QPen outlinePen(Qt::white, penWidth, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
+    painter.setPen(outlinePen);
+    painter.setBrush(QBrush(QColorConstants::Transparent));
+
+    // Draw the rounded rectangle for the text box
+    QRectF textBoxRect(left, top, rectWidth, rectHeight);
+    painter.drawRoundedRect(textBoxRect, cornerRadius, cornerRadius);
 
     // Set text options
     QFont font;
-    font.setPointSize(this->height() * 0.03);
+    font.setPointSize(areaHeight * 0.03);
     painter.setFont(font);
     painter.setPen(Qt::white);
     QTextOption textOption;
     textOption.setWrapMode(QTextOption::WordWrap);
 
-    // Draw within center
+    // Draw the text within the center of the rectangle
     painter.drawText(textBoxRect, Qt::AlignCenter, text);
 }
 
