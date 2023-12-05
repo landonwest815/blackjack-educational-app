@@ -298,22 +298,20 @@ void MainWindow::deal() {
     ui->playerHand->setShakingEnabled(false);
     ui->dealerHand->setShakingEnabled(false);
 
-    updateScores();
+    if (model.getUserTotal() != 21) {
 
-    // Update the UI
-    hideAllUI();
+        updateScores();
 
-    ui->hitButton->setVisible(true);
-    ui->standButton->setVisible(true);
-    ui->doubleDownButton->setVisible(true);
-    ui->adviceButton->setVisible(true);
-    if (model.allowedToSplit()) ui->splitButton->setVisible(true);
-    if(model.insuranceAllowed()) ui->insuranceButton->setVisible(true);
+        // Update the UI
+        hideAllUI();
 
-    // Check for blackjack conditions
-     // if (model.getUserTotal() == 21) {
-     //     stand();
-     // }
+        ui->hitButton->setVisible(true);
+        ui->standButton->setVisible(true);
+        ui->doubleDownButton->setVisible(true);
+        ui->adviceButton->setVisible(true);
+        if (model.allowedToSplit()) ui->splitButton->setVisible(true);
+        if(model.insuranceAllowed()) ui->insuranceButton->setVisible(true);
+    }
 }
 
 void MainWindow::stand() {
@@ -393,6 +391,13 @@ void MainWindow::showOutcome(QString outcome, bool splitHand) {
     //hideAllUI();
     ui->hitButton->setVisible(false);
     ui->standButton->setVisible(false);
+    ui->add50->setVisible(false);
+    ui->add100->setVisible(false);
+    ui->add250->setVisible(false);
+    ui->add500->setVisible(false);
+    ui->allIn->setVisible(false);
+    ui->resetButton->setVisible(false);
+    ui->dealButton->setVisible(false);
 
     if (!splitHand) {
         ui->outcome->setVisible(true);

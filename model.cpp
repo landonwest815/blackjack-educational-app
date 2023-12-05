@@ -1,7 +1,5 @@
 #include "model.h"
 #include "deck.h"
-
-#include <iostream>
 #include <QDebug>
 
 Model::Model() :
@@ -26,9 +24,11 @@ Card Model::userHit() {
     if(nextCard.getFace() == "A") {
         playerTotal += 11;
         playerAceCounter++;
+        nextCard.setValue(11);
         if(playerTotal > 21) {
             playerTotal -= 10;
             playerAceCounter--;
+            nextCard.setValue(1);
         }
     } else {
         playerTotal += nextCard.getValue();
