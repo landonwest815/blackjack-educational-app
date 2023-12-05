@@ -65,6 +65,8 @@ private slots:
 
     void speechModeSettingAdjusted(const QString &arg1);
 
+    void themeChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     Model model;
@@ -88,7 +90,7 @@ private:
     string dealerFaceUpSuit;
     void hideAllUI();
     void setupDeal();
-    void showOutcome(QString outcome);
+    void showOutcome(QString outcome, bool splitHand);
     void insurance();
     void newGame();
     bool checkForDuplicateUserHand();

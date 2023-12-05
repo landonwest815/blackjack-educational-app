@@ -23,6 +23,7 @@ private:
     bool onSecondHand;
     vector<Card> userHand;
     vector<Card> dealerHand;
+    vector<Card> userSplitHand;
 
 public:
     Model();
@@ -78,6 +79,8 @@ public:
     void addUserCard(Card newCard);
 
     void addDealerCard(Card newCard);
+
+    void addUserSplitCard(Card newCard);
 
     Card revealDealer();
 

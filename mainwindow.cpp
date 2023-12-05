@@ -18,7 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
                ui->allIn, ui->nextLessonOne, ui->nextLessonTwo, ui->nextLessonThree, ui->adviceButton, ui->newGame};
 
     // Contains all labels so we can turn all of them off at once
-    labels = {ui->outcome, ui->splitScore, ui->tutorialLabel, ui->splitIndicator, ui->nonSplitIndicator, ui->insuranceResult};
+    labels = {ui->outcome, ui->splitScore, ui->tutorialLabel, ui->splitIndicator, ui->nonSplitIndicator, ui->insuranceResult,
+              ui->splitOutcome};
 
     setupConnections();
     initializeUI();
@@ -83,6 +84,9 @@ void MainWindow::setupConnections() {
 
     // For the speech mode
     connect(ui->speechComboBox, &QComboBox::currentTextChanged, this, &MainWindow::speechModeSettingAdjusted);
+
+    // For the theme
+    connect(ui->themeComboBox, &QComboBox::currentTextChanged, this, &MainWindow::themeChanged);
 
     // Connect all button clicks to a speech slot
     QList<QPushButton*> allButtons = findChildren<QPushButton*>();
@@ -158,7 +162,7 @@ void MainWindow::addPlayer() {
     else {
         // Draw a random card and add it to the split hand
         Card playerCard = model.splitHit();
-        model.addUserCard(playerCard);
+        model.addUserSplitCard(playerCard);
         ui->playerHand->addPlayerCard(QString::fromStdString(convertCardToPath(playerCard)));
     }
 
@@ -168,20 +172,26 @@ void MainWindow::addPlayer() {
     updateScores();
 
     // End round if player hits 21
-    if (model.getUserTotal() >= 21 || model.getSplitTotal() >= 21) {
+    if (model.getUserTotal() >= 21) {
         if (!model.getSplitCheck()) {
-                dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
-                updateScores();
-                determineWinner();
-        } else if(model.getUserTotal() == 21 || model.getSplitTotal() == 21) {
-                while(model.getDealerTotal() < 17) {
-                    addDealer(true);
-                    updateScores();
-                }
-                determineWinner();
-        } else {
+            // while(model.getDealerTotal() < 17) {
+            //     addDealer(true);
+            //     updateScores();
+            // }
+            stand();
+            dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+            updateScores();
+            determineWinner();
+        } else if (!model.getOnSecondHand()) {
             nextSplit();
         }
+    }
+
+    if (model.getSplitTotal() >= 21) {
+        stand();
+        dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
+        updateScores();
+        determineWinner();
     }
 
     ui->insuranceResult->setVisible(false);
@@ -218,7 +228,6 @@ void MainWindow::nextSplit() {
 
     // Update model
     model.setOnSecondHand(true);
-    model.setSplitCheck(false);
 }
 
 void MainWindow::dealerFlip(QString fileName) {
@@ -330,13 +339,20 @@ void MainWindow::stand() {
 }
 
 void MainWindow::determineWinner() {
-    int userTotal = model.getUserTotal();
+    int userTotal;
+    bool splitHand = model.getOnSecondHand();
+
+    if (splitHand) {
+        userTotal = model.getSplitTotal();
+    }
+    else userTotal = model.getUserTotal();
+
     int dealerTotal = model.getDealerTotal();
 
     // Check for bust conditions
     if (userTotal > 21) {
         model.dealerWins();
-        showOutcome("PLAYER BUSTS!");
+        showOutcome("PLAYER BUSTS!", splitHand);
         // Shake the cards
         QTimer::singleShot(700, this, [this]() {
             ui->playerHand->setShakingEnabled(true);
@@ -346,7 +362,7 @@ void MainWindow::determineWinner() {
         model.playerWins();
         // Show chips falling
         ui->playerHand->setPlayerWon(true);
-        showOutcome("DEALER BUSTS!");
+        showOutcome("DEALER BUSTS!", splitHand);
         // Shake the cards
         QTimer::singleShot(700, this, [this]() {
             ui->dealerHand->setShakingEnabled(true);
@@ -355,28 +371,44 @@ void MainWindow::determineWinner() {
     } else {
         if (userTotal > dealerTotal) {
             model.playerWins();
-            showOutcome("PLAYER WINS!");
+            showOutcome("PLAYER WINS!", splitHand);
             // Show chips falling
             ui->playerHand->setPlayerWon(true);
 
         } else if (userTotal < dealerTotal) {
             model.dealerWins();
-            showOutcome("DEALER WINS!");
+            showOutcome("DEALER WINS!", splitHand);
 
         } else {
             model.handlePush(); // when a tie occurs
             //model.dealerWins();
-            showOutcome("PUSH!");
+            showOutcome("PUSH!", splitHand);
         }
+    }
+
+    if (model.getOnSecondHand()) {
+        model.setOnSecondHand(false);
+        determineWinner();
     }
 
     updateBankDisplay();
 }
 
-void MainWindow::showOutcome(QString outcome) {
-    hideAllUI();
-    ui->outcome->setVisible(true);
-    ui->outcome->setText(outcome);
+void MainWindow::showOutcome(QString outcome, bool splitHand) {
+    //hideAllUI();
+    ui->hitButton->setVisible(false);
+    ui->standButton->setVisible(false);
+
+    if (!splitHand) {
+        ui->outcome->setVisible(true);
+        ui->outcome->setText(outcome);
+        qDebug() << "normal outcome";
+    } else {
+        ui->splitOutcome->setVisible(true);
+        ui->splitOutcome->setText(outcome);
+        ui->splitIndicator->setVisible(false);
+        qDebug() << "split outcome";
+    }
     ui->nextHand->setVisible(true);
 }
 
@@ -1072,4 +1104,12 @@ void MainWindow::showOutcome(QString outcome) {
 void MainWindow::speechModeSettingAdjusted(const QString &arg1)
 {
     speechModeClicked(arg1 == "On");
+}
+
+void MainWindow::themeChanged(const QString &arg1) {
+    if (arg1 == "Casino")
+        ui->centralwidget->setStyleSheet("background-color: rgb(46, 77, 62)");
+
+    else if (arg1 == "Modern")
+        ui->centralwidget->setStyleSheet("background-color: #2d2d30");
 }
