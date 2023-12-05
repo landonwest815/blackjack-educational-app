@@ -98,7 +98,10 @@
 }</string>
               </property>
               <property name="text">
-               <string>Blackjack</string>
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="Assets/Cards.qrc">:/blackjack-logo.png</pixmap>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
