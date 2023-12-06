@@ -1722,7 +1722,7 @@ QPushButton:pressed {
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,0,1,0,4">
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,0,1,0,0,4">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
@@ -2197,6 +2197,35 @@ QPushButton:pressed {
                 <string>Advice</string>
                </property>
               </widget>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="sheetButton">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #972a27; /* Normal state with red color */
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    border: 2px solid #822121; /* Darker outline for better visibility */
+    font-weight: bold;
+    font-size: 16px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}
+
+QPushButton:hover {
+    background-color: #b33d3d; /* Slightly lighter red for hover state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}
+
+QPushButton:pressed {
+    background-color: #7c1f1f; /* Darker red for pressed state */
+    border: 2px solid #822121; /* Consistent darker outline */
+}</string>
+              </property>
+              <property name="text">
+               <string>Full Sheet</string>
+              </property>
              </widget>
             </item>
             <item>

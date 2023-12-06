@@ -58,6 +58,8 @@
         <file>coin.png</file>
         <file>chip.png</file>
         <file>dropdown.png</file>
+        <file>sheetCasino.png</file>
+        <file>sheetModern.png</file>
     </qresource>
     <qresource prefix="/">
         <file>lesson1.png</file>

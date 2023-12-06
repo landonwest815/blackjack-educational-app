@@ -9,13 +9,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , tutorialStep(1)
     , speech(false)
+    , sheetLocation(":/cards/sheetCasino.png")
 {
     ui->setupUi(this);
 
     // Contains all buttons so we can turn all of them off at once
     buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->doubleDownButton,
                ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand,
-               ui->allIn, ui->nextLessonOne, ui->nextLessonTwo, ui->nextLessonThree, ui->adviceButton, ui->newGame};
+               ui->allIn, ui->nextLessonOne, ui->nextLessonTwo, ui->nextLessonThree, ui->adviceButton, ui->newGame, ui->sheetButton};
 
     // Contains all labels so we can turn all of them off at once
     labels = {ui->outcome, ui->splitScore, ui->tutorialLabel, ui->splitIndicator, ui->nonSplitIndicator, ui->insuranceResult,
@@ -62,6 +63,7 @@ void MainWindow::setupConnections() {
     connect(ui->tutorial, &QPushButton::clicked, this, &MainWindow::switchToLessonsWindow);
     connect(ui->quitGameMenu, &QPushButton::clicked, this, &MainWindow::onQuitGameClicked);
     connect(ui->adviceButton, &QPushButton::clicked, this, &MainWindow::displayAdvice);
+    connect(ui->sheetButton, &QPushButton::clicked, this, &MainWindow::showSheet);
     connect(ui->newGame, &QPushButton::clicked, this, &MainWindow::newGame);
     connect(ui->settings, &QPushButton::clicked, this ,&MainWindow::settingsClicked);
 
@@ -314,6 +316,7 @@ void MainWindow::deal() {
         ui->standButton->setVisible(true);
         ui->doubleDownButton->setVisible(true);
         ui->adviceButton->setVisible(true);
+        ui->sheetButton->setVisible(true);
         if (model.allowedToSplit()) ui->splitButton->setVisible(true);
         if(model.insuranceAllowed()) ui->insuranceButton->setVisible(true);
     }
@@ -394,6 +397,7 @@ void MainWindow::determineWinner() {
         determineWinner();
     }
 
+    ui->sheetButton->setVisible(false);
     ui->adviceButton->setVisible(false);
     updateBankDisplay();
 }
@@ -1070,6 +1074,16 @@ void MainWindow::showOutcome(QString outcome, bool splitHand) {
      ui->stackedWidget->setCurrentWidget(ui->settingsMenu);
  }
 
+ void MainWindow::showSheet() {
+     QDialog* sheetDialog = new QDialog(this);
+     sheetDialog->setWindowTitle("Sheet Help Popup");
+     QVBoxLayout* layout = new QVBoxLayout(sheetDialog);
+     QLabel* tutorialLabel = new QLabel(sheetDialog);
+     tutorialLabel->setPixmap(QPixmap(sheetLocation));
+     layout->addWidget(tutorialLabel);
+     sheetDialog->exec();
+ }
+
  void MainWindow::displayAdvice() {
      showATip();
      tipTimer.start(4000);
@@ -1100,9 +1114,12 @@ void MainWindow::speechModeSettingAdjusted(const QString &arg1)
 }
 
 void MainWindow::themeChanged(const QString &arg1) {
-    if (arg1 == "Casino")
+    if (arg1 == "Casino") {
         ui->centralwidget->setStyleSheet("background-color: rgb(46, 77, 62)");
-
-    else if (arg1 == "Modern")
+        sheetLocation = ":/cards/sheetCasino.png";
+    }
+    else if (arg1 == "Modern") {
         ui->centralwidget->setStyleSheet("background-color: #1e1e21");
+        sheetLocation = ":/cards/sheetModern.png";
+    }
 }

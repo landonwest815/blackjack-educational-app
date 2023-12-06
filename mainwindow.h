@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QTimer>
+#include <QDialog>
 #include <QtTextToSpeech/QTextToSpeech>
 
 QT_BEGIN_NAMESPACE
@@ -46,6 +47,7 @@ private slots:
     void deal();
     void stand();
     void doubleDownHand();
+    void showSheet();
     void displayAdvice();
     void tellUserToHit();
     void tellUserToStand();
@@ -77,6 +79,7 @@ private:
     QList<QPushButton*> buttons;
     QList<QLabel*> labels;
     QTimer tipTimer;
+    QString sheetLocation;
 
     void determineWinner();
     // Probably will remove, serves as demo functions
