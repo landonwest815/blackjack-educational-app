@@ -434,6 +434,7 @@ void MainWindow::showOutcome(QString outcome, bool splitHand) {
      ui->dealerHand->setIsInTutorial(false);
      tutorialStep = 1;
 
+     ui->playerHand->setPlayerWon(false);
      ui->currentBet->setVisible(true);
      ui->bank->setVisible(true);
      ui->playerScore->setVisible(true);
