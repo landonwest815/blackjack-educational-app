@@ -42,7 +42,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="startMenu">
        <property name="sizePolicy">
@@ -1006,27 +1006,57 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="tutorialLabel">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLabel {
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <widget class="QLabel" name="tutorialLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QLabel {
     color: white;
     padding: 3px;
     font-weight: bold;
     font-style: italic;
     font-size: 18px;
     font-family: &quot;Arial&quot;, sans-serif;
+    qproperty-alignment: AlignCenter;
 }</string>
-              </property>
-              <property name="text">
-               <string>TUTORIAL MODE</string>
-              </property>
-             </widget>
+                </property>
+                <property name="text">
+                 <string>TUTORIAL MODE</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="tutorialTextLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QLabel {
+    color: white;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: &quot;Arial&quot;, sans-serif;
+	border: 3px solid #FFFFFF;
+    border-radius: 10px;
+    padding: 10px;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Tutorial Text</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <spacer name="horizontalSpacer_8">

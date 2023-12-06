@@ -92,12 +92,6 @@ private:
     /// @brief Whether the player just won a hand.
     bool playerWon;
 
-    /// @brief Whether text box is enabled or not.
-    bool textBoxEnabled;
-
-    /// @brief Text to display within text box.
-    QString textBoxString;
-
     /// @brief Stores all dealer bodies that are created.
     QVector<b2Body*> dealerBodies;
 
@@ -219,17 +213,6 @@ public slots:
     /// @brief Draws a new player card with given image on its side to represent double down.
     /// @param imagePath String path of image for player card to display.
     void doubleDownPlayerCard(const QString& imagePath);
-
-    /// @brief Draws a text box that contains the text the parameter is given.
-    /// @param text String to display in the text box.
-    void drawTextBox(const QString &text);
-
-    /// @brief Allows text box to be displayed.
-    void setTextBoxEnabled();
-
-    /// @brief Sets the text displayed in the text box.
-    /// @param text String to display in the text box.
-    void setTextBoxText(const QString &text);
 
     /// @brief Sets whether the cards should shake or not.
     void setShakingEnabled(bool);
