@@ -112,9 +112,9 @@ int Model::stand() {
 }
 
 Card Model::doubleDown() {
-    return Model::userHit();
     bankTotal -= bet;
     bet *= 2;
+    return Model::userHit();
 }
 
 bool Model::insuranceAllowed() {
@@ -216,15 +216,7 @@ int Model::getDealerAces() { return dealerAceCounter; }
 
 void Model::playerWins() {
     win = true;
-
-    // Determine whether it's a blackjack win or a standard win
-    if (getUserTotal() == 21 && userHand.size() == 2) {
-        // Blackjack win
-        userBlackJack(userHand[0], userHand[1]);
-    } else {
-        // Standard win
-        updateBankAfterWin(bet);
-    }
+    updateBankAfterWin(bet);
 }
 
 void Model::dealerWins() {

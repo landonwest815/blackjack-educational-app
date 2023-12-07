@@ -93,7 +93,7 @@ private:
     string dealerFaceUpSuit;
     void hideAllUI();
     void setupDeal();
-    void showOutcome(QString outcome, bool splitHand);
+    void showOutcome(QString outcome, bool splitHand, bool win);
     void insurance();
     void newGame();
     bool checkForDuplicateUserHand();

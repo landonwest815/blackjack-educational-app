@@ -355,11 +355,12 @@ void MainWindow::determineWinner() {
         model.playerWins();
         // Show chips falling
         ui->playerHand->setPlayerWon(true);
-        showOutcome("BLACKJACK!", splitHand);
+        model.setBet(model.getBet() * 1.5);
+        showOutcome("BLACKJACK!", splitHand, true);
 
     } else if (userTotal > 21) {
         model.dealerWins();
-        showOutcome("PLAYER BUSTS!", splitHand);
+        showOutcome("PLAYER BUSTS!", splitHand, false);
         // Shake the cards
         QTimer::singleShot(700, this, [this]() {
             ui->playerHand->setShakingEnabled(true);
@@ -369,7 +370,7 @@ void MainWindow::determineWinner() {
         model.playerWins();
         // Show chips falling
         ui->playerHand->setPlayerWon(true);
-        showOutcome("DEALER BUSTS!", splitHand);
+        showOutcome("DEALER BUSTS!", splitHand, true);
         // Shake the cards
         QTimer::singleShot(700, this, [this]() {
             ui->dealerHand->setShakingEnabled(true);
@@ -378,18 +379,18 @@ void MainWindow::determineWinner() {
     } else {
         if (userTotal > dealerTotal) {
             model.playerWins();
-            showOutcome("PLAYER WINS!", splitHand);
+            showOutcome("PLAYER WINS!", splitHand, true);
             // Show chips falling
             ui->playerHand->setPlayerWon(true);
 
         } else if (userTotal < dealerTotal) {
             model.dealerWins();
-            showOutcome("DEALER WINS!", splitHand);
+            showOutcome("DEALER WINS!", splitHand, false);
 
         } else {
             model.handlePush(); // when a tie occurs
             //model.dealerWins();
-            showOutcome("PUSH!", splitHand);
+            showOutcome("PUSH!", splitHand, false);
         }
     }
 
@@ -403,7 +404,7 @@ void MainWindow::determineWinner() {
     updateBankDisplay();
 }
 
-void MainWindow::showOutcome(QString outcome, bool splitHand) {
+void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
     //hideAllUI();
     ui->hitButton->setVisible(false);
     ui->standButton->setVisible(false);
@@ -416,13 +417,20 @@ void MainWindow::showOutcome(QString outcome, bool splitHand) {
     ui->dealButton->setVisible(false);
     ui->doubleDownButton->setVisible(false);
 
+    QString profit = QString::number(model.getBet());
+    if (win) profit = "   +$" + profit;
+    else     profit = "   -$" + profit;
+
+    // Check for push
+    if (outcome.startsWith("PUSH")) profit = "   +$0";
+
     if (!splitHand) {
         ui->outcome->setVisible(true);
-        ui->outcome->setText(outcome);
+        ui->outcome->setText(outcome + profit);
         qDebug() << "normal outcome";
     } else {
         ui->splitOutcome->setVisible(true);
-        ui->splitOutcome->setText(outcome);
+        ui->splitOutcome->setText(outcome + profit);
         ui->splitIndicator->setVisible(false);
         qDebug() << "split outcome";
     }
