@@ -413,6 +413,7 @@ void MainWindow::showOutcome(QString outcome, bool splitHand) {
     ui->allIn->setVisible(false);
     ui->resetButton->setVisible(false);
     ui->dealButton->setVisible(false);
+    ui->doubleDownButton->setVisible(false);
 
     if (!splitHand) {
         ui->outcome->setVisible(true);
@@ -970,7 +971,6 @@ void MainWindow::showOutcome(QString outcome, bool splitHand) {
      // Displays and updates UI and scene based on current tutorial step
      switch (tutorialStep) {
      case 1:
-        //ui->playerHand->addPlayerCard(":/cards/1C.png");   Why is this here?
         ui->playerHand->addPlayerCard(":/cards/2C.png");
         ui->playerHand->addPlayerCard(":/cards/3C.png");
         ui->playerHand->addPlayerCard(":/cards/4C.png");
