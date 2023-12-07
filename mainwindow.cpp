@@ -188,6 +188,7 @@ void MainWindow::addPlayer() {
     }
 
     ui->insuranceResult->setVisible(false);
+    ui->splitButton->setVisible(false);
     helpwidget->hide();
 }
 
