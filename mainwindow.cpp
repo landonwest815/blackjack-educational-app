@@ -7,9 +7,9 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , sheetLocation(":/cards/sheetCasino.png")
     , tutorialStep(1)
     , speech(false)
-    , sheetLocation(":/cards/sheetCasino.png")
 {
     ui->setupUi(this);
 
@@ -231,6 +231,7 @@ void MainWindow::doubleDownHand() {
 
     Card doubleDownCard = model.doubleDown();
     ui->playerHand->doubleDownPlayerCard(QString::fromStdString(convertCardToPath(doubleDownCard)));
+    ui->doubleDownButton->setVisible(false);
 
     updateScores();
     stand();
