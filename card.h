@@ -1,59 +1,68 @@
+/***
+ * Authors:     Team Six of Hearts
+ * Members:     Ryan Nguyen, John Nguyen, Christian Hartman, Caleb Funk,
+ *              Landon West, and Pablo Arancibia-Bazan
+ * Course:      CS 3505, University of Utah, School of Computing
+ * Assignment:  A9 - Educational App
+ *
+ * Description: Header for a class representing a traditional playing card in a game of Blackjack.
+ *              Cards can have values from 1 to 11, and faces for Jack, Queen, King, or Ace.
+ */
+
 #ifndef CARD_H
 #define CARD_H
 
-#include <string>
+#include <QString>
 
-using std::string;
-
+///@brief Represents a playing card with a suit, value, and optional
+///       face attribute. The card can be face up or face down.
 class Card
 {
 private:
-    ///@brief The card's suit, for example a traditional card would have the suit of clubs, diamonds, hearts, or spades
-    string suit;
-    ///@brief A value between 1 and 11
+
+    ///@brief The card's suit (e.g., clubs, diamonds, hearts, spades).
+    QString suit;
+
+    ///@brief The card's value (1 to 11). Use the overloaded constructor for face cards.
     int value;
-    ///@brief If the value is 10, the card can have a face attribute
-    string face;
-    ///@brief True if the card will be displayed as facedown
+
+    ///@brief The card's face attribute, applicable if the value is 10.
+    QString face;
+
+    ///@brief Indicates if the card is facedown.
     bool facedown;
+
 public:
-    ///@brief Constructor for the Card class, initializes a new Card with a suit and value
+
+    ///@brief Constructs a Card with a suit and value.
     ///@param suit - The suit of the card
-    ///@param value - The card's value, can be between 1 and 11 (cannot be 10, otherwise use the overloaded constructor)
-    Card(string suit, int value);
+    ///@param value - The card's value
+    Card(QString suit, int value);
 
-    ///@brief Constructor for the Card class, initializes a new Card with a suit and value
+    ///@brief Constructs a Card with a suit and face for face cards.
     ///@param suit - The suit of the card
-    ///@param face - The card's face if the value is 10
-    Card(string suit, string face);
+    ///@param face - The card's face
+    Card(QString suit, QString face);
 
-    ///@brief Getter for the suit
-    ///@return the card's suit
-    string getSuit();
+    ///@brief Returns the card's suit.
+    QString getSuit();
 
-    ///@brief Getter for the face
-    ///@return the card's face
-    string getFace();
+    ///@brief Returns the card's face attribute.
+    QString getFace();
+    ///@brief Sets the card's face attribute.
+    void setFace(QString newFace);
 
-    void setFace(string newFace);
-
-    ///@brief Getter for the value
-    ///@return the card's value
+    ///@brief Returns the card's value.
     int getValue();
-
-    ///@brief Setter for the value
-    ///@param newValue - The card's new value
+    ///@brief Sets the card's value.
     void setValue(int newValue);
 
-    ///@brief Getter for facedown
-    ///@return Whether the card should be facedown or not
+    ///@brief Returns true if the card is facedown.
     bool getFaceDown();
-
-    ///@brief Setter for facedown
-    ///@param facedown - Whether the card should be facedown or not
+    ///@brief Sets the card's facedown status.
     void setFaceDown(bool facedown);
 
-    ///@brief Overloaded equals operator. Checks if suit, value, and face are the same
+    ///@brief Checks if two cards are equal based on suit, value, and face.
     bool operator== (const Card &c);
 };
 

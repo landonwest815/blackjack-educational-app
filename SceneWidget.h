@@ -1,14 +1,15 @@
-/**
- * Author(s):     Team Six of Hearts:
- *                Ryan Nguyen (Taizuki), John Nguyen (johnguyn),
- *           	  Christian Hartman (Is-This-One-Avaiable), Caleb Funk (Funkyc02),
- *                Landon West (landonwest815), and Pablo Arancibia-Bazan (Pablo23117)
- * Course:        CS 3505, University of Utah, School of Computing
- * Assignment:    A9 - Educational App
- * File Contents:
- * This project helps to demonstrate some C++ conventions in regards
- * to the topic of a SceneWidget class which has been split into a header
- * file. It assists in declarations of the SceneWidget object, functions, etc.
+/***
+ * Authors:         Team Six of Hearts
+ * Members:         Ryan Nguyen, John Nguyen, Christian Hartman, Caleb Funk,
+ *                  Landon West, and Pablo Arancibia-Bazan
+ * Course:          CS 3505, University of Utah, School of Computing
+ * Assignment:      A9 - Educational App
+ *
+ * Description:     Header for a file that is part of an educational application designed
+ *                  to simulate a game of blackjack. It integrates the Box2D physics engine
+ *                  to simulate and display the dynamic interactions of cards The main focus
+ *                  of this implementation is to create a visually engaging and interactive
+ *                  blackjack table.
  */
 
 #ifndef SCENEWIDGET_H
