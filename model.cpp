@@ -1,95 +1,64 @@
+/***
+ * Authors:         Team Six of Hearts
+ * Members:         Ryan Nguyen, John Nguyen, Christian Hartman, Caleb Funk,
+ *                  Landon West, and Pablo Arancibia-Bazan
+ * Course:          CS 3505, University of Utah, School of Computing
+ * Assignment:      A9 - Educational App
+ *
+ * Description:     This class represents the core model of a Blackjack game. It manages
+ *                  the deck, player and dealer hands, betting, and game state. The class
+ *                  provides functionality for drawing cards, making bets, handling game
+ *                  decisions like hit, stand, double down, and split, and determines
+ *                  game outcomes.
+ */
+
 #include "model.h"
 #include "deck.h"
 #include <QDebug>
 
-Model::Model() :
-    bankTotal(1500),
-    dealerTotal(0),
-    playerTotal(0),
-    bet(0),
-    win(true),
-    splitTotal(0),
-    playerAceCounter(0),
-    dealerAceCounter(0),
-    splitAceCounter(0),
-    splitCheck(false),
-    onSecondHand(false){ }
+Model::Model()
+    : bankTotal(1500), bet(0), playerTotal(0), dealerTotal(0),
+    splitTotal(0), playerAceCounter(0), dealerAceCounter(0),
+    splitAceCounter(0), win(true), splitCheck(false), onSecondHand(false) {}
 
-Card Model::userHit() {
+Card Model::drawAndAddCard(int& total, int& aceCounter, bool faceDown) {
 
-    // Draw a card from deck
+    // Draw a card and add it to the relative score
     Card nextCard = deck.drawCard();
+    total += nextCard.getValue();
 
-    // If an Ace is drawn adjust the value if beneficial
-    if(nextCard.getFace() == "A") {
-        playerTotal += 11;
-        playerAceCounter++;
-        nextCard.setValue(11);
-        if(playerTotal > 21) {
-            playerTotal -= 10;
-            playerAceCounter--;
+    // Check for Ace conditions
+    if (nextCard.getFace() == "A") {
+        aceCounter++;
+        if (total > 21) {
+            total -= 10;
+            aceCounter--;
             nextCard.setValue(1);
         }
-    } else {
-        playerTotal += nextCard.getValue();
-        if(playerAceCounter > 0 && playerTotal > 21) {
-            playerTotal -= 10;
-            playerAceCounter--;
-        }
+    } else if (aceCounter > 0 && total > 21) {
+        total -= 10;
+        aceCounter--;
     }
+
+    // Check if card should be flipped down
+    if (faceDown) {
+        nextCard.setFaceDown(true);
+        total -= nextCard.getValue();
+    }
+
     return nextCard;
+}
+
+Card Model::userHit() {
+    return drawAndAddCard(playerTotal, playerAceCounter, false);
 }
 
 Card Model::dealerHit(bool facedown) {
-
-    // Draw a card from deck
-    Card nextCard = deck.drawCard();
-
-    // If an Ace is drawn adjust the value if beneficial
-    if(nextCard.getFace() == "A") {
-        dealerTotal += 11;
-        dealerAceCounter++;
-        if(dealerTotal > 21) {
-            dealerTotal -= 10;
-            dealerAceCounter--;
-        }
-    } else {
-        dealerTotal = dealerTotal + nextCard.getValue();
-        if(dealerAceCounter != 0 && dealerTotal > 21) {
-            dealerTotal -= 10;
-            dealerAceCounter--;
-        }
-    }
-
-    // If this is the face down card subtract the value to keep the dealer total hidden
-    if (facedown) {
-        dealerTotal -= nextCard.getValue();
-        nextCard.setFaceDown(true);
-    }
-    return nextCard;
+    return drawAndAddCard(dealerTotal, dealerAceCounter, facedown);
 }
 
 Card Model::splitHit() {
-
-    // Draw a card from deck
-    Card nextCard = deck.drawCard();
-
-    // If an Ace is drawn adjust the value if beneficial
-    if(nextCard.getFace() == "A") {
-        splitTotal += 11;
-        splitAceCounter++;
-        if(splitTotal > 21) {
-            splitTotal -= 10;
-            splitAceCounter--;
-        }
-    } else {
-        splitTotal += nextCard.getValue();
-        if(splitAceCounter > 0 && splitTotal > 21) {
-            splitTotal -= 10;
-            splitAceCounter--;
-        }
-    }
-    return nextCard;
+    return drawAndAddCard(splitTotal, splitAceCounter, false);
 }
 
 bool Model::shuffleCheck() {
@@ -97,18 +66,17 @@ bool Model::shuffleCheck() {
     // Check if the deck is halfway depleted
     // We are using a 52 card deck as expected
     if (deck.getSize() < 27) {
-        Deck newDeck;
-        deck = newDeck;
+        deck = Deck();
         return true;
     }
-    else {
-        return false;
-    }
+
+    // If no deck was created
+    return false;
 }
 
 int Model::stand() {
-    return Model::getUserTotal();
     dealerAceCounter = 0;
+    return playerTotal;
 }
 
 Card Model::doubleDown() {
@@ -118,7 +86,6 @@ Card Model::doubleDown() {
 }
 
 bool Model::insuranceAllowed() {
-    // If the dealer's second card is an Ace (the first card is the face down card)
     return (dealerHand[1].getFace() == "A");
 }
 
@@ -185,9 +152,8 @@ void Model::setOnSecondHand(bool secondHand) { onSecondHand = secondHand; }
 bool Model::getOnSecondHand() { return onSecondHand; }
 
 void Model::resetAllScores() {
-    playerTotal = 0;
-    dealerTotal = 0;
-    splitTotal = 0;
+    // Set all to zero
+    playerTotal = dealerTotal = splitTotal = 0;
 }
 
 bool Model::getSplitCheck() { return splitCheck; }
@@ -248,16 +214,7 @@ void Model::endRound() {
 }
 
 bool Model::userHasAceInHand() {
-    for(auto card : userHand) {
-        if(card.getFace() == "A") {
-            return true;
-        }
-    }
-
-    // Better?
-    // return (aceCounter != 0)
-
-    return false;
+    return (playerAceCounter > 0);
 }
 
 Card Model::getDealerFaceUpCard(){

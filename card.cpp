@@ -1,50 +1,45 @@
-/**
- * Author(s):     Team Six of Hearts:
- *                Ryan Nguyen (Taizuki), John Nguyen (johnguyn),
- *           	  Christian Hartman (Is-This-One-Avaiable), Caleb Funk (Funkyc02),
- *                Landon West (landonwest815), and Pablo Arancibia-Bazan (Pablo23117)
- * Course:        CS 3505, University of Utah, School of Computing
- * Assignment:    A9 - Educational App
- * File Contents:
- * Class that has attributes of a traditional playing card in a game of Blackjack.
- * If the value is 10, then the card can have a face of Jack, Queen, or King.
- * If the value is not 10, then the card does not have a face.
+/***
+ * Authors:     Team Six of Hearts
+ * Members:     Ryan Nguyen, John Nguyen, Christian Hartman, Caleb Funk,
+ *              Landon West, and Pablo Arancibia-Bazan
+ * Course:      CS 3505, University of Utah, School of Computing
+ * Assignment:  A9 - Educational App
+ *
+ * Description: Class representing a traditional playing card in a game of Blackjack.
+ *              Cards can have values from 1 to 11, and faces for Jack, Queen, King, or Ace.
  */
 #include "card.h"
 
-Card::Card(string suit, int value)
-{
-    this->suit = suit;
-    this->face = "";
-    this->facedown = false;
+Card::Card(QString suit, int value)
+    : suit(suit), value(value), facedown(false) {
 
-    //If the value equals 1 or 11, set the face to "A" to represent Ace. Otherwise, if it's between 2 and 9, set the value to the regular value. Otherwise, simply set the value to 2
-    if (value == 1 || value == 11) {
-        this->value = value;
+    // Is an Ace
+    if (value == 11) {
         this->face = "A";
-    } else if (value >= 2 && value <= 10) {
-        this->value = value;
-    } else {
+
+    // Is Invalid - default to value of 2
+    } else if (value < 2 || value > 10) {
         this->value = 2;
+        this->face = "";
+
+    // Is any common number
+    } else {
+        this->face = "";
     }
 }
 
-Card::Card(string suit, string face) {
-    this->suit = suit;
-    this->value = 10;
-    this->face = face;
-    this->facedown = false;
-}
+Card::Card(QString suit, QString face)
+    : suit(suit), value(10), face(face), facedown(false) {}
 
-string Card::getSuit() {
+QString Card::getSuit() {
     return suit;
 }
 
-string Card::getFace() {
+QString Card::getFace() {
     return face;
 }
 
-void Card::setFace(string newFace) {
+void Card::setFace(QString newFace) {
     face = newFace;
 }
 
@@ -61,17 +56,18 @@ void Card::setFaceDown(bool facedown) {
 }
 
 void Card::setValue(int newValue) {
-    //The value must be between 1 and 11. If it is not, the value will automatically be set to two.
+
+    // Valid newValue
     if (newValue >= 1 && newValue <= 11) {
         value = newValue;
+        if (newValue == 1) face = "A";
+
+    // Invalid newValue - default to a value of 2
     } else {
         value = 2;
     }
 }
 
-bool Card::operator==(const Card &c) {
-    if (suit == c.suit && value == c.value && face == c.face) {
-        return true;
-    }
-    return false;
+bool Card::operator==(const Card &otherCard) {
+    return suit == otherCard.suit && value == otherCard.value && face == otherCard.face;
 }

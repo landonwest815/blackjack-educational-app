@@ -1,3 +1,17 @@
+/***
+ * Authors:         Team Six of Hearts
+ * Members:         Ryan Nguyen, John Nguyen, Christian Hartman, Caleb Funk,
+ *                  Landon West, and Pablo Arancibia-Bazan
+ * Course:          CS 3505, University of Utah, School of Computing
+ * Assignment:      A9 - Educational App
+ *
+ * Description:     This class represents the main window of a Blackjack game application.
+ *                  It handles user interactions, manages the game state, and updates the UI
+ *                  accordingly. The class covers functionalities like dealing cards, placing bets,
+ *                  making game decisions (hit, stand, split, double down), and navigating through
+ *                  different screens of the application.
+ */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "helpwidget.h"
@@ -5,23 +19,19 @@
 #include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-    , sheetLocation(":/cards/sheetCasino.png")
-    , tutorialStep(1)
-    , speech(false)
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      sheetLocation(":/cards/sheetCasino.png"),
+      tutorialStep(1),
+      speech(false)
 {
     ui->setupUi(this);
 
-    // Contains all buttons so we can turn all of them off at once
-    buttons = {ui->hitButton, ui->standButton, ui->splitButton, ui->nextSplitButton, ui->doubleDownButton,
-               ui->add50, ui->add100, ui->add250, ui->add500, ui->resetButton, ui->dealButton, ui->insuranceButton, ui->nextHand,
-               ui->allIn, ui->nextLessonOne, ui->nextLessonTwo, ui->nextLessonThree, ui->adviceButton, ui->newGame, ui->sheetButton};
+    // Put all important Buttons and Labels into group so we can access them easily
+    initializeButtonGroup();
+    initializeLabelGroup();
 
-    // Contains all labels so we can turn all of them off at once
-    labels = {ui->outcome, ui->splitScore, ui->tutorialLabel, ui->splitIndicator, ui->nonSplitIndicator, ui->insuranceResult,
-              ui->splitOutcome, ui->tutorialTextLabel};
-
+    // Setup the UI
     setupConnections();
     initializeUI();
 }
@@ -29,6 +39,23 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::initializeButtonGroup() {
+    buttons = {ui->hitButton, ui->standButton, ui->splitButton,
+               ui->nextSplitButton, ui->doubleDownButton,
+               ui->add50, ui->add100, ui->add250, ui->add500,
+               ui->resetButton, ui->dealButton, ui->insuranceButton,
+               ui->nextHand, ui->allIn, ui->nextLessonOne,
+               ui->nextLessonTwo, ui->nextLessonThree, ui->adviceButton,
+               ui->newGame, ui->sheetButton};
+}
+
+void MainWindow::initializeLabelGroup() {
+    labels = {ui->outcome, ui->splitScore, ui->tutorialLabel,
+              ui->splitIndicator, ui->nonSplitIndicator,
+              ui->insuranceResult, ui->splitOutcome,
+              ui->tutorialTextLabel};
 }
 
 void MainWindow::setupConnections() {
@@ -41,9 +68,6 @@ void MainWindow::setupConnections() {
     connect(ui->splitButton, &QPushButton::clicked, this, &MainWindow::splitHand);
     connect(ui->nextSplitButton, &QPushButton::clicked, this, &MainWindow::nextSplit);
 
-    // End of Turn
-    connect(ui->nextHand, &QPushButton::clicked, this, &MainWindow::setupDeal);
-
     // Betting
     connect(ui->add50, &QPushButton::clicked, this, [this](){ addToBet(50); });
     connect(ui->add100, &QPushButton::clicked, this, [this](){ addToBet(100); });
@@ -55,7 +79,7 @@ void MainWindow::setupConnections() {
     connect(ui->insuranceButton, &QPushButton::clicked, this, &MainWindow::insurance);
     connect(ui->doubleDownButton, &QPushButton::clicked, this, &MainWindow::doubleDownHand);
 
-    // Menus
+    // Menus and State Traversal
     connect(ui->mainMenu , &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->mainMenuButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
     connect(ui->mainMenuSettingButton, &QPushButton::clicked, this, &MainWindow::switchToMainMenu);
@@ -66,6 +90,7 @@ void MainWindow::setupConnections() {
     connect(ui->sheetButton, &QPushButton::clicked, this, &MainWindow::showSheet);
     connect(ui->newGame, &QPushButton::clicked, this, &MainWindow::newGame);
     connect(ui->settings, &QPushButton::clicked, this ,&MainWindow::settingsClicked);
+    connect(ui->nextHand, &QPushButton::clicked, this, &MainWindow::setupDeal);
 
     // Lessons
     connect(ui->lessonOne, &QPushButton::clicked, this, &MainWindow::handleLessonSelect);
@@ -95,25 +120,28 @@ void MainWindow::setupConnections() {
 
 void MainWindow::initializeUI() {
 
-    // Set the screen to the Main Menu
+    // Start user on the main menu screen
     ui->stackedWidget->setCurrentWidget(ui->startMenu);
 
-    // Initially hide all game buttons and labels
+    // Hide all interactive material
     hideAllUI();
 
-    // Set the player and dealer hand attributes
+    // Configure the hands
     ui->playerHand->setIsPlayerHand(true);
     ui->dealerHand->setIsPlayerHand(false);
 
-    // Set the bank
+    // Update the player's balance
     updateBankDisplay();
 
-    // set up tips
+    // Setup a help widget triggered by the "Advice" button
     createHelpWidget("");
+
+    // Configure a timer that helps display the advice
     tipTimer.setSingleShot(true);
 }
 
 void MainWindow::hideAllUI() {
+    // Hides all interactable buttons and informative labels in the UI
     for (QPushButton* button : buttons) {
         button->setVisible(false);
     }
@@ -149,7 +177,7 @@ void MainWindow::addDealer(bool facedown) {
     model.addDealerCard(dealerCard);
 
     // Add it to the hand
-    ui->dealerHand->addDealerCard(QString::fromStdString(convertCardToPath(dealerCard)));
+    ui->dealerHand->addDealerCard(convertCardToPath(dealerCard));
     updateScores();
 }
 
@@ -160,16 +188,16 @@ void MainWindow::addPlayer() {
         // Draw a random card and add it to the hand
         Card playerCard = model.userHit();
         model.addUserCard(playerCard);
-        ui->playerHand->addPlayerCard(QString::fromStdString(convertCardToPath(playerCard)));
+        ui->playerHand->addPlayerCard(convertCardToPath(playerCard));
     }
     else {
         // Draw a random card and add it to the split hand
         Card playerCard = model.splitHit();
         model.addUserSplitCard(playerCard);
-        ui->playerHand->addPlayerCard(QString::fromStdString(convertCardToPath(playerCard)));
+        ui->playerHand->addPlayerCard(convertCardToPath(playerCard));
     }
 
-    // Get rid of option to opt for insurance or doubling down
+    // Get rid of option to opt for insurance or doubling down now that the user has hit
     ui->insuranceButton->setVisible(false);
     ui->doubleDownButton->setVisible(false);
     updateScores();
@@ -231,26 +259,26 @@ void MainWindow::dealerFlip(QString fileName) {
 void MainWindow::doubleDownHand() {
 
     Card doubleDownCard = model.doubleDown();
-    ui->playerHand->doubleDownPlayerCard(QString::fromStdString(convertCardToPath(doubleDownCard)));
+    ui->playerHand->doubleDownPlayerCard(convertCardToPath(doubleDownCard));
     ui->doubleDownButton->setVisible(false);
 
     updateScores();
     stand();
 }
 
-string MainWindow::convertCardToPath(Card card) {
+QString MainWindow::convertCardToPath(Card card) {
 
     // Pull out the attributes
-    string suit = card.getSuit();
+    QString suit = card.getSuit();
     int value = card.getValue();
-    string face = card.getFace();
+    QString face = card.getFace();
 
     // Create the path
-    string path = "";
+    QString path = "";
     if (card.getFaceDown()) {
         path = ":/cards/facedown.png";
     } else if (face == "") {
-        path = ":/cards/" + std::to_string(value) + suit + ".png";
+        path = ":/cards/" + QString::number(value) + suit + ".png";
     } else {
         path = ":/cards/" + face + suit + ".png";
     }
@@ -290,15 +318,11 @@ void MainWindow::deal() {
 
     // Give the dealer two cards (one of which is face down)
     addDealer(true);
-    qDebug() << QString::number(model.getDealerTotal()) + " 3";
     addDealer(false);
-    qDebug() << QString::number(model.getDealerTotal()) + " 4";
 
     // Give the player two cards
     addPlayer();
-    qDebug() << QString::number(model.getDealerTotal()) + " 1";
     addPlayer();
-    qDebug() << QString::number(model.getDealerTotal()) + " 2";
 
     // Set neither to be able to shake as of now
     // This will be triggered after a bust
@@ -326,14 +350,12 @@ void MainWindow::deal() {
 
 void MainWindow::stand() {
     // must flip over facedown card
-    dealerFlip(QString::fromStdString(convertCardToPath(model.revealDealer())));
-    qDebug() << QString::number(model.getDealerTotal()) + " 5";
+    dealerFlip(convertCardToPath(model.revealDealer()));
     updateScores();
 
     // dealer draws until it has a score of 17 or higher
     while (model.getDealerTotal() < 17 || (model.getDealerTotal() == 17 && model.getDealerAces() > 0)) {
         addDealer(false);
-        qDebug() << QString::number(model.getDealerTotal()) + " 6";
     }
 
     helpwidget->hide();
@@ -428,12 +450,10 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
     if (!splitHand) {
         ui->outcome->setVisible(true);
         ui->outcome->setText(outcome + profit);
-        qDebug() << "normal outcome";
     } else {
         ui->splitOutcome->setVisible(true);
         ui->splitOutcome->setText(outcome + profit);
         ui->splitIndicator->setVisible(false);
-        qDebug() << "split outcome";
     }
     ui->nextHand->setVisible(true);
 }
@@ -523,13 +543,12 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
  }
 
  void MainWindow::splitAdd() {
-     QString fileName = QString::fromStdString(convertCardToPath(model.splitHit()));
+     QString fileName = convertCardToPath(model.splitHit());
      ui->playerHand->addPlayerCard(fileName);
      updateScores();
  }
 
  void MainWindow::showATip(){
-     qDebug() << "ran showATip()";
      int usersTotal = model.getUserTotal();
      int dealerFaceUpValue = model.getDealerFaceUpCard().getValue();
      if(model.userHasAceInHand()){
@@ -638,10 +657,10 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
      }
      else if((firstCard.getValue() == 2 && secondCard.getValue() == 2) ||
               (firstCard.getValue() == 3 && secondCard.getValue() == 3)){
-        if(dealerFaceUpValue == 2 || dealerFaceUpValue == 3){
+        if(model.getDealerFaceUpCard().getValue() == 2 || model.getDealerFaceUpCard().getValue() == 3){
             tellUserToSplitOrHit();
         }
-        else if(dealerFaceUpValue >= 4 && dealerFaceUpValue <= 7){
+        else if(model.getDealerFaceUpCard().getValue() >= 4 && model.getDealerFaceUpCard().getValue() <= 7){
             tellUserToSplit();
         }
         else{
@@ -650,8 +669,8 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
         return true;
      }
      else if(firstCard.getValue() == 4 && secondCard.getValue() == 4){
-        if((dealerFaceUpValue >= 2 && dealerFaceUpValue <= 4) ||
-            (dealerFaceUpValue >= 7) || (model.getDealerFaceUpCard().getFace() == "A")){
+        if((model.getDealerFaceUpCard().getValue() >= 2 && model.getDealerFaceUpCard().getValue() <= 4) ||
+            (model.getDealerFaceUpCard().getValue() >= 7) || (model.getDealerFaceUpCard().getFace() == "A")){
             tellUserToHit();
         }
         else{
@@ -660,7 +679,7 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
         return true;
      }
      else if(firstCard.getValue() == 5 && secondCard.getValue() == 5){
-        if(dealerFaceUpValue <= 9){
+        if(model.getDealerFaceUpCard().getValue() <= 9){
             tellUserToDoubleDownOrHit();
         }
         else{
@@ -669,10 +688,10 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
         return true;
      }
      else if(firstCard.getValue() == 6 && secondCard.getValue() == 6){
-        if(dealerFaceUpValue == 2){
+        if(model.getDealerFaceUpCard().getValue() == 2){
             tellUserToSplitOrHit();
         }
-        else if(dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6){
+        else if(model.getDealerFaceUpCard().getValue() >= 3 && model.getDealerFaceUpCard().getValue() <= 6){
             tellUserToSplit();
         }
         else{
@@ -681,7 +700,7 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
         return true;
      }
      else if(firstCard.getValue() == 7 && secondCard.getValue() == 7){
-        if(dealerFaceUpValue <= 7){
+        if(model.getDealerFaceUpCard().getValue() <= 7){
             tellUserToSplit();
         }
         else{
@@ -694,7 +713,7 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
         return true;
      }
      else if(firstCard.getValue() == 9 && secondCard.getValue() == 9){
-        if(dealerFaceUpValue <= 6 || (dealerFaceUpValue == 8 || dealerFaceUpValue == 9)){
+        if(model.getDealerFaceUpCard().getValue() <= 6 || (model.getDealerFaceUpCard().getValue() == 8 || model.getDealerFaceUpCard().getValue() == 9)){
             tellUserToSplit();
         }
         else{
@@ -1066,7 +1085,6 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
  void MainWindow::speechModeClicked(bool toggled) {
      if (toggled) speech = true;
      else         speech = false;
-     qDebug() << speech;
  }
 
  void MainWindow::sayObjectName() {
@@ -1097,12 +1115,10 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
  void MainWindow::displayAdvice() {
      showATip();
      tipTimer.start(4000);
-     qDebug() << "ran displayAdvice";
  }
 
  void MainWindow::hideTip(){
      helpwidget->hide();
-     qDebug() << "ran hideTip";
  }
 
  void MainWindow::lostGame() {

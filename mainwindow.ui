@@ -1039,6 +1039,12 @@ QPushButton:pressed {
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>150</height>
+                 </size>
+                </property>
                 <property name="styleSheet">
                  <string notr="true">QLabel {
     color: white;
@@ -2926,7 +2932,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1776</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

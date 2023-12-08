@@ -1,63 +1,52 @@
-/**
- * Author(s):     Team Six of Hearts:
- *                Ryan Nguyen (Taizuki), John Nguyen (johnguyn),
- *           	  Christian Hartman (Is-This-One-Avaiable), Caleb Funk (Funkyc02),
- *                Landon West (landonwest815), and Pablo Arancibia-Bazan (Pablo23117)
- * Course:        CS 3505, University of Utah, School of Computing
- * Assignment:    A9 - Educational App
- * File Contents:
- * Utilizes the Card class, to simulate a deck of 52 cards.
- * There are four suits: club, spade, diamond, and heart.
- * For each suit, there are cards with values from 1-9, then
- * there are three 10 cards with jack, queen, and king faces.
- * There are methods for drawing & adding cards to the deck.
+/***
+ * Authors:     Team Six of Hearts
+ * Members:     Ryan Nguyen, John Nguyen, Christian Hartman, Caleb Funk,
+ *              Landon West, and Pablo Arancibia-Bazan
+ * Course:      CS 3505, University of Utah, School of Computing
+ * Assignment:  A9 - Educational App
+ *
+ * Description: Utilizes the Card class to simulate a deck of 52 cards, including
+ *              methods for drawing and adding cards to the deck.
  */
+
 #include "deck.h"
 #include <random>
-#include <chrono>
 #include <algorithm>
 
-// random numbers
+// Random numbers for drawing cards
 std::random_device Deck::rd;
 std::mt19937 Deck::gen(rd());
 
 Deck::Deck()
 {
-    suits.push_back("C");
-    suits.push_back("S");
-    suits.push_back("D");
-    suits.push_back("H");
+    // Store the card suits and faces
+    const QVector<QString> suits = {"C", "S", "D", "H"};
+    const QVector<QString> faces = {"J", "Q", "K"};
 
-    //Iterate through suits
+    // Create cards for each suit (4 suits)
     for (int i = 0; i < 4; i++) {
 
-        Card* ace = new Card(suits[i], "A");
-        cards.push_back(*ace);
+        // Add an ace
+        cards.push_back(Card(suits[i], 11));
 
-        //Iterate through values
+        // Add all 9 numeric cards (2-10)
         for (int j = 2; j < 11; j++) {
-            Card* addCard = new Card(suits[i],j);
-            cards.push_back(*addCard);
+            cards.push_back(Card(suits[i],j));
         }
 
         //Create face cards
-        Card* jack = new Card(suits[i],"J");
-        Card* queen = new Card(suits[i],"Q");
-        Card* king = new Card(suits[i],"K");
-
-        //Add face cards
-        cards.push_back(*jack);
-        cards.push_back(*queen);
-        cards.push_back(*king);
+        for (auto& face : faces) {
+            cards.push_back(Card(suits[i], face));
+        }
     }
 }
 
 Card Deck::drawCard() {
-    //Get random card out of the vector
+    // Retrieve a random index
     std::uniform_int_distribution<> dis(0, cards.size() - 1);
-
-    // Generate a random index
     int cardIndex = dis(gen);
+
+    // Draw that card
     Card drawnCard = cards[cardIndex];
 
     // Erase the card from the vector and return that card
@@ -65,7 +54,7 @@ Card Deck::drawCard() {
     return drawnCard;
 }
 
-Card Deck::drawCard(string suit, int value) {
+Card Deck::drawCard(QString suit, int value) {
     //Create a new card and set it to the parameters
     Card* drawnCard = new Card(suit,value);
     //Iterate through vector
@@ -80,14 +69,12 @@ Card Deck::drawCard(string suit, int value) {
     return *drawnCard;
 }
 
-void Deck::addCard(string suit, int value) {
-    Card* addedCard = new Card(suit, value);
-    cards.push_back(*addedCard);
+void Deck::addCard(QString suit, int value) {
+    cards.push_back(Card(suit, value));
 }
 
-void Deck::addCard(string suit, string face) {
-    Card* addedCard = new Card(suit, face);
-    cards.push_back(*addedCard);
+void Deck::addCard(QString suit, QString face) {
+    cards.push_back(Card(suit, face));
 }
 
 int Deck::getSize() {

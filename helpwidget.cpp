@@ -1,3 +1,17 @@
+/***
+ * Authors:     Team Six of Hearts
+ * Members:     Ryan Nguyen, John Nguyen, Christian Hartman, Caleb Funk,
+ *              Landon West, and Pablo Arancibia-Bazan
+ * Course:      CS 3505, University of Utah, School of Computing
+ * Assignment:  A9 - Educational App
+ *
+ * Description: This class represents a Help Widget, designed to display advice
+ *              or help text within a bubble-like format in a QMainWindow. It
+ *              features methods for setting and updating the text, resizing
+ *              and repositioning the widget according to the content and parent
+ *              window size.
+ */
+
 #include "helpwidget.h"
 #include <QPainter>
 #include <QPainterPath>
@@ -7,9 +21,10 @@
 #include <QMainWindow>
 
 HelpWidget::HelpWidget(QWidget *parent)
-    : QWidget{parent}
+    : QWidget{parent}, adviceText("")
 {
     setAttribute(Qt::WA_TranslucentBackground);
+
     // Set the custom font for the widget
     QFont textFont("Arial", 18, QFont::Bold, true); // true for italic
     setFont(textFont);
@@ -40,7 +55,7 @@ void HelpWidget::paintEvent(QPaintEvent *) {
     painter.drawRoundedRect(bubbleRect, radius, radius);
 
     // Set up the pen for the text
-    QPen textPen(Qt::black); // Black color for the text
+    QPen textPen(Qt::black);
     painter.setPen(textPen);
     QString displayText = QString(adviceText);
     painter.drawText(bubbleRect.adjusted(10, 10, -10, -10), Qt::AlignCenter | Qt::TextWordWrap, displayText);
