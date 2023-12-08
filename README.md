@@ -34,8 +34,8 @@ features, the educational app is a comprehensive tool for users to master the ar
 of blackjack.
 
 # Primary Features
-- Play Mode: Engage in a realistic blackjack experience by playing against an intelligent dealer bot.
+- Play Mode: Engage in a realistic blackjack experience by playing against a dealer bot.
 - Tutorial Mode: Access comprehensive tutorials covering the basics, fundamental strategies, and advanced techniques of playing blackjack.
 - Settings Menu: Customize the app's appearance with theme options. Enable speech mode for an interactive learning experience.
-- Advice Button: Receive strategic advice and insights during gameplay to enhance decision-making skills.
-- Full Sheet Button: Access a reference sheet offering in-depth guidance on blackjack strategies for quick and easy reference.
+- Advice: Receive strategic advice and insights during gameplay to enhance decision-making skills.
+- Full Sheet: Access a reference sheet offering in-depth guidance on blackjack strategies for quick and easy reference.
