@@ -551,99 +551,199 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
  void MainWindow::showATip(){
      int usersTotal = model.getUserTotal();
      int dealerFaceUpValue = model.getDealerFaceUpCard().getValue();
-     if(model.userHasAceInHand()){
-        if(model.getTotalCardsForUser() > 2){
-            if(usersTotal >= 17){
-                tellUserToStand();
-                return;
-            }
-        }
-        // this just checks for a case where there are two aces so the user would be best to go for a split
-        if(model.getTotalCardsForUser() == 2 && ((model.getUserCard(0).getFace() == "A") && (model.getUserCard(1).getFace() == "A"))){
-            tellUserToSplit();
-            return;
-        }
-        if((usersTotal == 3 || usersTotal == 13) ||
-           (usersTotal == 4 || usersTotal == 14)){
-            if(dealerFaceUpValue == 5 || dealerFaceUpValue == 6){
-                tellUserToDoubleDownOrHit();
-            } else{
-                tellUserToHit();
-            }
-        }
-        else if((usersTotal == 5 || usersTotal == 15) ||
-                (usersTotal == 6 || usersTotal == 16)){
-            if(dealerFaceUpValue == 5|| dealerFaceUpValue == 6 ||
-                dealerFaceUpValue == 4){
-                tellUserToDoubleDownOrHit();
-            } else{
-                tellUserToHit();
-            }
+     if(model.getSplitCheck() && model.getOnSecondHand()){
+        qDebug() << "Split Card Value: " << model.getSplitTotal();
+        getTip(model.getSplitTotal(), dealerFaceUpValue);
+     } else{
+        if(model.getSplitCheck()){
+            qDebug() << "Split first hand value: " << usersTotal;
+            getTip(usersTotal, dealerFaceUpValue);
+            if(model.userHasAceInHand()){
+                if(model.getTotalCardsForUser() > 2){
+                    if(usersTotal >= 17){
+                        tellUserToStand();
+                        return;
+                    }
+                }
+                if((usersTotal == 3 || usersTotal == 13) ||
+                    (usersTotal == 4 || usersTotal == 14)){
+                    if(dealerFaceUpValue == 5 || dealerFaceUpValue == 6){
+                        tellUserToDoubleDownOrHit();
+                    } else{
+                        tellUserToHit();
+                    }
+                }
+                else if((usersTotal == 5 || usersTotal == 15) ||
+                         (usersTotal == 6 || usersTotal == 16)){
+                    if(dealerFaceUpValue == 5|| dealerFaceUpValue == 6 ||
+                        dealerFaceUpValue == 4){
+                        tellUserToDoubleDownOrHit();
+                    } else{
+                        tellUserToHit();
+                    }
 
-        }
-        else if(usersTotal == 7 || usersTotal == 17){
-            if(dealerFaceUpValue == 3 || dealerFaceUpValue == 5 || dealerFaceUpValue == 6 ||
-                dealerFaceUpValue == 4){
-                tellUserToDoubleDownOrHit();
-            } else{
-                tellUserToHit();
-            }
-        }
-        else if(usersTotal >= 8 || usersTotal >= 18){
-            if((usersTotal == 8 || usersTotal == 18) &&
-                (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6))
-            {
-                tellUserToDoubleDownOrStand();
-            }
-            else if((usersTotal == 8 || usersTotal == 18) &&
-                       (dealerFaceUpValue >= 9 || model.getDealerFaceUpCard().getFace() == "A")){
-                tellUserToHit();
-            }
-            else {
-                tellUserToStand();
-            }
-        }
-     }
-     else{
-        if(model.getTotalCardsForUser() == 2){
-            if(checkForDuplicateUserHand()){
-                return;
-            }
-        }
-        if(usersTotal <= 8){
-            tellUserToHit();
-        }
-        else if(usersTotal > 8 && usersTotal <= 12){
-            if(usersTotal == 11){
-                tellUserToDoubleDownOrHit();
-            }
-            else if((usersTotal == 10) &&
-                       (dealerFaceUpValue >= 2 && dealerFaceUpValue <=9)){
-                tellUserToDoubleDownOrHit();
-            }
-            else if((usersTotal == 9) &&
-                       (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6)){
-                tellUserToDoubleDownOrHit();
-            }
-            else if((usersTotal == 12) &&
-                       (dealerFaceUpValue >= 4 && dealerFaceUpValue <= 6)){
-                tellUserToStand();
+                }
+                else if(usersTotal == 7 || usersTotal == 17){
+                    if(dealerFaceUpValue == 3 || dealerFaceUpValue == 5 || dealerFaceUpValue == 6 ||
+                        dealerFaceUpValue == 4){
+                        tellUserToDoubleDownOrHit();
+                    } else{
+                        tellUserToHit();
+                    }
+                }
+                else if(usersTotal >= 8 || usersTotal >= 18){
+                    if((usersTotal == 8 || usersTotal == 18) &&
+                        (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6))
+                    {
+                        tellUserToDoubleDownOrStand();
+                    }
+                    else if((usersTotal == 8 || usersTotal == 18) &&
+                             (dealerFaceUpValue >= 9 || model.getDealerFaceUpCard().getFace() == "A")){
+                        tellUserToHit();
+                    }
+                    else {
+                        tellUserToStand();
+                    }
+                }
             }
             else{
-                tellUserToHit();
+                if(usersTotal <= 8){
+                    tellUserToHit();
+                }
+                else if(usersTotal > 8 && usersTotal <= 12){
+                    if(usersTotal == 11){
+                        tellUserToDoubleDownOrHit();
+                    }
+                    else if((usersTotal == 10) &&
+                             (dealerFaceUpValue >= 2 && dealerFaceUpValue <=9)){
+                        tellUserToDoubleDownOrHit();
+                    }
+                    else if((usersTotal == 9) &&
+                             (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6)){
+                        tellUserToDoubleDownOrHit();
+                    }
+                    else if((usersTotal == 12) &&
+                             (dealerFaceUpValue >= 4 && dealerFaceUpValue <= 6)){
+                        tellUserToStand();
+                    }
+                    else{
+                        tellUserToHit();
+                    }
+                }
+                else if(usersTotal >= 13 && usersTotal <= 16){
+                    if(dealerFaceUpValue >= 2 && dealerFaceUpValue <= 6){
+                        tellUserToStand();
+                    }
+                    else{
+                        tellUserToHit();
+                    }
+                }
+                else if(usersTotal >= 17){
+                    tellUserToStand();
+                }
             }
         }
-        else if(usersTotal >= 13 && usersTotal <= 16){
-            if(dealerFaceUpValue >= 2 && dealerFaceUpValue <= 6){
-                tellUserToStand();
+        else{
+            if(model.getSplitCheck()){
+                qDebug() << "Split first hand value: " << usersTotal;
+                getTip(usersTotal, dealerFaceUpValue);
+            }
+            if(model.userHasAceInHand()){
+                if(model.getTotalCardsForUser() > 2){
+                    if(usersTotal >= 17){
+                        tellUserToStand();
+                        return;
+                    }
+                }
+                // this just checks for a case where there are two aces so the user would be best to go for a split
+                if(model.getTotalCardsForUser() == 2 && ((model.getUserCard(0).getFace() == "A") && (model.getUserCard(1).getFace() == "A"))){
+                    tellUserToSplit();
+                    return;
+                }
+                if((usersTotal == 3 || usersTotal == 13) ||
+                    (usersTotal == 4 || usersTotal == 14)){
+                    if(dealerFaceUpValue == 5 || dealerFaceUpValue == 6){
+                        tellUserToDoubleDownOrHit();
+                    } else{
+                        tellUserToHit();
+                    }
+                }
+                else if((usersTotal == 5 || usersTotal == 15) ||
+                         (usersTotal == 6 || usersTotal == 16)){
+                    if(dealerFaceUpValue == 5|| dealerFaceUpValue == 6 ||
+                        dealerFaceUpValue == 4){
+                        tellUserToDoubleDownOrHit();
+                    } else{
+                        tellUserToHit();
+                    }
+
+                }
+                else if(usersTotal == 7 || usersTotal == 17){
+                    if(dealerFaceUpValue == 3 || dealerFaceUpValue == 5 || dealerFaceUpValue == 6 ||
+                        dealerFaceUpValue == 4){
+                        tellUserToDoubleDownOrHit();
+                    } else{
+                        tellUserToHit();
+                    }
+                }
+                else if(usersTotal >= 8 || usersTotal >= 18){
+                    if((usersTotal == 8 || usersTotal == 18) &&
+                        (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6))
+                    {
+                        tellUserToDoubleDownOrStand();
+                    }
+                    else if((usersTotal == 8 || usersTotal == 18) &&
+                             (dealerFaceUpValue >= 9 || model.getDealerFaceUpCard().getFace() == "A")){
+                        tellUserToHit();
+                    }
+                    else {
+                        tellUserToStand();
+                    }
+                }
             }
             else{
-                tellUserToHit();
+                if(model.getTotalCardsForUser() == 2){
+                    if(checkForDuplicateUserHand()){
+                        return;
+                    }
+                }
+                if(usersTotal <= 8){
+                    tellUserToHit();
+                }
+                else if(usersTotal > 8 && usersTotal <= 12){
+                    if(usersTotal == 11){
+                        tellUserToDoubleDownOrHit();
+                    }
+                    else if((usersTotal == 10) &&
+                             (dealerFaceUpValue >= 2 && dealerFaceUpValue <=9)){
+                        tellUserToDoubleDownOrHit();
+                    }
+                    else if((usersTotal == 9) &&
+                             (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6)){
+                        tellUserToDoubleDownOrHit();
+                    }
+                    else if((usersTotal == 12) &&
+                             (dealerFaceUpValue >= 4 && dealerFaceUpValue <= 6)){
+                        tellUserToStand();
+                    }
+                    else{
+                        tellUserToHit();
+                    }
+                }
+                else if(usersTotal >= 13 && usersTotal <= 16){
+                    if(dealerFaceUpValue >= 2 && dealerFaceUpValue <= 6){
+                        tellUserToStand();
+                    }
+                    else{
+                        tellUserToHit();
+                    }
+                }
+                else if(usersTotal >= 17){
+                    tellUserToStand();
+                }
             }
         }
-        else if(usersTotal >= 17){
-            tellUserToStand();
-        }
+
      }
 
  }
@@ -727,6 +827,103 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
      }
 
      return false;
+ }
+
+ void MainWindow::getTip(int usersTotal, int dealerFaceUpValue){
+     if(model.userHasAceInHand()){
+        if(model.getTotalCardsForUser() > 2){
+            if(usersTotal >= 17){
+                tellUserToStand();
+                return;
+            }
+        }
+        // this just checks for a case where there are two aces so the user would be best to go for a split
+        if(model.getTotalCardsForUser() == 2 && ((model.getUserCard(0).getFace() == "A") && (model.getUserCard(1).getFace() == "A"))){
+            tellUserToSplit();
+            return;
+        }
+        if((usersTotal == 3 || usersTotal == 13) ||
+            (usersTotal == 4 || usersTotal == 14)){
+            if(dealerFaceUpValue == 5 || dealerFaceUpValue == 6){
+                tellUserToDoubleDownOrHit();
+            } else{
+                tellUserToHit();
+            }
+        }
+        else if((usersTotal == 5 || usersTotal == 15) ||
+                 (usersTotal == 6 || usersTotal == 16)){
+            if(dealerFaceUpValue == 5|| dealerFaceUpValue == 6 ||
+                dealerFaceUpValue == 4){
+                tellUserToDoubleDownOrHit();
+            } else{
+                tellUserToHit();
+            }
+
+        }
+        else if(usersTotal == 7 || usersTotal == 17){
+            if(dealerFaceUpValue == 3 || dealerFaceUpValue == 5 || dealerFaceUpValue == 6 ||
+                dealerFaceUpValue == 4){
+                tellUserToDoubleDownOrHit();
+            } else{
+                tellUserToHit();
+            }
+        }
+        else if(usersTotal >= 8 || usersTotal >= 18){
+            if((usersTotal == 8 || usersTotal == 18) &&
+                (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6))
+            {
+                tellUserToDoubleDownOrStand();
+            }
+            else if((usersTotal == 8 || usersTotal == 18) &&
+                     (dealerFaceUpValue >= 9 || model.getDealerFaceUpCard().getFace() == "A")){
+                tellUserToHit();
+            }
+            else {
+                tellUserToStand();
+            }
+        }
+     }
+     else{
+        if(model.getTotalCardsForUser() == 2){
+            if(checkForDuplicateUserHand()){
+                return;
+            }
+        }
+        if(usersTotal <= 8){
+            tellUserToHit();
+        }
+        else if(usersTotal > 8 && usersTotal <= 12){
+            if(usersTotal == 11){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 10) &&
+                     (dealerFaceUpValue >= 2 && dealerFaceUpValue <=9)){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 9) &&
+                     (dealerFaceUpValue >= 3 && dealerFaceUpValue <= 6)){
+                tellUserToDoubleDownOrHit();
+            }
+            else if((usersTotal == 12) &&
+                     (dealerFaceUpValue >= 4 && dealerFaceUpValue <= 6)){
+                tellUserToStand();
+            }
+            else{
+                tellUserToHit();
+            }
+        }
+        else if(usersTotal >= 13 && usersTotal <= 16){
+            if(dealerFaceUpValue >= 2 && dealerFaceUpValue <= 6){
+                tellUserToStand();
+            }
+            else{
+                tellUserToHit();
+            }
+        }
+        else if(usersTotal >= 17){
+            tellUserToStand();
+        }
+     }
  }
 
  void MainWindow::tellUserToHit(){
