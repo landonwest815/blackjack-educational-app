@@ -374,7 +374,7 @@ void MainWindow::determineWinner() {
     int dealerTotal = model.getDealerTotal();
 
     // Check for bust conditions
-    if (model.isBlackJack()){
+    if (model.isBlackJack() && (dealerTotal < 21 || dealerTotal > 21)) {
         model.playerWins();
         // Show chips falling
         ui->playerHand->setPlayerWon(true);
