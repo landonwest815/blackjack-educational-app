@@ -9,8 +9,9 @@ Project: A9 Educational App
 # Assignment Files
 - Sprint One: https://docs.google.com/document/d/1E3k_ixLHEAV2blyceTqyGuTg3C44KV7omBjP9vBjsIA/edit?usp=sharing
 - Sprint Two: https://docs.google.com/document/d/1AEnd53E61zJscSAVXmi6_eDl9NLooeA0qime7tmKzrc/edit?usp=sharing
-- Video Demonstration (MP4 version): empty
-- Video Demonstration (MOV version): empty
+- Post-Submission Changes Doc: https://docs.google.com/document/d/1uGzxZWphVPhbhUYTlKEg88P9LCo2CZCpOkPi4fhtCNs/edit?usp=sharing
+- Video Demonstration (MP4 version): https://drive.google.com/file/d/1h71lmXXFrZ-EqAc9qBzV-IOWhshxnv-o/view
+- Video Demonstration (MOV version): https://drive.google.com/file/d/1T1MMgNX8HeRGn4YR0U27AR-ReLWKlz4e/view?usp=drive_link
 
 # Required External Libraries
 In order to utilize the educational app two external libraries will be needed. In
