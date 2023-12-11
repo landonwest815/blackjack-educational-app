@@ -86,7 +86,7 @@ Card Model::doubleDown() {
 }
 
 bool Model::insuranceAllowed() {
-    return (dealerHand[1].getFace() == "A");
+    return (dealerHand[1].getFace() == "A" && (bankTotal >= bet));
 }
 
 int Model::getUserTotal() { return playerTotal; }
