@@ -192,5 +192,7 @@ private:
     void tellUserToSplit();
     ///@brief Advises the user to either split or hit.
     void tellUserToSplitOrHit();
+    /// @brief getTip goes through a series of checks to give the user some advice.
+    void getTip(int handTotal, int dealerFaceUpValue);
 };
 #endif // MAINWINDOW_H
