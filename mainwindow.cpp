@@ -555,7 +555,8 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
      int dealerFaceUpValue = model.getDealerFaceUpCard().getValue();
      if(model.getSplitCheck() && model.getOnSecondHand()){
         qDebug() << "Split Card Value: " << model.getSplitTotal();
-        getTip(model.getSplitTotal(), dealerFaceUpValue);
+        int splitTotal = model.getSplitTotal();
+        getTip(splitTotal, dealerFaceUpValue);
      } else{
         if(model.getSplitCheck()){
             qDebug() << "Split first hand value: " << usersTotal;
