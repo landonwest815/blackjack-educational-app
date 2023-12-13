@@ -706,7 +706,7 @@ QPushButton:pressed {
               </property>
               <property name="maximumSize">
                <size>
-                <width>300</width>
+                <width>600</width>
                 <height>40</height>
                </size>
               </property>
@@ -715,7 +715,7 @@ QPushButton:pressed {
                 <rect>
                  <x>0</x>
                  <y>-11</y>
-                 <width>507</width>
+                 <width>581</width>
                  <height>61</height>
                 </rect>
                </property>
@@ -739,7 +739,7 @@ QPushButton:pressed {
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>300</width>
+                    <width>350</width>
                     <height>30</height>
                    </size>
                   </property>
@@ -981,29 +981,6 @@ QPushButton:pressed {
                </size>
               </property>
              </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="insuranceResult">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLabel {
-    color: white;
-    padding: 3px;
-    font-weight: bold;
-    font-style: italic;
-    font-size: 18px;
-    font-family: &quot;Arial&quot;, sans-serif;
-}</string>
-              </property>
-              <property name="text">
-               <string>INSURANCE RESULT</string>
-              </property>
-             </widget>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1268,6 +1245,29 @@ QPushButton:pressed {
                     </property>
                     <property name="text">
                      <string>PLAYER WINS</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="insuranceResult">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QLabel {
+    color: white;
+    padding: 3px;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+    font-family: &quot;Arial&quot;, sans-serif;
+}</string>
+                    </property>
+                    <property name="text">
+                     <string>INSURANCE RESULT</string>
                     </property>
                    </widget>
                   </item>
@@ -2932,7 +2932,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1776</width>
-     <height>24</height>
+     <height>37</height>
     </rect>
    </property>
   </widget>

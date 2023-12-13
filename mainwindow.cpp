@@ -199,6 +199,7 @@ void MainWindow::addPlayer() {
 
     // Get rid of option to opt for insurance or doubling down now that the user has hit
     ui->insuranceButton->setVisible(false);
+    ui->insuranceResult->setVisible(false);
     ui->doubleDownButton->setVisible(false);
     updateScores();
 
@@ -257,7 +258,6 @@ void MainWindow::dealerFlip(QString fileName) {
 }
 
 void MainWindow::doubleDownHand() {
-
     Card doubleDownCard = model.doubleDown();
     ui->playerHand->doubleDownPlayerCard(convertCardToPath(doubleDownCard));
     ui->doubleDownButton->setVisible(false);
@@ -340,7 +340,8 @@ void MainWindow::deal() {
 
         ui->hitButton->setVisible(true);
         ui->standButton->setVisible(true);
-        ui->doubleDownButton->setVisible(true);
+        if (!(model.getbankTotal() < model.getBet()))
+            ui->doubleDownButton->setVisible(true);
         ui->adviceButton->setVisible(true);
         ui->sheetButton->setVisible(true);
         if (model.allowedToSplit()) ui->splitButton->setVisible(true);
@@ -359,6 +360,7 @@ void MainWindow::stand() {
     }
 
     helpwidget->hide();
+    ui->insuranceResult->setVisible(false);
     determineWinner();
 }
 
@@ -957,6 +959,9 @@ void MainWindow::showOutcome(QString outcome, bool splitHand, bool win) {
  }
 
  void MainWindow::insurance() {
+     if (model.getbankTotal() < (model.getBet() / 2.0))
+         return;
+
      int sideBet = model.getBet() / 2.0;
 
      if(model.getDealerTotal() + model.faceDownValue() == 21) {
